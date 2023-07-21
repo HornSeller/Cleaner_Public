@@ -1,0 +1,20 @@
+PODS:
+  - Alamofire (5.7.1)
+  - KDCircularProgress (1.5.4)
+
+DEPENDENCIES:
+  - Alamofire
+  - KDCircularProgress
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - KDCircularProgress
+
+SPEC CHECKSUMS:
+  Alamofire: 0123a34370cb170936ae79a8df46cc62b2edeb88
+  KDCircularProgress: 98200c6b8e85d22bc04eb644721d3b1e12b0686b
+
+PODFILE CHECKSUM: 5c9cf2e7e2b899f62f0fd0ec2b58b574abfa48a2
+
+COCOAPODS: 1.12.0
