@@ -9,5 +9,6 @@ target 'Cleaner' do
 
 pod 'KDCircularProgress'
 pod 'Alamofire'
+pod 'Kingfisher'
 
 end

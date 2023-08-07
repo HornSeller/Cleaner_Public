@@ -17,9 +17,11 @@ class FileManagerViewController: UIViewController, UISearchBarDelegate, UITableV
     @IBOutlet weak var searchBar: UISearchBar!
     var button1: UIButton!
     var button2: UIButton!
-
+    public static var collectionViewWidth: CGFloat?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        FileManagerViewController.collectionViewWidth = view.frame.width
 
         setupRightBarButtonItems()
         
@@ -43,12 +45,11 @@ class FileManagerViewController: UIViewController, UISearchBarDelegate, UITableV
         searchBar.setImage(UIImage(named: "search-normal"), for: .search, state: .normal)
         
         tableView.register(UINib(nibName: "FileManagerTableViewCell", bundle: .main), forCellReuseIdentifier: "myCell")
-        
-        tableView.rowHeight = 160
+        tableView.rowHeight = 0.1878 * view.frame.height
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        10
+        4
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
