@@ -26,6 +26,9 @@
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <color key="backgroundColor" systemColor="linkColor"/>
             <size key="customSize" width="102" height="95"/>
+            <connections>
+                <outlet property="imageView" destination="31S-5v-itC" id="fIr-BZ-CUk"/>
+            </connections>
             <point key="canvasLocation" x="47.328244274809158" y="15.492957746478874"/>
         </collectionViewCell>
     </objects>
