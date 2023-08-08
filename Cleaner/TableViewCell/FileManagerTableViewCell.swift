@@ -11,7 +11,7 @@ import Kingfisher
 
 class FileManagerTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        5
+        4
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -23,12 +23,6 @@ class FileManagerTableViewCell: UITableViewCell, UICollectionViewDelegate, UICol
     @IBOutlet weak var countLb: UILabel!
     @IBOutlet weak var albumNameLb: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
-    var cellCount: [Int]?
-    var count = 0
-    var selfieCount = 0
-    var screenshotsCount = 0
-    var liveCount = 0
-    var portraitCount = 0
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -55,7 +49,6 @@ class FileManagerTableViewCell: UITableViewCell, UICollectionViewDelegate, UICol
         fetchLivePhotoAlbum()
         fetchPortraitPhotosAlbum()
         
-        cellCount = [selfieCount, liveCount, portraitCount, screenshotsCount]
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -78,8 +71,6 @@ class FileManagerTableViewCell: UITableViewCell, UICollectionViewDelegate, UICol
                 
             // Tiến hành truy cập và xử lý các ảnh trong album
             fetchPhotos(from: selfieAlbum)
-            screenshotsCount = count
-            count = 0
         } else {
             print("Không tìm thấy album ảnh screenshots.")
         }
@@ -99,8 +90,6 @@ class FileManagerTableViewCell: UITableViewCell, UICollectionViewDelegate, UICol
             
             // Tiến hành truy cập và xử lý các ảnh trong album
             fetchPhotos(from: portraitAlbum)
-            selfieCount = count
-            count = 0
         } else {
             print("Không tìm thấy album ảnh selfie.")
         }
@@ -120,8 +109,6 @@ class FileManagerTableViewCell: UITableViewCell, UICollectionViewDelegate, UICol
             
             // Tiến hành truy cập và xử lý các ảnh trong album
             fetchPhotos(from: liveAlbum)
-            liveCount = count
-            count = 0
         } else {
             print("Không tìm thấy album ảnh live.")
         }
@@ -141,8 +128,6 @@ class FileManagerTableViewCell: UITableViewCell, UICollectionViewDelegate, UICol
 
                 // Tiến hành truy cập và hiển thị ảnh đầu tiên trong album chân dung
                 fetchPhotos(from: portraitAlbum)
-                portraitCount = count
-                count = 0
             } else {
                 print("Không tìm thấy album ảnh chân dung.")
             }
@@ -163,7 +148,6 @@ class FileManagerTableViewCell: UITableViewCell, UICollectionViewDelegate, UICol
             assets.enumerateObjects { (asset, index, stop) in
                 // Xử lý ảnh ở đây (ví dụ: lấy thông tin, hiển thị, ...)
                 print("Asset \(index + 1): \(asset.localIdentifier)")
-                self.count += 1
             }
         }
     
