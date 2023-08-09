@@ -60,7 +60,7 @@ class FileManagerViewController: UIViewController, UISearchBarDelegate, UITableV
         
         let album = albumData[indexPath.row]
         cell.albumNameLb.text = album.title
-        cell.imgView?.image = UIImage(named: "speedtest")
+        cell.imgView?.image = album.images[0]
         for (index, imageView) in [cell.imageView1, cell.imageView2, cell.imageView3, cell.imageView4].enumerated() {
             if index < album.images.count {
                 imageView?.image = album.images[index]
