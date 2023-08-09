@@ -177,7 +177,7 @@ class FileManagerViewController: UIViewController, UISearchBarDelegate, UITableV
         let albumType = PHAssetCollectionType.smartAlbum
         let albumSubtype = PHAssetCollectionSubtype.smartAlbumSelfPortraits
 
-        // Tìm kiếm album dựa trên loại và phụ loại
+        // oại và phụ loại
         let albums = PHAssetCollection.fetchAssetCollections(with: albumType, subtype: albumSubtype, options: nil)
 
         // Lấy album đầu tiên nếu có
