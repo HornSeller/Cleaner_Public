@@ -18,28 +18,14 @@ class FileManagerViewController: UIViewController, UISearchBarDelegate, UITableV
     @IBOutlet weak var searchBar: UISearchBar!
     var button1: UIButton!
     var button2: UIButton!
-    var selfieArr: [UIImage] = []
-    var screenshotsArr: [UIImage] = []
-    var liveArr: [UIImage] = []
-    var portraitArr: [UIImage] = []
-    var imageArr: [[UIImage]] = []
+    var albumData: [(title: String, images: [UIImage])] = []
     static var count = 0
-    var dispatchGroup = DispatchGroup()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        imageArr = [selfieArr, screenshotsArr, liveArr, portraitArr]
-        
-        //fetchSelfieAlbum()
-        //fetchScreenshotsAlbum()
-       // fetchLivePhotoAlbum()
-        
-        fetchPortraitPhotosAlbum() { [weak self] images in
-            self?.portraitArr = images
-            self?.tableView.reloadData()
-        }
-        
+        fetchAlbumsData()
+            
         setupRightBarButtonItems()
         
         imageBtn.layer.cornerRadius = 12
@@ -66,21 +52,27 @@ class FileManagerViewController: UIViewController, UISearchBarDelegate, UITableV
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        portraitArr.count
+        albumData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath) as! FileManagerTableViewCell
+        
+        let album = albumData[indexPath.row]
+        cell.albumNameLb.text = album.title
         cell.imgView?.image = UIImage(named: "speedtest")
-        cell.imageView1.image = portraitArr[0]
-        cell.imageView2.image = portraitArr[1]
-        cell.imageView3.image = portraitArr[2]
-        cell.imageView4.image = portraitArr[3]
+        for (index, imageView) in [cell.imageView1, cell.imageView2, cell.imageView3, cell.imageView4].enumerated() {
+            if index < album.images.count {
+                imageView?.image = album.images[index]
+            } else {
+                imageView?.image = nil
+            }
+        }
         return cell
     }
     
     @IBAction func imageBtnTapped(_ sender: UIButton) {
-        print(portraitArr)
+        
     }
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
@@ -139,67 +131,93 @@ class FileManagerViewController: UIViewController, UISearchBarDelegate, UITableV
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17)
     }
     
-//    func fetchScreenshotsAlbum() {
-//        // Xác định loại album
-//        let albumType = PHAssetCollectionType.smartAlbum
-//        let albumSubtype = PHAssetCollectionSubtype.smartAlbumScreenshots
-//
-//        // Tìm kiếm album dựa trên loại và phụ loại
-//        let albums = PHAssetCollection.fetchAssetCollections(with: albumType, subtype: albumSubtype, options: nil)
-//
-//        // Lấy album đầu tiên nếu có
-//        if let screenshotsAlbum = albums.firstObject {
-//            print("Album ảnh screenshots: \(screenshotsAlbum.localizedTitle ?? "")")
-//
-//            // Tiến hành truy cập và xử lý các ảnh trong album
-//            fetchPhotos(from: screenshotsAlbum)
-//        } else {
-//            print("Không tìm thấy album ảnh screenshots.")
-//        }
-//    }
-//
-//    func fetchSelfieAlbum() {
-//        // Xác định loại album
-//        let albumType = PHAssetCollectionType.smartAlbum
-//        let albumSubtype = PHAssetCollectionSubtype.smartAlbumSelfPortraits
-//
-//        // Tìm kiếm album dựa trên loại và phụ loại
-//        let albums = PHAssetCollection.fetchAssetCollections(with: albumType, subtype: albumSubtype, options: nil)
-//
-//        // Lấy album đầu tiên nếu có
-//        if let portraitAlbum = albums.firstObject {
-//            print("Album ảnh selfie: \(portraitAlbum.localizedTitle ?? "")")
-//
-//            // Tiến hành truy cập và xử lý các ảnh trong album
-//            fetchPhotos(from: portraitAlbum)
-//        } else {
-//            print("Không tìm thấy album ảnh selfie.")
-//        }
-//    }
-//
-//    func fetchLivePhotoAlbum() {
-//        // Xác định loại album
-//        let albumType = PHAssetCollectionType.smartAlbum
-//        let albumSubtype = PHAssetCollectionSubtype.smartAlbumLivePhotos
-//
-//        // Tìm kiếm album dựa trên loại và phụ loại
-//        let albums = PHAssetCollection.fetchAssetCollections(with: albumType, subtype: albumSubtype, options: nil)
-//
-//        // Lấy album đầu tiên nếu có
-//        if let liveAlbum = albums.firstObject {
-//            print("Album ảnh selfie: \(liveAlbum.localizedTitle ?? "")")
-//
-//            // Tiến hành truy cập và xử lý các ảnh trong album
-//            fetchPhotos(from: liveAlbum)
-//        } else {
-//            print("Không tìm thấy album ảnh live.")
-//        }
-//    }
+    func fetchAlbumsData() {
+        fetchSelfieAlbum() { [weak self] images in
+            self?.albumData.append((title: "Selfie", images: images))
+            self?.tableView.reloadData()
+        }
+        fetchScreenshotsAlbum() { [weak self] images in
+            self?.albumData.append((title: "Screenshot", images: images))
+            self?.tableView.reloadData()
+        }
+        fetchLivePhotoAlbum() { [weak self] images in
+            self?.albumData.append((title: "Live Photo", images: images))
+            self?.tableView.reloadData()
+        }
+        
+        fetchPortraitPhotosAlbum() { [weak self] images in
+            self?.albumData.append((title: "Portrait", images: images))
+            self?.tableView.reloadData()
+        }
+    }
+    
+    func fetchScreenshotsAlbum(completion: @escaping ([UIImage]) -> Void) {
+        // Xác định loại album
+        let albumType = PHAssetCollectionType.smartAlbum
+        let albumSubtype = PHAssetCollectionSubtype.smartAlbumScreenshots
+
+        // Tìm kiếm album dựa trên loại và phụ loại
+        let albums = PHAssetCollection.fetchAssetCollections(with: albumType, subtype: albumSubtype, options: nil)
+
+        // Lấy album đầu tiên nếu có
+        if let screenshotsAlbum = albums.firstObject {
+            print("Album ảnh screenshots: \(screenshotsAlbum.localizedTitle ?? "")")
+
+            // Tiến hành truy cập và xử lý các ảnh trong album
+            fetchPhotos(from: screenshotsAlbum) { images in
+                completion(images)
+            }
+        } else {
+            print("Không tìm thấy album ảnh screenshots.")
+        }
+    }
+
+    func fetchSelfieAlbum(completion: @escaping ([UIImage]) -> Void) {
+        // Xác định loại album
+        let albumType = PHAssetCollectionType.smartAlbum
+        let albumSubtype = PHAssetCollectionSubtype.smartAlbumSelfPortraits
+
+        // Tìm kiếm album dựa trên loại và phụ loại
+        let albums = PHAssetCollection.fetchAssetCollections(with: albumType, subtype: albumSubtype, options: nil)
+
+        // Lấy album đầu tiên nếu có
+        if let selfieAlbum = albums.firstObject {
+            print("Album ảnh selfie: \(selfieAlbum.localizedTitle ?? "")")
+
+            // Tiến hành truy cập và xử lý các ảnh trong album
+            fetchPhotos(from: selfieAlbum) { images in
+                completion(images)
+            }
+        } else {
+            print("Không tìm thấy album ảnh selfie.")
+        }
+    }
+
+    func fetchLivePhotoAlbum(completion: @escaping ([UIImage]) -> Void) {
+        // Xác định loại album
+        let albumType = PHAssetCollectionType.smartAlbum
+        let albumSubtype = PHAssetCollectionSubtype.smartAlbumLivePhotos
+
+        // Tìm kiếm album dựa trên loại và phụ loại
+        let albums = PHAssetCollection.fetchAssetCollections(with: albumType, subtype: albumSubtype, options: nil)
+
+        // Lấy album đầu tiên nếu có
+        if let liveAlbum = albums.firstObject {
+            print("Album ảnh selfie: \(liveAlbum.localizedTitle ?? "")")
+
+            // Tiến hành truy cập và xử lý các ảnh trong album
+            fetchPhotos(from: liveAlbum) { images in
+                completion(images)
+            }
+        } else {
+            print("Không tìm thấy album ảnh live.")
+        }
+    }
     
     func fetchPortraitPhotosAlbum(completion: @escaping ([UIImage]) -> Void) {
         // Xác định loại album
         let albumType = PHAssetCollectionType.smartAlbum
-        let albumSubtype = PHAssetCollectionSubtype.smartAlbumSelfPortraits
+        let albumSubtype = PHAssetCollectionSubtype.smartAlbumDepthEffect
 
         // Tìm kiếm album dựa trên loại và phụ loại
         let albums = PHAssetCollection.fetchAssetCollections(with: albumType, subtype: albumSubtype, options: nil)
