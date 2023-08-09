@@ -24,7 +24,7 @@ class FileManagerViewController: UIViewController, UISearchBarDelegate, UITableV
     var portraitArr: [UIImage] = []
     var imageArr: [[UIImage]] = []
     static var count = 0
-    public static var collectionViewWidth: CGFloat?
+    var dispatchGroup = DispatchGroup()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,11 +35,11 @@ class FileManagerViewController: UIViewController, UISearchBarDelegate, UITableV
         //fetchScreenshotsAlbum()
        // fetchLivePhotoAlbum()
         
-        self.fetchPortraitPhotosAlbum()
-        print(self.portraitArr)
+        fetchPortraitPhotosAlbum() { [weak self] images in
+            self?.portraitArr = images
+            self?.tableView.reloadData()
+        }
         
-        FileManagerViewController.collectionViewWidth = view.frame.width
-
         setupRightBarButtonItems()
         
         imageBtn.layer.cornerRadius = 12
@@ -66,13 +66,21 @@ class FileManagerViewController: UIViewController, UISearchBarDelegate, UITableV
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        4
+        portraitArr.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath) as! FileManagerTableViewCell
         cell.imgView?.image = UIImage(named: "speedtest")
+        cell.imageView1.image = portraitArr[0]
+        cell.imageView2.image = portraitArr[1]
+        cell.imageView3.image = portraitArr[2]
+        cell.imageView4.image = portraitArr[3]
         return cell
+    }
+    
+    @IBAction func imageBtnTapped(_ sender: UIButton) {
+        print(portraitArr)
     }
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
@@ -188,26 +196,26 @@ class FileManagerViewController: UIViewController, UISearchBarDelegate, UITableV
 //        }
 //    }
     
-    func fetchPortraitPhotosAlbum() {
-            // Xác định loại album
-            let albumType = PHAssetCollectionType.smartAlbum
-            let albumSubtype = PHAssetCollectionSubtype.smartAlbumDepthEffect
+    func fetchPortraitPhotosAlbum(completion: @escaping ([UIImage]) -> Void) {
+        // Xác định loại album
+        let albumType = PHAssetCollectionType.smartAlbum
+        let albumSubtype = PHAssetCollectionSubtype.smartAlbumSelfPortraits
 
-            // Tìm kiếm album dựa trên loại và phụ loại
-            let albums = PHAssetCollection.fetchAssetCollections(with: albumType, subtype: albumSubtype, options: nil)
+        // Tìm kiếm album dựa trên loại và phụ loại
+        let albums = PHAssetCollection.fetchAssetCollections(with: albumType, subtype: albumSubtype, options: nil)
 
-            // Lấy album đầu tiên nếu có
-            if let portraitAlbum = albums.firstObject {
-                print("Album ảnh chân dung: \(portraitAlbum.localizedTitle ?? "")")
+        // Lấy album đầu tiên nếu có
+        if let portraitAlbum = albums.firstObject {
+            print("Album ảnh chân dung: \(portraitAlbum.localizedTitle ?? "")")
 
-                // Tiến hành truy cập và hiển thị ảnh đầu tiên trong album chân dung
-                fetchPhotos(from: portraitAlbum) { tempArr in
-                    self.portraitArr = tempArr
-                }
-            } else {
-                print("Không tìm thấy album ảnh chân dung.")
+            // Tiến hành truy cập và hiển thị ảnh đầu tiên trong album chân dung
+            fetchPhotos(from: portraitAlbum) { images in
+                completion(images)
             }
+        } else {
+            print("Không tìm thấy album ảnh chân dung.")
         }
+    }
         
     func fetchPhotos(from album: PHAssetCollection, completion: @escaping ([UIImage]) -> Void) {
         // Xác định loại ảnh cần truy vấn (ví dụ: chỉ ảnh tĩnh)
@@ -233,7 +241,6 @@ class FileManagerViewController: UIViewController, UISearchBarDelegate, UITableV
                     tempArr.append(image)
                     if tempArr.count == min(maxImagesToFetch, assets.count) {
                         completion(tempArr)
-                        //print(tempArr)
                     }
                 }
             }
