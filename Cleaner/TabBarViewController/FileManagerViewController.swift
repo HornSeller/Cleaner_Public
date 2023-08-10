@@ -51,6 +51,12 @@ class FileManagerViewController: UIViewController, UISearchBarDelegate, UITableV
         tableView.rowHeight = 0.1878 * view.frame.height
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        albumData = []
+        fetchAlbumsData()
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         albumData.count
     }
@@ -136,10 +142,12 @@ class FileManagerViewController: UIViewController, UISearchBarDelegate, UITableV
             self?.albumData.append((title: "Selfie", images: images))
             self?.tableView.reloadData()
         }
+        
         fetchScreenshotsAlbum() { [weak self] images in
             self?.albumData.append((title: "Screenshot", images: images))
             self?.tableView.reloadData()
         }
+        
         fetchLivePhotoAlbum() { [weak self] images in
             self?.albumData.append((title: "Live Photo", images: images))
             self?.tableView.reloadData()
