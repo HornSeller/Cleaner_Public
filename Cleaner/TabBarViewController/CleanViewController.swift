@@ -11,12 +11,19 @@ import Photos
 class CleanViewController: UIViewController {
 
 
-    @IBOutlet weak var countAndSizeLb: UILabel!
+    @IBOutlet weak var countAndSizeDuplicatedLb: UILabel!
+    @IBOutlet weak var countAndSizeSimilarLb: UILabel!
+    @IBOutlet weak var countAndSizeScreenshotsLb: UILabel!
     @IBOutlet weak var clearBtn: UIButton!
     @IBOutlet weak var duplicatedPhotosBtn: UIButton!
     @IBOutlet weak var similarPhotosBtn: UIButton!
     @IBOutlet weak var screenshotsBtn: UIButton!
-    var count = 0
+    var screenshotsCount = 0
+    var screenshotsSize = ""
+    var similarCount = 0
+    var similarSize = ""
+    var duplicatedCount = 0
+    var duplicatedSize = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +33,7 @@ class CleanViewController: UIViewController {
         clearBtn.layer.cornerRadius = 25
         
         fetchScreenshotsAlbum()
+        countAndSizeScreenshotsLb.text = "\(screenshotsCount) photo(s) | \(screenshotsSize)"
     }
     
     func fetchScreenshotsAlbum() {
@@ -41,13 +49,15 @@ class CleanViewController: UIViewController {
             print("Album ảnh screenshots: \(screenshotsAlbum.localizedTitle ?? "")")
 
             // Tiến hành truy cập và xử lý các ảnh trong album
-            fetchPhotos(from: screenshotsAlbum)
+            let (screenshotCount, totalSize) = fetchPhotos(from: screenshotsAlbum)
+            self.screenshotsCount = screenshotCount
+            self.screenshotsSize = formatSize(totalSize)
         } else {
             print("Không tìm thấy album ảnh screenshots.")
         }
     }
     
-    func fetchPhotos(from album: PHAssetCollection) {
+    func fetchPhotos(from album: PHAssetCollection) -> (Int, Int64) {
         // Xác định loại ảnh cần truy vấn (ví dụ: chỉ ảnh tĩnh)
         let options = PHFetchOptions()
         options.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.image.rawValue)
@@ -68,11 +78,19 @@ class CleanViewController: UIViewController {
             
             // Xử lý ảnh ở đây (ví dụ: lấy thông tin, hiển thị, ...)
             print("Asset \(index + 1): \(asset.localIdentifier), Size: \(assetSize) bytes")
+            
         }
         
-        // Tổng dung lượng của các ảnh trong album
-        let totalSizeInMB = Float(totalSize) / (1024 * 1024) // Convert bytes to megabytes
-        print("Tổng dung lượng của các ảnh trong album: \(totalSizeInMB) MB")
+        let assetCount = assets.count
+        
+        return (assetCount, totalSize)
+    }
+    
+    func formatSize(_ size: Int64) -> String {
+        let formatter = ByteCountFormatter()
+        formatter.allowedUnits = [.useGB, .useMB, .useKB]
+        formatter.countStyle = .file
+        return formatter.string(fromByteCount: size)
     }
 }
 

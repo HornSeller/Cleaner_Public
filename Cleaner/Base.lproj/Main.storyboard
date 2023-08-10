@@ -2,7 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="biF-Ad-V6E">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -16,7 +16,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Type=Ô dề tối" translatesAutoresizingMaskIntoConstraints="NO" id="kNn-4I-PfL">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Type=Ô dề tối" translatesAutoresizingMaskIntoConstraints="NO" id="kNn-4I-PfL">
                                 <rect key="frame" x="0.0" y="-12" width="393" height="864"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="drg-Nh-k91">
@@ -184,7 +184,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Type=Ô dề tối" translatesAutoresizingMaskIntoConstraints="NO" id="lY9-H7-Dud">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Type=Ô dề tối" translatesAutoresizingMaskIntoConstraints="NO" id="lY9-H7-Dud">
                                 <rect key="frame" x="-13" y="0.0" width="419" height="852"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
@@ -412,7 +412,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Type=Ô dề tối" translatesAutoresizingMaskIntoConstraints="NO" id="PBX-eL-Tlb">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Type=Ô dề tối" translatesAutoresizingMaskIntoConstraints="NO" id="PBX-eL-Tlb">
                                 <rect key="frame" x="0.0" y="-18" width="393" height="897"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aZ0-ym-0mJ">
@@ -553,7 +553,9 @@
                     <navigationItem key="navigationItem" id="I2B-6n-C1K"/>
                     <connections>
                         <outlet property="clearBtn" destination="dH4-cg-X66" id="DE4-Am-pKi"/>
-                        <outlet property="countAndSizeLb" destination="Kru-He-OE0" id="yRS-bI-6OV"/>
+                        <outlet property="countAndSizeDuplicatedLb" destination="ZOu-xu-7Qa" id="eim-WG-iK3"/>
+                        <outlet property="countAndSizeScreenshotsLb" destination="Kru-He-OE0" id="ALJ-OI-0za"/>
+                        <outlet property="countAndSizeSimilarLb" destination="BU1-rR-mbk" id="lOf-kr-BWl"/>
                         <outlet property="duplicatedPhotosBtn" destination="ExT-p7-OPs" id="PUj-S8-iib"/>
                         <outlet property="screenshotsBtn" destination="YXP-NX-Qv2" id="7MA-16-enQ"/>
                         <outlet property="similarPhotosBtn" destination="M3t-dD-jle" id="Hfq-tO-EFQ"/>
@@ -650,7 +652,7 @@
         <image name="Quick link (2)" width="40" height="40"/>
         <image name="Quick link (3)" width="40.333332061767578" height="40"/>
         <image name="Tick" width="35.333332061767578" height="35.333332061767578"/>
-        <image name="Type=Ô dề tối" width="375" height="812"/>
+        <image name="Type=Ô dề tối" width="375" height="812"/>
         <image name="arrow-right" width="24" height="24"/>
         <image name="arrow-right 1" width="16" height="16"/>
         <image name="battery-empty" width="24.333333969116211" height="24"/>
