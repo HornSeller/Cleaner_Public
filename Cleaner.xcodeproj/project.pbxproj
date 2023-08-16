@@ -12,6 +12,9 @@
 		9A9A48432A6F7947000D4705 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9A48422A6F7947000D4705 /* HomeViewController.swift */; };
 		9A9A48462A6F7F26000D4705 /* SpeedTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9A48452A6F7F26000D4705 /* SpeedTestViewController.swift */; };
 		9A9A48482A6FBE17000D4705 /* FileManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9A48472A6FBE17000D4705 /* FileManagerViewController.swift */; };
+		9AB8E2CE2A89CB9B008FA25A /* ScreenshotsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB8E2CD2A89CB9B008FA25A /* ScreenshotsViewController.swift */; };
+		9AB8E2D12A89CE58008FA25A /* ScreenshotsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB8E2CF2A89CE58008FA25A /* ScreenshotsCollectionViewCell.swift */; };
+		9AB8E2D22A89CE58008FA25A /* ScreenshotsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AB8E2D02A89CE58008FA25A /* ScreenshotsCollectionViewCell.xib */; };
 		9ABABC532A78AD0000E44E8B /* FileManagerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABABC512A78AD0000E44E8B /* FileManagerTableViewCell.swift */; };
 		9ABABC542A78AD0000E44E8B /* FileManagerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ABABC522A78AD0000E44E8B /* FileManagerTableViewCell.xib */; };
 		9AD4D6602A5FD5A000146E9B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD4D65F2A5FD5A000146E9B /* AppDelegate.swift */; };
@@ -29,6 +32,9 @@
 		9A9A48422A6F7947000D4705 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		9A9A48452A6F7F26000D4705 /* SpeedTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedTestViewController.swift; sourceTree = "<group>"; };
 		9A9A48472A6FBE17000D4705 /* FileManagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerViewController.swift; sourceTree = "<group>"; };
+		9AB8E2CD2A89CB9B008FA25A /* ScreenshotsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotsViewController.swift; sourceTree = "<group>"; };
+		9AB8E2CF2A89CE58008FA25A /* ScreenshotsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotsCollectionViewCell.swift; sourceTree = "<group>"; };
+		9AB8E2D02A89CE58008FA25A /* ScreenshotsCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScreenshotsCollectionViewCell.xib; sourceTree = "<group>"; };
 		9ABABC512A78AD0000E44E8B /* FileManagerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerTableViewCell.swift; sourceTree = "<group>"; };
 		9ABABC522A78AD0000E44E8B /* FileManagerTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FileManagerTableViewCell.xib; sourceTree = "<group>"; };
 		9AD4D65C2A5FD5A000146E9B /* Cleaner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cleaner.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -87,9 +93,19 @@
 			path = SubHomeViewController;
 			sourceTree = "<group>";
 		};
+		9AB8E2CC2A89CB6A008FA25A /* SubCleanViewController */ = {
+			isa = PBXGroup;
+			children = (
+				9AB8E2CD2A89CB9B008FA25A /* ScreenshotsViewController.swift */,
+			);
+			path = SubCleanViewController;
+			sourceTree = "<group>";
+		};
 		9ABABC552A78AD4A00E44E8B /* CollectionViewCell */ = {
 			isa = PBXGroup;
 			children = (
+				9AB8E2CF2A89CE58008FA25A /* ScreenshotsCollectionViewCell.swift */,
+				9AB8E2D02A89CE58008FA25A /* ScreenshotsCollectionViewCell.xib */,
 			);
 			path = CollectionViewCell;
 			sourceTree = "<group>";
@@ -126,6 +142,7 @@
 			children = (
 				9A9A48412A6F792B000D4705 /* TabBarViewController */,
 				9A9A48442A6F7F0E000D4705 /* SubHomeViewController */,
+				9AB8E2CC2A89CB6A008FA25A /* SubCleanViewController */,
 				9AC5577A2A7767750038CC35 /* TableViewCell */,
 				9ABABC552A78AD4A00E44E8B /* CollectionViewCell */,
 				9AD4D65F2A5FD5A000146E9B /* AppDelegate.swift */,
@@ -201,6 +218,7 @@
 				9AD4D66C2A5FD5A200146E9B /* LaunchScreen.storyboard in Resources */,
 				9AD4D6692A5FD5A200146E9B /* Assets.xcassets in Resources */,
 				9AD4D6672A5FD5A000146E9B /* Main.storyboard in Resources */,
+				9AB8E2D22A89CE58008FA25A /* ScreenshotsCollectionViewCell.xib in Resources */,
 				9ABABC542A78AD0000E44E8B /* FileManagerTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -256,6 +274,8 @@
 			files = (
 				9A9A48482A6FBE17000D4705 /* FileManagerViewController.swift in Sources */,
 				9A9A48462A6F7F26000D4705 /* SpeedTestViewController.swift in Sources */,
+				9AB8E2D12A89CE58008FA25A /* ScreenshotsCollectionViewCell.swift in Sources */,
+				9AB8E2CE2A89CB9B008FA25A /* ScreenshotsViewController.swift in Sources */,
 				04FFD0F72A848E7500CB3646 /* CleanViewController.swift in Sources */,
 				9AD4D6602A5FD5A000146E9B /* AppDelegate.swift in Sources */,
 				9ABABC532A78AD0000E44E8B /* FileManagerTableViewCell.swift in Sources */,

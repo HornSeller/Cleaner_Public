@@ -36,6 +36,10 @@ class CleanViewController: UIViewController {
         countAndSizeScreenshotsLb.text = "\(screenshotsCount) photo(s) | \(screenshotsSize)"
     }
     
+    @IBAction func screenshotsBtnTapped(_ sender: UIButton) {
+        self.performSegue(withIdentifier: "screenshotsSegue", sender: self)
+    }
+    
     func fetchScreenshotsAlbum() {
         // Xác định loại album
         let albumType = PHAssetCollectionType.smartAlbum
