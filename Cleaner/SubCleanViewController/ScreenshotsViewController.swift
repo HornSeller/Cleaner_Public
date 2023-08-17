@@ -133,7 +133,7 @@ class ScreenshotsViewController: UIViewController, UICollectionViewDelegateFlowL
         let assets = PHAsset.fetchAssets(in: album, options: options)
         
         // Kích thước mới cho ảnh (giảm độ phân giải)
-        let targetSize = CGSize(width: 250, height: 250)
+        let targetSize = CGSize(width: 230, height: 230)
         
         // Lặp qua tất cả các ảnh và truy cập chúng
         assets.enumerateObjects { (asset, index, stop) in
@@ -149,14 +149,6 @@ class ScreenshotsViewController: UIViewController, UICollectionViewDelegateFlowL
             })
             if tempArr.count == assets.count {
                 completion(tempArr)
-            }
-        }
-    }
-    
-    func cacheImage(path: URL) {
-        if let imageData = try? Data(contentsOf: path) {
-            if let image = UIImage(data: imageData) {
-                ImageCache.default.store(image, forKey: path.path)
             }
         }
     }
