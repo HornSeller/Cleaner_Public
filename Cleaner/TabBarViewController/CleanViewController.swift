@@ -40,6 +40,10 @@ class CleanViewController: UIViewController {
         self.performSegue(withIdentifier: "screenshotsSegue", sender: self)
     }
     
+    @IBAction func similarBtnTapped(_ sender: UIButton) {
+        self.performSegue(withIdentifier: "similarSegue", sender: self)
+    }
+    
     func fetchScreenshotsAlbum() {
         // Xác định loại album
         let albumType = PHAssetCollectionType.smartAlbum

@@ -60,13 +60,13 @@ class ScreenshotsViewController: UIViewController, UICollectionViewDelegateFlowL
         layout.scrollDirection = .vertical
         layout.minimumLineSpacing = margin
         layout.minimumInteritemSpacing = margin
-        var sizeCell = (view.frame.size.width - 4 * margin) / 3 - 2
+        var sizeCell = (view.frame.size.width - 6 * margin) / 3
         if UIDevice.current.userInterfaceIdiom == .pad {
             sizeCell = (view.frame.size.width - 5 * margin) / 4 - 2
         }
 
         layout.itemSize = CGSize(width: sizeCell, height: sizeCell)
-        layout.sectionInset = UIEdgeInsets.init(top: margin, left: margin, bottom: margin, right: margin)
+        layout.sectionInset = UIEdgeInsets.init(top: margin, left: 16, bottom: margin, right: 16)
         collectionView.collectionViewLayout = layout
         
         collectionViewData()
