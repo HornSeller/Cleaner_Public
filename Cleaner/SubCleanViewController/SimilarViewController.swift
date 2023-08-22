@@ -38,6 +38,7 @@ class SimilarViewController: UIViewController, UITableViewDataSource, UITableVie
         
         tableView.rowHeight = 0.32 * view.frame.height
         
+        var temp: [UIImage] = []
         var value = 0
         fetchAllPhotos { comparisonResults, images in
             self.comparisonResults = comparisonResults
@@ -46,7 +47,7 @@ class SimilarViewController: UIViewController, UITableViewDataSource, UITableVie
                 value = self.compareArrays(array1: self.comparisonResults[i], array2: self.comparisonResults[i + 1])
                 if value > 0 && value < 8 {
                     print("giong \(i) \(i + 1)")
-                    let temp: [UIImage] = [images[i], images[i + 1]]
+                    temp = [images[i], images[i + 1]]
                     self.dataTable.append(temp)
                 } else {
                     print("khac \(i) \(i + 1)")
