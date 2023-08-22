@@ -302,7 +302,13 @@
                             <constraint firstItem="ZrP-Uw-8x1" firstAttribute="centerX" secondItem="b4Z-Aj-92C" secondAttribute="centerX" id="xCi-mq-fhv"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="kmm-aa-od7"/>
+                    <navigationItem key="navigationItem" id="kmm-aa-od7">
+                        <barButtonItem key="leftBarButtonItem" image="chevron.down" catalog="system" style="plain" id="jMG-cP-omH">
+                            <connections>
+                                <action selector="backBtnTapped:" destination="UP2-24-ye0" id="Vdl-Wb-eg9"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="T16-rJ-tgb" id="i8v-XH-FMh"/>
                     </connections>

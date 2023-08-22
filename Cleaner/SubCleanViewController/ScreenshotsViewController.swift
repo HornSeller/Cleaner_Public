@@ -60,7 +60,7 @@ class ScreenshotsViewController: UIViewController, UICollectionViewDelegateFlowL
         layout.scrollDirection = .vertical
         layout.minimumLineSpacing = margin
         layout.minimumInteritemSpacing = margin
-        var sizeCell = (view.frame.size.width - 6 * margin) / 3
+        var sizeCell = (view.frame.size.width - 6 * margin) / 3 - 2
         if UIDevice.current.userInterfaceIdiom == .pad {
             sizeCell = (view.frame.size.width - 5 * margin) / 4 - 2
         }

@@ -9,16 +9,18 @@ import UIKit
 
 class SimilarTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        2
+        dataCollection.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myCell", for: indexPath) as! SimilarCollectionViewCell
+        cell.imageView.image = dataCollection[indexPath.row]
         return cell
     }
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var subView: UIView!
+    var dataCollection: [UIImage] = []
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -32,7 +34,7 @@ class SimilarTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollect
         layout.scrollDirection = .vertical
         layout.minimumLineSpacing = margin
         layout.minimumInteritemSpacing = margin
-        var sizeCell = (SimilarViewController.width! * 0.837 - margin) / 2
+        var sizeCell = (SimilarViewController.width! * 0.837 - margin) / 2 - 2
 //        if UIDevice.current.userInterfaceIdiom == .pad {
 //            sizeCell = (view.frame.size.width - 5 * margin) / 4 - 2
 //        }
