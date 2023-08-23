@@ -16,11 +16,11 @@ class SimilarViewController: UIViewController, UITableViewDataSource, UITableVie
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "similarCell", for: indexPath) as! SimilarTableViewCell
         cell.dataCollection = dataTable[indexPath.row]
+        cell.collectionView.reloadData()
         return cell
     }
 
     @IBOutlet weak var tableView: UITableView!
-    public static var width: CGFloat?
     var resizedImage: UIImage?
     var grayImage: UIImage?
     var finalImage: UIImage?
@@ -32,7 +32,6 @@ class SimilarViewController: UIViewController, UITableViewDataSource, UITableVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        SimilarViewController.width = view.frame.width
         
         tableView.register(UINib(nibName: "SimilarTableViewCell", bundle: .main), forCellReuseIdentifier: "similarCell")
         
@@ -45,8 +44,8 @@ class SimilarViewController: UIViewController, UITableViewDataSource, UITableVie
             self.images = images
             for i in 0 ..< self.comparisonResults.count - 1 {
                 value = self.compareArrays(array1: self.comparisonResults[i], array2: self.comparisonResults[i + 1])
-                if value > 0 && value < 8 {
-                    print("giong \(i) \(i + 1)")
+                if value > 0 && value <= 8 {
+                    print("giong \(i) \(i + 1) \(value)")
                     temp = [images[i], images[i + 1]]
                     self.dataTable.append(temp)
                 } else {
@@ -54,7 +53,7 @@ class SimilarViewController: UIViewController, UITableViewDataSource, UITableVie
                 }
             }
             self.tableView.reloadData()
-            print(self.dataTable.count)
+            print(self.dataTable)
         }
     }
     
@@ -299,11 +298,11 @@ class SimilarViewController: UIViewController, UITableViewDataSource, UITableVie
             requestOptions.isSynchronous = true
 
             // Lấy ảnh từ PHAsset
-            imageManager.requestImage(for: asset, targetSize: CGSize(width: 230, height: 230), contentMode: .aspectFill, options: requestOptions, resultHandler: { (image, info) in
+            imageManager.requestImage(for: asset, targetSize: CGSize(width: 250, height: 250), contentMode: .aspectFill, options: requestOptions, resultHandler: { (image, info) in
                 if let image = image {
                     // Thêm ảnh vào mảng allPhotos
                     images.append(image)
-                    self.resizedImage = self.resizeTo8x8(image: self.resizeImage(image: image, targetSize: CGSize(width: 100, height: 100)))
+                    self.resizedImage = self.resizeTo8x8(image: self.resizeImage(image: image, newSize: CGSize(width: 100, height: 100))!)
                     self.grayImage = self.convertToGrayScale(image: self.resizedImage!)
                     self.finalImage = self.convertTo64Levels(image: self.grayImage!)
                     self.grayValue = self.averageGrayValue(image: self.finalImage!)!
@@ -315,28 +314,5 @@ class SimilarViewController: UIViewController, UITableViewDataSource, UITableVie
                 }
             })
         }
-    }
-    
-    func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
-        let size = image.size
-        
-        let widthRatio = targetSize.width / size.width
-        let heightRatio = targetSize.height / size.height
-        
-        var newSize: CGSize
-        if widthRatio > heightRatio {
-            newSize = CGSize(width: size.width * heightRatio, height: size.height * heightRatio)
-        } else {
-            newSize = CGSize(width: size.width * widthRatio, height: size.height * widthRatio)
-        }
-        
-        let rect = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height)
-        
-        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
-        image.draw(in: rect)
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        return newImage ?? image
     }
 }

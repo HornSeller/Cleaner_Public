@@ -1,40 +1,39 @@
 //
-//  SimilarTableViewCell.swift
+//  DuplicatedTableViewCell.swift
 //  Cleaner
 //
-//  Created by Macmini on 21/08/2023.
+//  Created by Macmini on 23/08/2023.
 //
 
 import UIKit
 
-class SimilarTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDataSource {
+class DuplicatedTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        dataCollection.count
+        4
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myCell", for: indexPath) as! SimilarCollectionViewCell
-        cell.imageView.image = dataCollection[indexPath.row]
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "duplicatedCell", for: indexPath) as! DuplicatedCollectionViewCell
         return cell
     }
     
+
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var subView: UIView!
-    var dataCollection: [UIImage] = []
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         subView.layer.cornerRadius = 12
         
-        collectionView.register(UINib(nibName: "SimilarCollectionViewCell", bundle: .main), forCellWithReuseIdentifier: "myCell")
+        collectionView.register(UINib(nibName: "DuplicatedCollectionViewCell", bundle: .main), forCellWithReuseIdentifier: "duplicatedCell")
         
         let margin: CGFloat = 8
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = margin
         layout.minimumInteritemSpacing = margin
-        var sizeCell = (HomeViewController.width! * 0.837 - margin) / 2 - 2
+        var sizeCell = (HomeViewController.width! * 0.87786 - 2 * margin) / 2.5 - 2
 //        if UIDevice.current.userInterfaceIdiom == .pad {
 //            sizeCell = (view.frame.size.width - 5 * margin) / 4 - 2
 //        }
@@ -49,5 +48,7 @@ class SimilarTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollect
 
         // Configure the view for the selected state
     }
+    
+    
     
 }

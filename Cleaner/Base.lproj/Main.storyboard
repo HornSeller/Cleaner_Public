@@ -602,6 +602,9 @@
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.083173686960000007" colorSpace="calibratedRGB"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain"/>
+                                        <connections>
+                                            <action selector="duplicatedBtnTapped:" destination="3wK-Vf-6TP" eventType="touchUpInside" id="4kz-OL-tZg"/>
+                                        </connections>
                                     </button>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Icon" translatesAutoresizingMaskIntoConstraints="NO" id="8Fu-Y9-dvs">
                                         <rect key="frame" x="27" y="431" width="38" height="35"/>
@@ -684,6 +687,7 @@
                         <outlet property="similarPhotosBtn" destination="M3t-dD-jle" id="Hfq-tO-EFQ"/>
                         <segue destination="QBz-4W-hCO" kind="presentation" identifier="screenshotsSegue" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="3DK-cY-TAh"/>
                         <segue destination="Vaq-oa-C5q" kind="presentation" identifier="similarSegue" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="EV6-UV-OcX"/>
+                        <segue destination="PIU-6a-Qi1" kind="presentation" identifier="duplicatedSegue" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="v5j-GD-XjV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WFc-ON-ttC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -798,6 +802,76 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lUJ-hY-fbn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="465" y="2015"/>
+        </scene>
+        <!--Duplicated View Controller-->
+        <scene sceneID="4Ek-1v-kfL">
+            <objects>
+                <viewController id="awk-Zn-OMc" customClass="DuplicatedViewController" customModule="Cleaner" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="CyG-5w-lTf">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Type=Ô dề tối" translatesAutoresizingMaskIntoConstraints="NO" id="EJJ-lY-mPH">
+                                <rect key="frame" x="-14" y="-15" width="428" height="884"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PS3-rr-xyu">
+                                <rect key="frame" x="0.0" y="44" width="393" height="808"/>
+                                <subviews>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="1n4-4S-0Yr">
+                                        <rect key="frame" x="0.0" y="109" width="393" height="691"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <outlet property="dataSource" destination="awk-Zn-OMc" id="yZN-iU-Lqy"/>
+                                            <outlet property="delegate" destination="awk-Zn-OMc" id="Fuo-F4-pYW"/>
+                                        </connections>
+                                    </tableView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Z1-rH-H8A"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="PS3-rr-xyu" firstAttribute="height" secondItem="6Z1-rH-H8A" secondAttribute="height" id="Lxk-LF-uLD"/>
+                            <constraint firstItem="PS3-rr-xyu" firstAttribute="width" secondItem="6Z1-rH-H8A" secondAttribute="width" id="PV9-qo-Pc7"/>
+                            <constraint firstItem="PS3-rr-xyu" firstAttribute="centerX" secondItem="6Z1-rH-H8A" secondAttribute="centerX" id="Rjn-jz-sTN"/>
+                            <constraint firstItem="PS3-rr-xyu" firstAttribute="centerY" secondItem="6Z1-rH-H8A" secondAttribute="centerY" id="SCL-g3-Af0"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="3rM-Zs-3If">
+                        <barButtonItem key="leftBarButtonItem" image="chevron.down" catalog="system" style="plain" id="RJu-Nd-uDG">
+                            <connections>
+                                <action selector="backBtnTapped:" destination="awk-Zn-OMc" id="AQs-xt-m9e"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="1n4-4S-0Yr" id="Jsb-cO-0Rt"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cK3-s9-EJ6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1251.145038167939" y="2797.8873239436621"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="l91-lu-W8P">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="PIU-6a-Qi1" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="2aq-7c-n4z">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="awk-Zn-OMc" kind="relationship" relationship="rootViewController" id="7rp-fC-Ms0"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4Y2-Tw-1pq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1257" y="2015"/>
         </scene>
     </scenes>
     <resources>

@@ -44,6 +44,10 @@ class CleanViewController: UIViewController {
         self.performSegue(withIdentifier: "similarSegue", sender: self)
     }
     
+    @IBAction func duplicatedBtnTapped(_ sender: UIButton) {
+        self.performSegue(withIdentifier: "duplicatedSegue", sender: self)
+    }
+    
     func fetchScreenshotsAlbum() {
         // Xác định loại album
         let albumType = PHAssetCollectionType.smartAlbum

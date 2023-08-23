@@ -16,6 +16,8 @@ class HomeViewController: UIViewController, URLSessionDelegate {
     @IBOutlet weak var speedTestBtn: UIButton!
     @IBOutlet weak var compressBtn: UIButton!
     
+    public static var width: CGFloat?
+    
     var downloadStartTime: Date!
     var downloadReceivedData: Data = Data()
         
@@ -25,6 +27,7 @@ class HomeViewController: UIViewController, URLSessionDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        HomeViewController.width = view.frame.width
         
         batteryChartBtn.layer.cornerRadius = 12
         storageBtn.layer.cornerRadius = 12
