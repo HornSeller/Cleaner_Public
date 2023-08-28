@@ -18,9 +18,29 @@ class SimilarTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollect
         return cell
     }
     
+    enum Mode {
+        case view
+        case select
+    }
+    
+    var mMode: Mode = .view {
+        didSet {
+            switch mMode {
+            case .view:
+                selectAllBtn.setImage(UIImage(named: "Frame 115"), for: .normal)
+                
+            case .select:
+                selectAllBtn.setImage(UIImage(named: "Frame 116"), for: .normal)
+                
+            }
+        }
+    }
+    
+    @IBOutlet weak var selectAllBtn: UIButton!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var subView: UIView!
     var dataCollection: [UIImage] = []
+    var isSelectedAll = false
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -42,12 +62,24 @@ class SimilarTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollect
         layout.itemSize = CGSize(width: sizeCell, height: sizeCell)
         layout.sectionInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 0, right: 0)
         collectionView.collectionViewLayout = layout
+        
+        collectionView.allowsMultipleSelection = true
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    @IBAction func selectAllBtnTapped(_ sender: UIButton) {
+        mMode = mMode == .view ? .select : .view
+        isSelectedAll.toggle()
+        
+        
+        let cell = collectionView.cellForItem(at: IndexPath(item: 1, section: 0)) as? SimilarCollectionViewCell
+        cell?.isSelected = isSelectedAll
+        
     }
     
 }

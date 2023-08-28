@@ -9,6 +9,7 @@ import UIKit
 
 class SimilarCollectionViewCell: UICollectionViewCell {
 
+    @IBOutlet weak var checkBoxImageView: UIImageView!
     @IBOutlet weak var imageView: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -16,4 +17,13 @@ class SimilarCollectionViewCell: UICollectionViewCell {
         imageView.layer.cornerRadius = 10
     }
 
+    override var isSelected: Bool {
+        didSet {
+            if isSelected {
+                checkBoxImageView.image = UIImage(named: "Check box 1")
+            } else {
+                checkBoxImageView.image = UIImage(named: "Check box")
+            }
+        }
+    }
 }

@@ -20,13 +20,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="165" height="165"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                     </imageView>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Check box" translatesAutoresizingMaskIntoConstraints="NO" id="sao-PD-sfD">
+                        <rect key="frame" x="135" y="135" width="24" height="24"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                    </imageView>
                 </subviews>
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <connections>
+                <outlet property="checkBoxImageView" destination="sao-PD-sfD" id="8iV-3a-vhY"/>
                 <outlet property="imageView" destination="OTR-il-ip3" id="JIT-VU-R5K"/>
             </connections>
             <point key="canvasLocation" x="12.977099236641221" y="-11.619718309859156"/>
         </collectionViewCell>
     </objects>
+    <resources>
+        <image name="Check box" width="20.333333969116211" height="20"/>
+    </resources>
 </document>
