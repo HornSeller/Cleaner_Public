@@ -11,15 +11,18 @@ import CryptoKit
 
 class DuplicatedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        3
+        dataTable.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "duplicatedCell", for: indexPath) as! DuplicatedTableViewCell
+        cell.dataTable = dataTable[indexPath.row]
+        cell.collectionView.reloadData()
         return cell
     }
     
     @IBOutlet weak var tableView: UITableView!
+    var dataTable: [[UIImage]] = []
     var images: [UIImage] = []
     var hashArr: [String] = []
     
@@ -33,6 +36,39 @@ class DuplicatedViewController: UIViewController, UITableViewDelegate, UITableVi
         fetchAllPhotos { hashArr, images in
             self.hashArr = hashArr
             self.images = images
+            var result: [[UIImage]] = []
+            var currentIndex = 0
+            var addedElement: [String] = []
+            
+            while currentIndex < self.hashArr.count {
+                let currentString = self.hashArr[currentIndex]
+                var currentGroup: [String] = [currentString]
+                
+                let currentImage = self.images[currentIndex]
+                var currentImageGroup: [UIImage] = [currentImage]
+                
+                var nextIndex = currentIndex + 1
+                while nextIndex < self.hashArr.count {
+                    if self.hashArr[nextIndex] == currentString && !addedElement.contains(currentString) {
+                        currentGroup.append(self.hashArr[nextIndex])
+                        currentImageGroup.append(self.images[nextIndex])
+                    }
+                    nextIndex += 1
+                }
+                if currentGroup.count >= 2 {
+                    result.append(currentImageGroup)
+                    addedElement.append(currentString)
+                }
+                
+                currentIndex += 1
+                if currentIndex == self.hashArr.count {
+                    self.dataTable = result
+                    self.tableView.reloadData()
+                    print(result)
+                }
+            }
+            
+            print(self.dataTable.count)
         }
     }
     
@@ -87,7 +123,7 @@ class DuplicatedViewController: UIViewController, UITableViewDelegate, UITableVi
             requestOptions.isSynchronous = true
 
             // Lấy ảnh từ PHAsset
-            imageManager.requestImage(for: asset, targetSize: CGSize(width: 250, height: 250), contentMode: .aspectFill, options: requestOptions, resultHandler: { (image, info) in
+            imageManager.requestImage(for: asset, targetSize: CGSize(width: 200, height: 200), contentMode: .aspectFill, options: requestOptions, resultHandler: { (image, info) in
                 if let image = image {
                     // Thêm ảnh vào mảng allPhotos
                     images.append(image)

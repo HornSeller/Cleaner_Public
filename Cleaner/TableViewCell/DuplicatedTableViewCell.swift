@@ -9,17 +9,19 @@ import UIKit
 
 class DuplicatedTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        4
+        dataTable.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "duplicatedCell", for: indexPath) as! DuplicatedCollectionViewCell
+        cell.imageView.image = dataTable[indexPath.row]
         return cell
     }
     
 
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var subView: UIView!
+    var dataTable: [UIImage] = []
     
     override func awakeFromNib() {
         super.awakeFromNib()
