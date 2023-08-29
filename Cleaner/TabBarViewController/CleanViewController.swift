@@ -32,8 +32,10 @@ class CleanViewController: UIViewController {
         duplicatedPhotosBtn.layer.cornerRadius = 12
         clearBtn.layer.cornerRadius = 25
         
-        fetchScreenshotsAlbum()
-        countAndSizeScreenshotsLb.text = "\(screenshotsCount) photo(s) | \(screenshotsSize)"
+        DispatchQueue.main.async {
+            self.fetchScreenshotsAlbum()
+            self.countAndSizeScreenshotsLb.text = "\(self.screenshotsCount) photo(s) | \(self.screenshotsSize)"
+        }
     }
     
     @IBAction func screenshotsBtnTapped(_ sender: UIButton) {

@@ -19,6 +19,7 @@ class ScreenshotsViewController: UIViewController, UICollectionViewDelegateFlowL
         cell.imageView.image = data[indexPath.row]
         return cell
     }
+
     
     enum Mode {
         case view
@@ -69,7 +70,9 @@ class ScreenshotsViewController: UIViewController, UICollectionViewDelegateFlowL
         layout.sectionInset = UIEdgeInsets.init(top: margin, left: 16, bottom: margin, right: 16)
         collectionView.collectionViewLayout = layout
         
-        collectionViewData()
+        DispatchQueue.main.async {
+            self.collectionViewData()
+        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -80,7 +83,6 @@ class ScreenshotsViewController: UIViewController, UICollectionViewDelegateFlowL
     @objc func selectBtnTapped(_ sender: UIBarButtonItem) {
         mMode = mMode == .view ? .select : .view
         isSelectAllEnabled.toggle()
-        
         for indexPath in 0 ..< collectionView.numberOfItems(inSection: 0) {
             let cell = collectionView.cellForItem(at: IndexPath(item: indexPath, section: 0)) as? ScreenshotsCollectionViewCell
             cell?.isSelected = isSelectAllEnabled

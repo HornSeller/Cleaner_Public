@@ -39,21 +39,23 @@ class SimilarViewController: UIViewController, UITableViewDataSource, UITableVie
         
         var temp: [UIImage] = []
         var value = 0
-        fetchAllPhotos { comparisonResults, images in
-            self.comparisonResults = comparisonResults
-            self.images = images
-            for i in 0 ..< self.comparisonResults.count - 1 {
-                value = self.compareArrays(array1: self.comparisonResults[i], array2: self.comparisonResults[i + 1])
-                if value > 0 && value <= 8 {
-                    print("giong \(i) \(i + 1) \(value)")
-                    temp = [images[i], images[i + 1]]
-                    self.dataTable.append(temp)
-                } else {
-                    print("khac \(i) \(i + 1)")
+        DispatchQueue.main.async {
+            self.fetchAllPhotos { comparisonResults, images in
+                self.comparisonResults = comparisonResults
+                self.images = images
+                for i in 0 ..< self.comparisonResults.count - 1 {
+                    value = self.compareArrays(array1: self.comparisonResults[i], array2: self.comparisonResults[i + 1])
+                    if value > 0 && value <= 8 {
+                        print("giong \(i) \(i + 1) \(value)")
+                        temp = [images[i], images[i + 1]]
+                        self.dataTable.append(temp)
+                    } else {
+                        print("khac \(i) \(i + 1)")
+                    }
                 }
+                self.tableView.reloadData()
+                print(self.dataTable)
             }
-            self.tableView.reloadData()
-            print(self.dataTable)
         }
     }
     

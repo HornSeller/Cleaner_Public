@@ -39,6 +39,9 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="Frame 115" title=" "/>
+                                <connections>
+                                    <action selector="selectAllBtnTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="gp3-Yz-lIu"/>
+                                </connections>
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="KEh-87-Z5A">
                                 <rect key="frame" x="16" y="68" width="345" height="128"/>
@@ -64,6 +67,7 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
                 <outlet property="collectionView" destination="KEh-87-Z5A" id="7c3-n7-SaS"/>
+                <outlet property="selectAllBtn" destination="Tf9-2U-LcU" id="tsj-Di-Ho2"/>
                 <outlet property="subView" destination="3UB-PX-elq" id="nhe-cp-JPJ"/>
             </connections>
             <point key="canvasLocation" x="-14.503816793893129" y="49.295774647887328"/>

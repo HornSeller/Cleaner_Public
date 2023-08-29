@@ -33,42 +33,44 @@ class DuplicatedViewController: UIViewController, UITableViewDelegate, UITableVi
 
         tableView.rowHeight = 0.2582 * view.frame.height
         
-        fetchAllPhotos { hashArr, images in
-            self.hashArr = hashArr
-            self.images = images
-            var result: [[UIImage]] = []
-            var currentIndex = 0
-            var addedElement: [String] = []
-            
-            while currentIndex < self.hashArr.count {
-                let currentString = self.hashArr[currentIndex]
-                var currentGroup: [String] = [currentString]
+        DispatchQueue.main.async {
+            self.fetchAllPhotos { hashArr, images in
+                self.hashArr = hashArr
+                self.images = images
+                var result: [[UIImage]] = []
+                var currentIndex = 0
+                var addedElement: [String] = []
                 
-                let currentImage = self.images[currentIndex]
-                var currentImageGroup: [UIImage] = [currentImage]
-                
-                var nextIndex = currentIndex + 1
-                while nextIndex < self.hashArr.count {
-                    if self.hashArr[nextIndex] == currentString && !addedElement.contains(currentString) {
-                        currentGroup.append(self.hashArr[nextIndex])
-                        currentImageGroup.append(self.images[nextIndex])
+                while currentIndex < self.hashArr.count {
+                    let currentString = self.hashArr[currentIndex]
+                    var currentGroup: [String] = [currentString]
+                    
+                    let currentImage = self.images[currentIndex]
+                    var currentImageGroup: [UIImage] = [currentImage]
+                    
+                    var nextIndex = currentIndex + 1
+                    while nextIndex < self.hashArr.count {
+                        if self.hashArr[nextIndex] == currentString && !addedElement.contains(currentString) {
+                            currentGroup.append(self.hashArr[nextIndex])
+                            currentImageGroup.append(self.images[nextIndex])
+                        }
+                        nextIndex += 1
                     }
-                    nextIndex += 1
-                }
-                if currentGroup.count >= 2 {
-                    result.append(currentImageGroup)
-                    addedElement.append(currentString)
+                    if currentGroup.count >= 2 {
+                        result.append(currentImageGroup)
+                        addedElement.append(currentString)
+                    }
+                    
+                    currentIndex += 1
+                    if currentIndex == self.hashArr.count {
+                        self.dataTable = result
+                        self.tableView.reloadData()
+                        print(result)
+                    }
                 }
                 
-                currentIndex += 1
-                if currentIndex == self.hashArr.count {
-                    self.dataTable = result
-                    self.tableView.reloadData()
-                    print(result)
-                }
+                print(self.dataTable.count)
             }
-            
-            print(self.dataTable.count)
         }
     }
     
