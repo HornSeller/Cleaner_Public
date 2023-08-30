@@ -63,7 +63,7 @@ class SimilarTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollect
         layout.sectionInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 0, right: 0)
         collectionView.collectionViewLayout = layout
         
-        collectionView.allowsMultipleSelection = true
+        collectionView.allowsMultipleSelection = true	
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

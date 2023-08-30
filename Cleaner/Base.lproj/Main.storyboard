@@ -127,14 +127,14 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="36%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sWu-fw-JRf">
-                                        <rect key="frame" x="138" y="154" width="117" height="58"/>
+                                        <rect key="frame" x="138" y="156" width="117" height="58"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="40"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="40.38/64GB" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rj6-OK-gF4">
-                                        <rect key="frame" x="124" y="202" width="144" height="31"/>
+                                        <rect key="frame" x="124" y="204" width="144" height="31"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <color key="textColor" red="0.33725490196078434" green="0.37254901960784315" blue="0.42352941176470588" alpha="1" colorSpace="calibratedRGB"/>
@@ -164,8 +164,10 @@
                     <connections>
                         <outlet property="batteryChartBtn" destination="LbY-qL-QCe" id="DTQ-1t-LRM"/>
                         <outlet property="compressBtn" destination="Hhb-xD-wOw" id="vot-XD-JIP"/>
+                        <outlet property="percentLb" destination="sWu-fw-JRf" id="Onl-bZ-rmf"/>
                         <outlet property="speedTestBtn" destination="sda-JW-O3Y" id="6fY-oO-esr"/>
                         <outlet property="storageBtn" destination="1zV-DW-Rzh" id="cEW-vL-Ilm"/>
+                        <outlet property="storageLb" destination="rj6-OK-gF4" id="Zbd-Em-hQ3"/>
                         <segue destination="wr5-gu-azj" kind="presentation" identifier="speedTestSegue" modalPresentationStyle="fullScreen" id="ju3-hB-c3t"/>
                     </connections>
                 </viewController>

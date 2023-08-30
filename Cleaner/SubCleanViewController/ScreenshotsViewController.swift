@@ -86,7 +86,7 @@ class ScreenshotsViewController: UIViewController, UICollectionViewDelegateFlowL
         for indexPath in 0 ..< collectionView.numberOfItems(inSection: 0) {
             let cell = collectionView.cellForItem(at: IndexPath(item: indexPath, section: 0)) as? ScreenshotsCollectionViewCell
             cell?.isSelected = isSelectAllEnabled
-            print(cell?.isSelected)
+            print(cell?.isSelected ?? "1")
         }
     }
     
@@ -154,5 +154,4 @@ class ScreenshotsViewController: UIViewController, UICollectionViewDelegateFlowL
             }
         }
     }
-
 }

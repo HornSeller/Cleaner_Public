@@ -11,6 +11,8 @@ import KDCircularProgress
 
 class HomeViewController: UIViewController, URLSessionDelegate {
 
+    @IBOutlet weak var percentLb: UILabel!
+    @IBOutlet weak var storageLb: UILabel!
     @IBOutlet weak var batteryChartBtn: UIButton!
     @IBOutlet weak var storageBtn: UIButton!
     @IBOutlet weak var speedTestBtn: UIButton!
@@ -34,6 +36,17 @@ class HomeViewController: UIViewController, URLSessionDelegate {
         compressBtn.layer.cornerRadius = 12
         speedTestBtn.layer.cornerRadius = 12
         
+        let totalDiskSpace = UIDevice.current.totalDiskSpaceInGB
+        let usedDiskSpace = UIDevice.current.usedDiskSpaceInGB
+        let totalDiskSpace1 = totalDiskSpace.components(separatedBy: " ").first ?? "1"
+        let usedDiskSpace1 = usedDiskSpace.components(separatedBy: " ").first ?? "1"
+
+        storageLb.text = "\(usedDiskSpace1)/\(totalDiskSpace1) GB"
+
+        let x = (Double(UIDevice.current.usedDiskSpaceInBytes) / Double(UIDevice.current.totalDiskSpaceInBytes)) * 100
+        let percent = Int(round(x))
+        percentLb.text = "\(percent)%"
+        
         let circularProgressWidth: CGFloat = 0.62 * view.frame.width
         let circularProgressFrame = CGRect(x: (view.frame.width - circularProgressWidth) / 2, y: view.frame.height * 3.5 / 12 - circularProgressWidth / 2, width: circularProgressWidth, height: circularProgressWidth)
         let circularProgress = KDCircularProgress(frame: circularProgressFrame)
@@ -52,18 +65,26 @@ class HomeViewController: UIViewController, URLSessionDelegate {
         circularProgress.glowAmount = 0.9
         circularProgress.trackColor = UIColor.clear
         circularProgress.set(colors: gradientColor)
-        circularProgress.progress = 0.75
+        //circularProgress.progress = Double(percent) / 100.0
         view.addSubview(circularProgress)
-
-        let imageTest = UIImage(named: "imagetest")
-        let imageData = imageTest?.jpegData(compressionQuality: 1.0)
-        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        let imageTestURL = documentsURL.appendingPathComponent("imageTest.jpeg")
-        do {
-            try imageData?.write(to: imageTestURL)
-        } catch {
-            print(error.localizedDescription)
-        }
+        circularProgress.animate(toAngle: Double(percent) / 100.0 * 360, duration: 1, completion: nil)
+        
+        let subCircularProgressWidth: CGFloat = 0.55 * storageBtn.frame.width
+        let subCircularProgress = KDCircularProgress(frame: CGRect(x: 0, y: 0, width: subCircularProgressWidth, height: subCircularProgressWidth))
+        
+        subCircularProgress.startAngle = -90
+        subCircularProgress.progressThickness = 0.32
+        subCircularProgress.trackThickness = 0.5
+        subCircularProgress.clockwise = false
+        subCircularProgress.gradientRotateSpeed = 2
+        subCircularProgress.roundedCorners = true
+        let trackColor = UIColor(hex: "#ffffff", alpha: 0.1)
+        subCircularProgress.trackColor = trackColor
+        subCircularProgress.set(colors: UIColor.white)
+        subCircularProgress.progress = Double(percent) / 100.0
+        storageBtn.addSubview(subCircularProgress)
+        subCircularProgress.center = storageBtn.center
+        
     }
     
     @IBAction func speedTestBtnTapped(_ sender: UIButton) {
@@ -83,5 +104,86 @@ class HomeViewController: UIViewController, URLSessionDelegate {
         UIGraphicsEndImageContext()
 
         return UIColor(patternImage: image!)
+    }
+}
+
+extension UIDevice {
+    func MBFormatter(_ bytes: Int64) -> String {
+        let formatter = ByteCountFormatter()
+        formatter.allowedUnits = ByteCountFormatter.Units.useMB
+        formatter.countStyle = ByteCountFormatter.CountStyle.decimal
+        formatter.includesUnit = false
+        return formatter.string(fromByteCount: bytes) as String
+    }
+    
+    //MARK: Get String Value
+    var totalDiskSpaceInGB:String {
+       return ByteCountFormatter.string(fromByteCount: totalDiskSpaceInBytes, countStyle: ByteCountFormatter.CountStyle.decimal)
+    }
+    
+    var freeDiskSpaceInGB:String {
+        return ByteCountFormatter.string(fromByteCount: freeDiskSpaceInBytes, countStyle: ByteCountFormatter.CountStyle.decimal)
+    }
+    
+    var usedDiskSpaceInGB:String {
+        return ByteCountFormatter.string(fromByteCount: usedDiskSpaceInBytes, countStyle: ByteCountFormatter.CountStyle.decimal)
+    }
+    
+    var totalDiskSpaceInMB:String {
+        return MBFormatter(totalDiskSpaceInBytes)
+    }
+    
+    var freeDiskSpaceInMB:String {
+        return MBFormatter(freeDiskSpaceInBytes)
+    }
+    
+    var usedDiskSpaceInMB:String {
+        return MBFormatter(usedDiskSpaceInBytes)
+    }
+    
+    //MARK: Get raw value
+    var totalDiskSpaceInBytes:Int64 {
+        guard let systemAttributes = try? FileManager.default.attributesOfFileSystem(forPath: NSHomeDirectory() as String),
+            let space = (systemAttributes[FileAttributeKey.systemSize] as? NSNumber)?.int64Value else { return 0 }
+        return space
+    }
+    
+    var freeDiskSpaceInBytes:Int64 {
+        if #available(iOS 11.0, *) {
+            if let space = try? URL(fileURLWithPath: NSHomeDirectory() as String).resourceValues(forKeys: [URLResourceKey.volumeAvailableCapacityForImportantUsageKey]).volumeAvailableCapacityForImportantUsage {
+                return space ?? 0
+            } else {
+                return 0
+            }
+        } else {
+            if let systemAttributes = try? FileManager.default.attributesOfFileSystem(forPath: NSHomeDirectory() as String),
+            let freeSpace = (systemAttributes[FileAttributeKey.systemFreeSize] as? NSNumber)?.int64Value {
+                return freeSpace
+            } else {
+                return 0
+            }
+        }
+    }
+    
+    var usedDiskSpaceInBytes:Int64 {
+       return totalDiskSpaceInBytes - freeDiskSpaceInBytes
+    }
+}
+
+extension UIColor {
+    convenience init(hex: String, alpha: CGFloat) {
+        var hexString = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+        if hexString.hasPrefix("#") {
+            hexString.remove(at: hexString.startIndex)
+        }
+        
+        var rgbValue: UInt64 = 0
+        Scanner(string: hexString).scanHexInt64(&rgbValue)
+        
+        let red = CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0
+        let green = CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0
+        let blue = CGFloat(rgbValue & 0x0000FF) / 255.0
+        
+        self.init(red: red, green: green, blue: blue, alpha: alpha)
     }
 }
