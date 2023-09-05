@@ -44,28 +44,15 @@ class CleanViewController: UIViewController {
         duplicatedPhotosBtn.layer.cornerRadius = 12
         clearBtn.layer.cornerRadius = 25
         
-        var temp: [UIImage] = []
-        var value = 0
         DispatchQueue.main.async {
             self.fetchScreenshotsAlbum()
             self.countAndSizeScreenshotsLb.text = "\(self.screenshotsCount) photo(s) | \(self.screenshotsSize)"
             
-            self.fetchAllPhotos { comparisonResults, hashArr, images in
-                self.comparisonResults = comparisonResults
+            self.fetchAllPhotos { hashArr, images in
+                //self.comparisonResults = comparisonResults
                 self.images = images
                 self.hashArr = hashArr
-                for i in 0 ..< self.comparisonResults.count - 1 {
-                    value = self.compareArrays(array1: self.comparisonResults[i], array2: self.comparisonResults[i + 1])
-                    if value > 0 && value <= 8 {
-                        print("giong \(i) \(i + 1) \(value)")
-                        temp = [images[i], images[i + 1]]
-                        CleanViewController.similarDataTable.append(temp)
-                        self.similarTotalSize += self.fileSize(of: images[i + 1])
-                        self.similarCount += 1
-                    } else {
-                        print("khac \(i) \(i + 1)")
-                    }
-                }
+                print(self.hashArr)
                 
                 var result: [[UIImage]] = []
                 var currentIndex = 0
@@ -94,7 +81,6 @@ class CleanViewController: UIViewController {
                     currentIndex += 1
                     if currentIndex == self.hashArr.count {
                         CleanViewController.duplicatedDataTable = result
-                        print(result)
                     }
                 }
             }
@@ -143,7 +129,9 @@ class CleanViewController: UIViewController {
             print("Album ảnh screenshots: \(screenshotsAlbum.localizedTitle ?? "")")
 
             // Tiến hành truy cập và xử lý các ảnh trong album
-            let (screenshotCount, totalSize) = fetchPhotos(from: screenshotsAlbum)
+            let (screenshotCount, totalSize) = fetchPhotos(from: screenshotsAlbum) { tempArr in
+                
+            }
             self.screenshotsCount = screenshotCount
             self.screenshotsSize = formatSize(totalSize)
         } else {
@@ -151,7 +139,7 @@ class CleanViewController: UIViewController {
         }
     }
     
-    func fetchPhotos(from album: PHAssetCollection) -> (Int, Int64) {
+    func fetchPhotos(from album: PHAssetCollection, completion: @escaping ([UIImage]) -> Void) -> (Int, Int64) {
         // Xác định loại ảnh cần truy vấn (ví dụ: chỉ ảnh tĩnh)
         let options = PHFetchOptions()
         options.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.image.rawValue)
@@ -414,12 +402,12 @@ class CleanViewController: UIViewController {
         return false
     }
     
-    func fetchAllPhotos(completion: @escaping ([[[Int]]], [String], [UIImage]) -> Void) {
+    func fetchAllPhotos(completion: @escaping ([String], [UIImage]) -> Void) {
         // Tạo một mảng để lưu trữ tất cả các ảnh
-        var arr: [[[Int]]] = []
         var hashArr: [String] = []
         var images: [UIImage] = []
-
+        var temp: [UIImage] = []
+        
         // Tạo một đối tượng PHImageManager để truy cập ảnh
         let imageManager = PHImageManager.default()
 
@@ -429,12 +417,12 @@ class CleanViewController: UIViewController {
 
         // Thực hiện truy vấn để lấy tất cả các ảnh
         let allPhotosResult = PHAsset.fetchAssets(with: .image, options: fetchOptions)
-
+        
         // Lặp qua tất cả các ảnh và truy cập chúng
         allPhotosResult.enumerateObjects { (asset, index, stop) in
             let requestOptions = PHImageRequestOptions()
             requestOptions.isSynchronous = true
-
+            
             // Lấy ảnh từ PHAsset
             imageManager.requestImage(for: asset, targetSize: CGSize(width: 200, height: 200), contentMode: .aspectFill, options: requestOptions, resultHandler: { (image, info) in
                 if let image = image {
@@ -446,9 +434,21 @@ class CleanViewController: UIViewController {
                     self.finalImage = self.convertTo64Levels(image: self.grayImage!)
                     self.grayValue = self.averageGrayValue(image: self.finalImage!)!
                     self.comparisonResult = self.compareGrayValues(image: self.finalImage!, averageValue: self.grayValue)!
-                    arr.append(self.comparisonResult)
-                    if arr.count == allPhotosResult.count {
-                        completion(arr, hashArr, images)
+                    self.comparisonResults.append(self.comparisonResult)
+                    if index > 0 {
+                        let value = self.compareArrays(array1: self.comparisonResults[self.comparisonResults.count - 1], array2: self.comparisonResults[self.comparisonResults.count - 2])
+                        if value > 0 && value <= 8 {
+                            print("giong")
+                            temp = [images[self.comparisonResults.count - 1], images[self.comparisonResults.count - 2]]
+                            CleanViewController.similarDataTable.append(temp)
+                            self.similarTotalSize += Int(asset.getAssetSize())
+                            self.similarCount += 1
+                        } else {
+                            print("khac")
+                        }
+                    }
+                    if self.comparisonResults.count == allPhotosResult.count {
+                        completion(hashArr, images)
                     }
                 }
             })

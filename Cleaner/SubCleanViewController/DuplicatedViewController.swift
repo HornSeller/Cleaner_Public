@@ -33,9 +33,7 @@ class DuplicatedViewController: UIViewController, UITableViewDelegate, UITableVi
 
         tableView.rowHeight = 0.2582 * view.frame.height
         
-        DispatchQueue.main.async {
-            self.dataTable = CleanViewController.duplicatedDataTable
-        }
+        self.dataTable = CleanViewController.duplicatedDataTable
     }
     
     @IBAction func backBtnTapped(_ sender: UIBarButtonItem) {
