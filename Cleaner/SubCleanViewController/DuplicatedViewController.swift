@@ -25,6 +25,7 @@ class DuplicatedViewController: UIViewController, UITableViewDelegate, UITableVi
     var dataTable: [[UIImage]] = []
     var images: [UIImage] = []
     var hashArr: [String] = []
+    public static var assetArr: [[PHAsset]] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +35,11 @@ class DuplicatedViewController: UIViewController, UITableViewDelegate, UITableVi
         tableView.rowHeight = 0.2582 * view.frame.height
         
         self.dataTable = CleanViewController.duplicatedDataTable
+        
+        self.navigationController?.navigationBar.titleTextAttributes = [
+                    NSAttributedString.Key.foregroundColor: UIColor.white,
+                    NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 20)
+                ]
     }
     
     @IBAction func backBtnTapped(_ sender: UIBarButtonItem) {

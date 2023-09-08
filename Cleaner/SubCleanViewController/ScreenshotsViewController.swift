@@ -11,12 +11,12 @@ import Kingfisher
 
 class ScreenshotsViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        data.count
+        dataCollection.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myCell", for: indexPath) as! ScreenshotsCollectionViewCell
-        cell.imageView.image = data[indexPath.row]
+        cell.imageView.image = dataCollection[indexPath.row]
         return cell
     }
 
@@ -40,11 +40,15 @@ class ScreenshotsViewController: UIViewController, UICollectionViewDelegateFlowL
     
     var isSelectAllEnabled = false
     var selectBarButton: UIBarButtonItem!
-    var data: [UIImage] = []
+    var dataCollection: [UIImage] = []
+    var selectedCell: [Int] = []
+    public static var assetArr: [PHAsset] = []
     @IBOutlet weak var collectionView: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        dataCollection = CleanViewController.screenshotDataTable
         
         selectBarButton = {
             let barButtonItem = UIBarButtonItem(title: "Select All", style: .plain, target: self, action: #selector(selectBtnTapped(_:)))
@@ -52,6 +56,11 @@ class ScreenshotsViewController: UIViewController, UICollectionViewDelegateFlowL
             return barButtonItem
         }()
         navigationItem.rightBarButtonItem = selectBarButton
+        
+        self.navigationController?.navigationBar.titleTextAttributes = [
+                    NSAttributedString.Key.foregroundColor: UIColor.white,
+                    NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 20)
+                ]
 
         collectionView.register(UINib(nibName: "ScreenshotsCollectionViewCell", bundle: .main), forCellWithReuseIdentifier: "myCell")
         collectionView.allowsMultipleSelection = true
@@ -70,9 +79,6 @@ class ScreenshotsViewController: UIViewController, UICollectionViewDelegateFlowL
         layout.sectionInset = UIEdgeInsets.init(top: margin, left: 16, bottom: margin, right: 16)
         collectionView.collectionViewLayout = layout
         
-        DispatchQueue.main.async {
-            self.collectionViewData()
-        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -94,63 +100,19 @@ class ScreenshotsViewController: UIViewController, UICollectionViewDelegateFlowL
         self.dismiss(animated: true)
     }
     
-    func collectionViewData() {
-        fetchScreenshotsAlbum { [weak self] imageURLs in
-            self?.data.append(contentsOf: imageURLs)
-            self?.collectionView.reloadData()
-        }
+    @IBAction func deleteBtnTapped(_ sender: UIButton) {
+        deleteImagesFromAssets(assets: ScreenshotsViewController.assetArr)
     }
     
-    func fetchScreenshotsAlbum(completion: @escaping ([UIImage]) -> Void) {
-        // Xác định loại album
-        let albumType = PHAssetCollectionType.smartAlbum
-        let albumSubtype = PHAssetCollectionSubtype.smartAlbumScreenshots
-
-        // Tìm kiếm album dựa trên loại và phụ loại
-        let albums = PHAssetCollection.fetchAssetCollections(with: albumType, subtype: albumSubtype, options: nil)
-
-        // Lấy album đầu tiên nếu có
-        if let screenshotsAlbum = albums.firstObject {
-            print("Album ảnh screenshots: \(screenshotsAlbum.localizedTitle ?? "")")
-
-            // Tiến hành truy cập và xử lý các ảnh trong album
-            fetchPhotos(from: screenshotsAlbum) { tempArr in
-                completion(tempArr)
-            }
-        } else {
-            print("Không tìm thấy album ảnh screenshots.")
-        }
-    }
-    
-    func fetchPhotos(from album: PHAssetCollection, completion: @escaping ([UIImage]) -> Void) {
-        var tempArr: [UIImage] = []
-        // Xác định loại ảnh cần truy vấn (ví dụ: chỉ ảnh tĩnh)
-        let options = PHFetchOptions()
-        options.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.image.rawValue)
-        
-        // Sắp xếp các ảnh theo thời gian chụp
-        options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
-        
-        // Truy vấn các ảnh trong album
-        let assets = PHAsset.fetchAssets(in: album, options: options)
-        
-        // Kích thước mới cho ảnh (giảm độ phân giải)
-        let targetSize = CGSize(width: 230, height: 230)
-        
-        // Lặp qua tất cả các ảnh và truy cập chúng
-        assets.enumerateObjects { (asset, index, stop) in
-            let requestOptions = PHImageRequestOptions()
-            requestOptions.isSynchronous = true
-
-            // Yêu cầu ảnh với kích thước giảm độ phân giải
-            PHImageManager.default().requestImage(for: asset, targetSize: targetSize, contentMode: .aspectFill, options: requestOptions, resultHandler: { (image, info) in
-                if let image = image {
-                    // Thêm ảnh vào mảng allPhotos
-                    tempArr.append(image)
-                }
-            })
-            if tempArr.count == assets.count {
-                completion(tempArr)
+    func deleteImagesFromAssets(assets: [PHAsset]) {
+        PHPhotoLibrary.shared().performChanges {
+            let assetsToDelete = NSArray(array: assets)
+            PHAssetChangeRequest.deleteAssets(assetsToDelete)
+        } completionHandler: { (success, error) in
+            if success {
+                print("Xoá ảnh thành công")
+            } else if let error = error {
+                print("Lỗi khi xoá ảnh: \(error.localizedDescription)")
             }
         }
     }

@@ -34,6 +34,11 @@ class SimilarViewController: UIViewController, UITableViewDataSource, UITableVie
         tableView.rowHeight = 0.32 * view.frame.height
         
         dataTable = CleanViewController.similarDataTable
+        
+        self.navigationController?.navigationBar.titleTextAttributes = [
+                    NSAttributedString.Key.foregroundColor: UIColor.white,
+                    NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 20)
+                ]
     }
     
     @IBAction func backBtnTapped(_ sender: UIBarButtonItem) {

@@ -242,8 +242,9 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pCO-G3-ZMw">
                                 <rect key="frame" x="0.0" y="44" width="393" height="808"/>
                                 <subviews>
-                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" delaysContentTouches="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="RQz-EO-OIm">
-                                        <rect key="frame" x="0.0" y="8" width="393" height="792"/>
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" delaysContentTouches="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="RQz-EO-OIm">
+                                        <rect key="frame" x="0.0" y="8" width="393" height="688"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="z3n-m1-EF3">
                                             <size key="itemSize" width="128" height="128"/>
@@ -257,14 +258,17 @@
                                             <outlet property="delegate" destination="YEH-4D-fe8" id="UXb-R9-1iF"/>
                                         </connections>
                                     </collectionView>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0lC-zg-EZq">
+                                        <rect key="frame" x="159" y="730" width="75" height="35"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                        <connections>
+                                            <action selector="deleteBtnTapped:" destination="YEH-4D-fe8" eventType="touchUpInside" id="psz-pm-QgS"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstItem="RQz-EO-OIm" firstAttribute="centerX" secondItem="pCO-G3-ZMw" secondAttribute="centerX" id="Dac-Eh-rvF"/>
-                                    <constraint firstItem="RQz-EO-OIm" firstAttribute="top" secondItem="pCO-G3-ZMw" secondAttribute="top" constant="8" id="Owr-IC-PM4"/>
-                                    <constraint firstItem="RQz-EO-OIm" firstAttribute="leading" secondItem="pCO-G3-ZMw" secondAttribute="leading" id="etp-I7-Jyc"/>
-                                    <constraint firstItem="RQz-EO-OIm" firstAttribute="centerY" secondItem="pCO-G3-ZMw" secondAttribute="centerY" id="ntf-5e-fy3"/>
-                                </constraints>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="7Qa-AV-Bu8"/>
@@ -278,6 +282,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Screenshots" style="editor" id="CMn-L9-GSI">
                         <barButtonItem key="leftBarButtonItem" image="chevron.down" catalog="system" style="plain" id="MPL-qN-TZT">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="backBtnTapped:" destination="YEH-4D-fe8" id="aP1-FQ-q6E"/>
                             </connections>
@@ -291,7 +296,7 @@
             </objects>
             <point key="canvasLocation" x="-295.41984732824426" y="2797.8873239436621"/>
         </scene>
-        <!--Similar View Controller-->
+        <!--Similar Photos-->
         <scene sceneID="RYd-ca-b1m">
             <objects>
                 <viewController id="UP2-24-ye0" customClass="SimilarViewController" customModule="Cleaner" customModuleProvider="target" sceneMemberID="viewController">
@@ -307,7 +312,7 @@
                                 <rect key="frame" x="0.0" y="44" width="393" height="808"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="T16-rJ-tgb">
-                                        <rect key="frame" x="0.0" y="112" width="393" height="688"/>
+                                        <rect key="frame" x="0.0" y="8" width="393" height="792"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
@@ -328,8 +333,9 @@
                             <constraint firstItem="ZrP-Uw-8x1" firstAttribute="centerX" secondItem="b4Z-Aj-92C" secondAttribute="centerX" id="xCi-mq-fhv"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="kmm-aa-od7">
+                    <navigationItem key="navigationItem" title="Similar Photos" id="kmm-aa-od7">
                         <barButtonItem key="leftBarButtonItem" image="chevron.down" catalog="system" style="plain" id="jMG-cP-omH">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="backBtnTapped:" destination="UP2-24-ye0" id="Vdl-Wb-eg9"/>
                             </connections>
@@ -829,7 +835,7 @@
             </objects>
             <point key="canvasLocation" x="465" y="2015"/>
         </scene>
-        <!--Duplicated View Controller-->
+        <!--Duplicated Photos-->
         <scene sceneID="4Ek-1v-kfL">
             <objects>
                 <viewController id="awk-Zn-OMc" customClass="DuplicatedViewController" customModule="Cleaner" customModuleProvider="target" sceneMemberID="viewController">
@@ -845,7 +851,7 @@
                                 <rect key="frame" x="0.0" y="44" width="393" height="808"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="1n4-4S-0Yr">
-                                        <rect key="frame" x="0.0" y="109" width="393" height="691"/>
+                                        <rect key="frame" x="0.0" y="8" width="393" height="792"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
@@ -866,8 +872,9 @@
                             <constraint firstItem="PS3-rr-xyu" firstAttribute="centerY" secondItem="6Z1-rH-H8A" secondAttribute="centerY" id="SCL-g3-Af0"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="3rM-Zs-3If">
+                    <navigationItem key="navigationItem" title="Duplicated Photos" id="3rM-Zs-3If">
                         <barButtonItem key="leftBarButtonItem" image="chevron.down" catalog="system" style="plain" id="RJu-Nd-uDG">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="backBtnTapped:" destination="awk-Zn-OMc" id="AQs-xt-m9e"/>
                             </connections>

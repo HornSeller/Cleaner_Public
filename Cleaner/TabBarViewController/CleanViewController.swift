@@ -31,11 +31,11 @@ class CleanViewController: UIViewController {
     var grayValue: Double = 0
     var comparisonResult: [[Int]] = []
     var comparisonResults: [[[Int]]] = []
-    var images: [UIImage] = []
     var similarTotalSize: Int = 0
-    var hashArr: [String] = []
+    var duplicatedTotalSize: Int = 0
     public static var similarDataTable: [[UIImage]] = []
     public static var duplicatedDataTable: [[UIImage]] = []
+    public static var screenshotDataTable: [UIImage] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,44 +48,52 @@ class CleanViewController: UIViewController {
             self.fetchScreenshotsAlbum()
             self.countAndSizeScreenshotsLb.text = "\(self.screenshotsCount) photo(s) | \(self.screenshotsSize)"
             
-            self.fetchAllPhotos { hashArr, images in
-                //self.comparisonResults = comparisonResults
-                self.images = images
-                self.hashArr = hashArr
-                print(self.hashArr)
-                
+            self.fetchAllPhotos { hashArr, images, assetArr in
                 var result: [[UIImage]] = []
+                var assetArrResult: [[PHAsset]] = []
                 var currentIndex = 0
                 var addedElement: [String] = []
                 
-                while currentIndex < self.hashArr.count {
-                    let currentString = self.hashArr[currentIndex]
+                while currentIndex < hashArr.count {
+                    let currentString = hashArr[currentIndex]
                     var currentGroup: [String] = [currentString]
+                    var currentAssetGroup: [PHAsset] = [assetArr[currentIndex]]
                     
-                    let currentImage = self.images[currentIndex]
+                    let currentImage = images[currentIndex]
                     var currentImageGroup: [UIImage] = [currentImage]
                     
                     var nextIndex = currentIndex + 1
-                    while nextIndex < self.hashArr.count {
-                        if self.hashArr[nextIndex] == currentString && !addedElement.contains(currentString) {
-                            currentGroup.append(self.hashArr[nextIndex])
-                            currentImageGroup.append(self.images[nextIndex])
+                    while nextIndex < hashArr.count {
+                        if hashArr[nextIndex] == currentString && !addedElement.contains(currentString) {
+                            currentGroup.append(hashArr[nextIndex])
+                            currentImageGroup.append(images[nextIndex])
+                            currentAssetGroup.append(assetArr[nextIndex])
                         }
                         nextIndex += 1
                     }
                     if currentGroup.count >= 2 {
                         result.append(currentImageGroup)
+                        assetArrResult.append(currentAssetGroup)
                         addedElement.append(currentString)
                     }
                     
                     currentIndex += 1
-                    if currentIndex == self.hashArr.count {
+                    if currentIndex == hashArr.count {
                         CleanViewController.duplicatedDataTable = result
+                        for i in 0 ..< assetArrResult.count {
+                            for j in 1 ..< assetArrResult[i].count {
+                                self.duplicatedCount += 1
+                                self.duplicatedTotalSize += Int(assetArrResult[i][j].getAssetSize())
+                            }
+                        }
+                        DuplicatedViewController.assetArr = assetArrResult
                     }
                 }
             }
             self.similarSize = self.formatSize(Int64(self.similarTotalSize))
             self.countAndSizeSimilarLb.text = "\(self.similarCount) photo(s) | \(self.similarSize)"
+            self.duplicatedSize = self.formatSize(Int64(self.duplicatedTotalSize))
+            self.countAndSizeDuplicatedLb.text = "\(self.duplicatedCount) photo(s) | \(self.duplicatedSize)"
         }
     }
     
@@ -129,17 +137,21 @@ class CleanViewController: UIViewController {
             print("Album ảnh screenshots: \(screenshotsAlbum.localizedTitle ?? "")")
 
             // Tiến hành truy cập và xử lý các ảnh trong album
-            let (screenshotCount, totalSize) = fetchPhotos(from: screenshotsAlbum) { tempArr in
-                
+            ScreenshotsViewController.assetArr = fetchPhotos(from: screenshotsAlbum) { tempArr, totalSize, screenshotCount in
+                CleanViewController.screenshotDataTable = tempArr
+                self.screenshotsCount = screenshotCount
+                self.screenshotsSize = self.formatSize(totalSize)
             }
-            self.screenshotsCount = screenshotCount
-            self.screenshotsSize = formatSize(totalSize)
+            
         } else {
             print("Không tìm thấy album ảnh screenshots.")
         }
     }
     
-    func fetchPhotos(from album: PHAssetCollection, completion: @escaping ([UIImage]) -> Void) -> (Int, Int64) {
+    func fetchPhotos(from album: PHAssetCollection, completion: @escaping ([UIImage], Int64, Int) -> Void) -> [PHAsset] {
+        var tempArr: [UIImage] = []
+        var assetArr: [PHAsset] = []
+        var imageAndAssetArr: [(image: UIImage, asset: PHAsset)] = []
         // Xác định loại ảnh cần truy vấn (ví dụ: chỉ ảnh tĩnh)
         let options = PHFetchOptions()
         options.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.image.rawValue)
@@ -150,22 +162,31 @@ class CleanViewController: UIViewController {
         // Truy vấn các ảnh trong album
         let assets = PHAsset.fetchAssets(in: album, options: options)
         
+        // Kích thước mới cho ảnh (giảm độ phân giải)
+        let targetSize = CGSize(width: 230, height: 230)
+        
         var totalSize: Int64 = 0
         
         // Lặp qua các ảnh và tính tổng dung lượng
         assets.enumerateObjects { (asset, index, stop) in
-            // Tính dung lượng của ảnh và cộng vào tổng
-            let assetSize = asset.getAssetSize()
-            totalSize += assetSize
-            
-            // Xử lý ảnh ở đây (ví dụ: lấy thông tin, hiển thị, ...)
-            print("Asset \(index + 1): \(asset.localIdentifier), Size: \(assetSize) bytes")
-            
+            let requestOptions = PHImageRequestOptions()
+            requestOptions.isSynchronous = true
+            assetArr.append(asset)
+            // Yêu cầu ảnh với kích thước giảm độ phân giải
+            PHImageManager.default().requestImage(for: asset, targetSize: targetSize, contentMode: .aspectFill, options: requestOptions, resultHandler: { (image, info) in
+                if let image = image {
+                    // Thêm ảnh vào mảng allPhotos
+                    tempArr.append(image)
+                    imageAndAssetArr.append((image, asset))
+                    totalSize += asset.getAssetSize()
+                }
+            })
+            if tempArr.count == assets.count {
+                completion(tempArr, totalSize, assets.count)
+            }
         }
         
-        let assetCount = assets.count
-        
-        return (assetCount, totalSize)
+        return assetArr
     }
     
     func resizeImage(image: UIImage, newSize: CGSize) -> UIImage? {
@@ -240,7 +261,6 @@ class CleanViewController: UIViewController {
         
         return UIImage(cgImage: grayImage)
     }
-
 
     func convertTo64Levels(image: UIImage) -> UIImage? {
         guard let cgImage = image.cgImage else {
@@ -402,11 +422,12 @@ class CleanViewController: UIViewController {
         return false
     }
     
-    func fetchAllPhotos(completion: @escaping ([String], [UIImage]) -> Void) {
+    func fetchAllPhotos(completion: @escaping ([String], [UIImage], [PHAsset]) -> Void) {
         // Tạo một mảng để lưu trữ tất cả các ảnh
         var hashArr: [String] = []
         var images: [UIImage] = []
         var temp: [UIImage] = []
+        var assetArr: [PHAsset] = []
         
         // Tạo một đối tượng PHImageManager để truy cập ảnh
         let imageManager = PHImageManager.default()
@@ -428,6 +449,7 @@ class CleanViewController: UIViewController {
                 if let image = image {
                     // Thêm ảnh vào mảng allPhotos
                     images.append(image)
+                    assetArr.append(asset)
                     hashArr.append(self.hashImage(image: image)!)
                     self.resizedImage = self.resizeTo8x8(image: self.resizeImage(image: image, newSize: CGSize(width: 100, height: 100))!)
                     self.grayImage = self.convertToGrayScale(image: self.resizedImage!)
@@ -448,7 +470,7 @@ class CleanViewController: UIViewController {
                         }
                     }
                     if self.comparisonResults.count == allPhotosResult.count {
-                        completion(hashArr, images)
+                        completion(hashArr, images, assetArr)
                     }
                 }
             })
