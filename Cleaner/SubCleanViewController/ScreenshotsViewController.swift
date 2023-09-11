@@ -25,6 +25,7 @@ class ScreenshotsViewController: UIViewController, UICollectionViewDelegateFlowL
         case view
         case select
     }
+    
     var mMode: Mode = .view {
         didSet {
             switch mMode {
@@ -49,7 +50,7 @@ class ScreenshotsViewController: UIViewController, UICollectionViewDelegateFlowL
         super.viewDidLoad()
         
         dataCollection = CleanViewController.screenshotDataTable
-        
+        print(ScreenshotsViewController.assetArr)
         selectBarButton = {
             let barButtonItem = UIBarButtonItem(title: "Select All", style: .plain, target: self, action: #selector(selectBtnTapped(_:)))
             barButtonItem.tintColor = .white
@@ -101,7 +102,44 @@ class ScreenshotsViewController: UIViewController, UICollectionViewDelegateFlowL
     }
     
     @IBAction func deleteBtnTapped(_ sender: UIButton) {
-        deleteImagesFromAssets(assets: ScreenshotsViewController.assetArr)
+        //deleteImagesFromAssets(assets: ScreenshotsViewController.assetArr)
+        var indexArr: [Int] = []
+        var deleteImages: [PHAsset] = []
+        if let selectedCell = collectionView.indexPathsForSelectedItems {
+            for indexPath in selectedCell.reversed() {
+                indexArr.append(indexPath.row)
+            }
+            
+            indexArr.sort(by: >)
+            print(indexArr)
+            
+            if indexArr.count == 0 {
+                let alert = UIAlertController(title: "Please choose at least 1 Photo to delete", message: nil, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .cancel))
+                self.present(alert, animated: true)
+            }
+            
+            for index in indexArr {
+                deleteImages.append(ScreenshotsViewController.assetArr[index])
+            }
+            PHPhotoLibrary.shared().performChanges {
+                let assetsToDelete = NSArray(array: deleteImages)
+                PHAssetChangeRequest.deleteAssets(assetsToDelete)
+            } completionHandler: { (success, error) in
+                if success {
+                    for index in indexArr {
+                        CleanViewController.screenshotDataTable.remove(at: index)
+                        self.dataCollection.remove(at: index)
+                    }
+                    DispatchQueue.main.async {
+                        self.collectionView.reloadData()
+                    }
+                    print(self.dataCollection.count)
+                } else if let error = error {
+                    print("Lỗi khi xoá ảnh: \(error.localizedDescription)")
+                }
+            }
+        }
     }
     
     func deleteImagesFromAssets(assets: [PHAsset]) {

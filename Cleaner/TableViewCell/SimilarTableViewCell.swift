@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Photos
 
 class SimilarTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -14,8 +15,21 @@ class SimilarTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollect
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myCell", for: indexPath) as! SimilarCollectionViewCell
-        cell.imageView.image = dataCollection[indexPath.row]
+        cell.imageView.image = dataCollection[indexPath.row].image
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let selectedImage = dataCollection[indexPath.row]
+        SimilarViewController.selectedImages.insert(selectedImage)
+        delegate?.didSelectImage(selectedImage)
+    }
+
+        // And when an image is deselected:
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        let deselectedImage = dataCollection[indexPath.row]
+        SimilarViewController.selectedImages.remove(deselectedImage)
+        delegate?.didDeselectImage(deselectedImage)
     }
     
     enum Mode {
@@ -39,7 +53,8 @@ class SimilarTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollect
     @IBOutlet weak var selectAllBtn: UIButton!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var subView: UIView!
-    var dataCollection: [UIImage] = []
+    weak var delegate: ImageSelectionDelegate?
+    var dataCollection: [(image: UIImage, asset: PHAsset)] = []
     var isSelectedAll = false
     
     override func awakeFromNib() {
@@ -82,4 +97,9 @@ class SimilarTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollect
         
     }
     
+}
+
+protocol ImageSelectionDelegate: AnyObject {
+    func didSelectImage(_ image: UIImage)
+    func didDeselectImage(_ image: UIImage)
 }

@@ -8,7 +8,7 @@
 import UIKit
 import Photos
 
-class SimilarViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class SimilarViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ImageSelectionDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         dataTable.count
     }
@@ -19,13 +19,22 @@ class SimilarViewController: UIViewController, UITableViewDataSource, UITableVie
         cell.collectionView.reloadData()
         return cell
     }
+    
+    func didSelectImage(_ image: UIImage) {
+        SimilarViewController.selectedImages.insert(image)
+    }
+
+    func didDeselectImage(_ image: UIImage) {
+        SimilarViewController.selectedImages.remove(image)
+    }
 
     @IBOutlet weak var tableView: UITableView!
     
     
     var comparisonResults: [[[Int]]] = []
     var images: [UIImage] = []
-    var dataTable: [[UIImage]] = []
+    var dataTable: [[(image: UIImage, asset: PHAsset)]] = []
+    public static var selectedImages: Set<UIImage> = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,4 +55,7 @@ class SimilarViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     
+    @IBAction func btn(_ sender: Any) {
+        print(SimilarViewController.selectedImages)
+    }
 }
