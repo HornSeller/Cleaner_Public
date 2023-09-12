@@ -32,7 +32,6 @@ class SimilarViewController: UIViewController, UITableViewDataSource, UITableVie
 
     @IBOutlet weak var tableView: UITableView!
     
-    var indexPathsToDelete: [IndexPath] = []
     var comparisonResults: [[[Int]]] = []
     var images: [UIImage] = []
     var dataTable: [[ImageAssetPair]] = []
@@ -57,6 +56,7 @@ class SimilarViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     @IBAction func btn(_ sender: Any) {
+        var indexPathsToDelete: [IndexPath] = []
         //print(SimilarViewController.selectedImageAssets)
         for (section, sectionImages) in dataTable.enumerated() {
             for (row, imageAssetPair) in sectionImages.enumerated() {
@@ -69,13 +69,10 @@ class SimilarViewController: UIViewController, UITableViewDataSource, UITableVie
                 }
             }
         }
-        
-        for indexPath in indexPathsToDelete {
+        print("\(indexPathsToDelete) a")
+        for indexPath in indexPathsToDelete.reversed() {
             dataTable.remove(at: indexPath.section)
         }
-        print(dataTable.count)
-        tableView.beginUpdates()
-        tableView.deleteRows(at: indexPathsToDelete, with: .automatic)
-        tableView.endUpdates()
+        tableView.reloadData()
     }
 }
