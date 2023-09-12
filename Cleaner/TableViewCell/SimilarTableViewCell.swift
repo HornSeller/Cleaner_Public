@@ -20,16 +20,22 @@ class SimilarTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollect
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let selectedImage = dataCollection[indexPath.row]
-        SimilarViewController.selectedImages.insert(selectedImage)
-        delegate?.didSelectImage(selectedImage)
+        let selectedImage = dataCollection[indexPath.row].image
+        let selectedAsset = dataCollection[indexPath.row].asset
+        let pair = ImageAssetPair(image: selectedImage, asset: selectedAsset)
+        SimilarViewController.selectedImageAssets.append(pair)
+        delegate?.didSelectImage(pair)
     }
 
-        // And when an image is deselected:
+    // And when an image is deselected:
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        let deselectedImage = dataCollection[indexPath.row]
-        SimilarViewController.selectedImages.remove(deselectedImage)
-        delegate?.didDeselectImage(deselectedImage)
+        let deselectedImage = dataCollection[indexPath.row].image
+        let deselectedAsset = dataCollection[indexPath.row].asset
+        let pairToRemove = ImageAssetPair(image: deselectedImage, asset: deselectedAsset)
+        if let index = SimilarViewController.selectedImageAssets.firstIndex(where: { $0 == pairToRemove }) {
+            SimilarViewController.selectedImageAssets.remove(at: index)
+        }
+        delegate?.didDeselectImage(pairToRemove)
     }
     
     enum Mode {
@@ -54,7 +60,7 @@ class SimilarTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollect
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var subView: UIView!
     weak var delegate: ImageSelectionDelegate?
-    var dataCollection: [(image: UIImage, asset: PHAsset)] = []
+    var dataCollection: [ImageAssetPair] = []
     var isSelectedAll = false
     
     override func awakeFromNib() {
@@ -99,7 +105,17 @@ class SimilarTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollect
     
 }
 
+struct ImageAssetPair: Equatable {
+    let image: UIImage
+    let asset: PHAsset
+    
+    static func == (lhs: ImageAssetPair, rhs: ImageAssetPair) -> Bool {
+        // So sánh các thuộc tính của cặp (UIImage, PHAsset)
+        return lhs.image == rhs.image && lhs.asset == rhs.asset
+    }
+}
+
 protocol ImageSelectionDelegate: AnyObject {
-    func didSelectImage(_ image: UIImage)
-    func didDeselectImage(_ image: UIImage)
+    func didSelectImage(_ imageAssetPair: ImageAssetPair)
+    func didDeselectImage(_ imageAssetPair: ImageAssetPair)
 }

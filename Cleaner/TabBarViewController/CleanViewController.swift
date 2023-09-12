@@ -33,7 +33,7 @@ class CleanViewController: UIViewController {
     var comparisonResults: [[[Int]]] = []
     var similarTotalSize: Int = 0
     var duplicatedTotalSize: Int = 0
-    public static var similarDataTable: [[(UIImage, PHAsset)]] = []
+    public static var similarDataTable: [[ImageAssetPair]] = []
     public static var duplicatedDataTable: [[UIImage]] = []
     public static var screenshotDataTable: [UIImage] = []
     
@@ -426,7 +426,7 @@ class CleanViewController: UIViewController {
         // Tạo một mảng để lưu trữ tất cả các ảnh
         var hashArr: [String] = []
         var images: [UIImage] = []
-        var temp: [(UIImage, PHAsset)] = []
+        var temp: [ImageAssetPair] = []
         var assetArr: [PHAsset] = []
         
         // Tạo một đối tượng PHImageManager để truy cập ảnh
@@ -461,7 +461,7 @@ class CleanViewController: UIViewController {
                         let value = self.compareArrays(array1: self.comparisonResults[index], array2: self.comparisonResults[index - 1])
                         if value > 0 && value <= 8 {
                             print("giong")
-                            temp = [(images[index], allPhotosResult[index]), (images[index - 1], allPhotosResult[index - 1])]
+                            temp = [ImageAssetPair(image: images[index], asset: allPhotosResult[index]), ImageAssetPair(image: images[index - 1], asset: allPhotosResult[index - 1])]
                             CleanViewController.similarDataTable.append(temp)
                             self.similarTotalSize += Int(asset.getAssetSize())
                             self.similarCount += 1
