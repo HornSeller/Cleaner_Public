@@ -14,7 +14,7 @@ class DuplicatedTableViewCell: UITableViewCell, UICollectionViewDelegate, UIColl
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "duplicatedCell", for: indexPath) as! DuplicatedCollectionViewCell
-        cell.imageView.image = dataTable[indexPath.row]
+        cell.imageView.image = dataTable[indexPath.row].image
         return cell
     }
     
@@ -40,7 +40,7 @@ class DuplicatedTableViewCell: UITableViewCell, UICollectionViewDelegate, UIColl
     @IBOutlet weak var selectAllBtn: UIButton!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var subView: UIView!
-    var dataTable: [UIImage] = []
+    var dataTable: [ImageAssetPair] = []
     var isSelectedAll = false
     
     override func awakeFromNib() {

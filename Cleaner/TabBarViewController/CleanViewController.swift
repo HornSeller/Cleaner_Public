@@ -34,7 +34,7 @@ class CleanViewController: UIViewController {
     var similarTotalSize: Int = 0
     var duplicatedTotalSize: Int = 0
     public static var similarDataTable: [[ImageAssetPair]] = []
-    public static var duplicatedDataTable: [[UIImage]] = []
+    public static var duplicatedDataTable: [[ImageAssetPair]] = []
     public static var screenshotDataTable: [UIImage] = []
     
     override func viewDidLoad() {
@@ -48,45 +48,40 @@ class CleanViewController: UIViewController {
             self.fetchScreenshotsAlbum()
             self.countAndSizeScreenshotsLb.text = "\(self.screenshotsCount) photo(s) | \(self.screenshotsSize)"
             
-            self.fetchAllPhotos { hashArr, images, assetArr in
-                var result: [[UIImage]] = []
-                var assetArrResult: [[PHAsset]] = []
+            self.fetchAllPhotos { hashArr, imageAndAssetArr in
+                var result: [[ImageAssetPair]] = []
                 var currentIndex = 0
                 var addedElement: [String] = []
                 
                 while currentIndex < hashArr.count {
                     let currentString = hashArr[currentIndex]
                     var currentGroup: [String] = [currentString]
-                    var currentAssetGroup: [PHAsset] = [assetArr[currentIndex]]
                     
-                    let currentImage = images[currentIndex]
-                    var currentImageGroup: [UIImage] = [currentImage]
+                    let currentImageAndAsset = imageAndAssetArr[currentIndex]
+                    var currentImageAndAssetGroup: [ImageAssetPair] = [currentImageAndAsset]
                     
                     var nextIndex = currentIndex + 1
                     while nextIndex < hashArr.count {
                         if hashArr[nextIndex] == currentString && !addedElement.contains(currentString) {
                             currentGroup.append(hashArr[nextIndex])
-                            currentImageGroup.append(images[nextIndex])
-                            currentAssetGroup.append(assetArr[nextIndex])
+                            currentImageAndAssetGroup.append(imageAndAssetArr[nextIndex])
                         }
                         nextIndex += 1
                     }
                     if currentGroup.count >= 2 {
-                        result.append(currentImageGroup)
-                        assetArrResult.append(currentAssetGroup)
+                        result.append(currentImageAndAssetGroup)
                         addedElement.append(currentString)
                     }
                     
                     currentIndex += 1
                     if currentIndex == hashArr.count {
                         CleanViewController.duplicatedDataTable = result
-                        for i in 0 ..< assetArrResult.count {
-                            for j in 1 ..< assetArrResult[i].count {
+                        for i in 0 ..< result.count {
+                            for j in 1 ..< result[i].count {
                                 self.duplicatedCount += 1
-                                self.duplicatedTotalSize += Int(assetArrResult[i][j].getAssetSize())
+                                self.duplicatedTotalSize += Int(result[i][j].asset.getAssetSize())
                             }
                         }
-                        DuplicatedViewController.assetArr = assetArrResult
                     }
                 }
             }
@@ -422,12 +417,11 @@ class CleanViewController: UIViewController {
         return false
     }
     
-    func fetchAllPhotos(completion: @escaping ([String], [UIImage], [PHAsset]) -> Void) {
+    func fetchAllPhotos(completion: @escaping ([String], [ImageAssetPair]) -> Void) {
         // Tạo một mảng để lưu trữ tất cả các ảnh
         var hashArr: [String] = []
-        var images: [UIImage] = []
+        var imageAndAssetArr: [ImageAssetPair] = []
         var temp: [ImageAssetPair] = []
-        var assetArr: [PHAsset] = []
         
         // Tạo một đối tượng PHImageManager để truy cập ảnh
         let imageManager = PHImageManager.default()
@@ -448,10 +442,9 @@ class CleanViewController: UIViewController {
             imageManager.requestImage(for: asset, targetSize: CGSize(width: 200, height: 200), contentMode: .aspectFill, options: requestOptions, resultHandler: { (image, info) in
                 if let image = image {
                     // Thêm ảnh vào mảng allPhotos
-                    images.append(image)
-                    assetArr.append(asset)
+                    imageAndAssetArr.append(ImageAssetPair(image: image, asset: asset))
                     hashArr.append(self.hashImage(image: image)!)
-                    self.resizedImage = self.resizeTo8x8(image: self.resizeImage(image: image, newSize: CGSize(width: 100, height: 100))!)
+                    self.resizedImage = self.resizeTo8x8(image: image)
                     self.grayImage = self.convertToGrayScale(image: self.resizedImage!)
                     self.finalImage = self.convertTo64Levels(image: self.grayImage!)
                     self.grayValue = self.averageGrayValue(image: self.finalImage!)!
@@ -460,8 +453,8 @@ class CleanViewController: UIViewController {
                     if index > 0 {
                         let value = self.compareArrays(array1: self.comparisonResults[index], array2: self.comparisonResults[index - 1])
                         if value > 0 && value <= 8 {
-                            print("giong")
-                            temp = [ImageAssetPair(image: images[index], asset: allPhotosResult[index]), ImageAssetPair(image: images[index - 1], asset: allPhotosResult[index - 1])]
+                            print("giong \(value)")
+                            temp = [imageAndAssetArr[index], imageAndAssetArr[index - 1]]
                             CleanViewController.similarDataTable.append(temp)
                             self.similarTotalSize += Int(asset.getAssetSize())
                             self.similarCount += 1
@@ -470,7 +463,7 @@ class CleanViewController: UIViewController {
                         }
                     }
                     if self.comparisonResults.count == allPhotosResult.count {
-                        completion(hashArr, images, assetArr)
+                        completion(hashArr, imageAndAssetArr)
                     }
                 }
             })

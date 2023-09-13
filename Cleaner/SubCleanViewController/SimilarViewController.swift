@@ -58,7 +58,16 @@ class SimilarViewController: UIViewController, UITableViewDataSource, UITableVie
     @IBAction func btn(_ sender: Any) {
         var indexPathsToDelete: [IndexPath] = []
         var assetToDelete: [PHAsset] = []
+        var sectionToDelete: [Int] = []
         //print(SimilarViewController.selectedImageAssets)
+        
+        if SimilarViewController.selectedImageAssets.count == 0 {
+            let alert = UIAlertController(title: "Please choose at least 1 Photo to delete", message: nil, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            self.present(alert, animated: true)
+            return
+        }
+        
         for (section, sectionImages) in dataTable.enumerated() {
             for (row, imageAssetPair) in sectionImages.enumerated() {
                 if SimilarViewController.selectedImageAssets.contains(imageAssetPair) {
@@ -72,9 +81,7 @@ class SimilarViewController: UIViewController, UITableViewDataSource, UITableVie
             }
         }
         print("\(indexPathsToDelete) a")
-        for indexPath in indexPathsToDelete.reversed() {
-            dataTable.remove(at: indexPath.section)
-        }
+        
         
         PHPhotoLibrary.shared().performChanges {
             let assetsToDelete = NSArray(array: assetToDelete)
@@ -82,11 +89,32 @@ class SimilarViewController: UIViewController, UITableViewDataSource, UITableVie
         } completionHandler: { (success, error) in
             if success {
                 print("Xoá ảnh thành công")
+                for indexPath in indexPathsToDelete.reversed() {
+                    if sectionToDelete.contains(indexPath.section) {
+                        continue
+                    }
+                    sectionToDelete.append(indexPath.section)
+                    self.dataTable.remove(at: indexPath.section)
+                    CleanViewController.similarDataTable.remove(at: indexPath.section)
+                }
+                DispatchQueue.main.async {
+                    self.tableView.reloadDataAndPerformCustomLogic()
+                }
             } else if let error = error {
                 print("Lỗi khi xoá ảnh: \(error.localizedDescription)")
             }
         }
+    }
+}
 
-        tableView.reloadData()
+extension UITableView {
+    func reloadDataAndPerformCustomLogic() {
+        // Thực hiện các tác vụ tùy chỉnh sau khi gọi reloadData()
+        
+        // Ví dụ: In ra thông báo sau khi reloadData()
+        SimilarViewController.selectedImageAssets = []
+        
+        // Gọi reloadData() để cập nhật dữ liệu của collectionView
+        reloadData()
     }
 }

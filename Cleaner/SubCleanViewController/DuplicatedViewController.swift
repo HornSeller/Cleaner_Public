@@ -22,10 +22,9 @@ class DuplicatedViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     @IBOutlet weak var tableView: UITableView!
-    var dataTable: [[UIImage]] = []
+    var dataTable: [[ImageAssetPair]] = []
     var images: [UIImage] = []
     var hashArr: [String] = []
-    public static var assetArr: [[PHAsset]] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()

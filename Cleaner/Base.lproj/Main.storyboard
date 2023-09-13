@@ -259,10 +259,10 @@
                                         </connections>
                                     </collectionView>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0lC-zg-EZq">
-                                        <rect key="frame" x="159" y="730" width="75" height="35"/>
+                                        <rect key="frame" x="160" y="730" width="74" height="35"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Delete"/>
                                         <connections>
                                             <action selector="deleteBtnTapped:" destination="YEH-4D-fe8" eventType="touchUpInside" id="psz-pm-QgS"/>
                                         </connections>
@@ -321,10 +321,10 @@
                                         </connections>
                                     </tableView>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yuA-Ty-zxy">
-                                        <rect key="frame" x="168" y="753" width="75" height="35"/>
+                                        <rect key="frame" x="160" y="753" width="74" height="35"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Delete"/>
                                         <connections>
                                             <action selector="btn:" destination="UP2-24-ye0" eventType="touchUpInside" id="abv-Yu-rnx"/>
                                         </connections>
