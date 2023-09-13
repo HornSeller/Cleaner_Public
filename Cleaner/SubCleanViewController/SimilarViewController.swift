@@ -57,6 +57,7 @@ class SimilarViewController: UIViewController, UITableViewDataSource, UITableVie
     
     @IBAction func btn(_ sender: Any) {
         var indexPathsToDelete: [IndexPath] = []
+        var assetToDelete: [PHAsset] = []
         //print(SimilarViewController.selectedImageAssets)
         for (section, sectionImages) in dataTable.enumerated() {
             for (row, imageAssetPair) in sectionImages.enumerated() {
@@ -65,6 +66,7 @@ class SimilarViewController: UIViewController, UITableViewDataSource, UITableVie
                     // thêm index path của cell tương ứng vào mảng indexPathsToDelete.
                     let indexPath = IndexPath(row: row, section: section)
                     indexPathsToDelete.append(indexPath)
+                    assetToDelete.append(imageAssetPair.asset)
                     print("\(row) \(section)")
                 }
             }
@@ -73,6 +75,18 @@ class SimilarViewController: UIViewController, UITableViewDataSource, UITableVie
         for indexPath in indexPathsToDelete.reversed() {
             dataTable.remove(at: indexPath.section)
         }
+        
+        PHPhotoLibrary.shared().performChanges {
+            let assetsToDelete = NSArray(array: assetToDelete)
+            PHAssetChangeRequest.deleteAssets(assetsToDelete)
+        } completionHandler: { (success, error) in
+            if success {
+                print("Xoá ảnh thành công")
+            } else if let error = error {
+                print("Lỗi khi xoá ảnh: \(error.localizedDescription)")
+            }
+        }
+
         tableView.reloadData()
     }
 }
