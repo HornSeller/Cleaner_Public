@@ -23,7 +23,7 @@ class SimilarTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollect
         let selectedImage = dataCollection[indexPath.row].image
         let selectedAsset = dataCollection[indexPath.row].asset
         let pair = ImageAssetPair(image: selectedImage, asset: selectedAsset)
-        SimilarViewController.selectedImageAssets.append(pair)
+        SimilarViewController.selectedSimilarImageAssets.append(pair)
         delegate?.didSelectImage(pair)
     }
 
@@ -32,8 +32,8 @@ class SimilarTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollect
         let deselectedImage = dataCollection[indexPath.row].image
         let deselectedAsset = dataCollection[indexPath.row].asset
         let pairToRemove = ImageAssetPair(image: deselectedImage, asset: deselectedAsset)
-        if let index = SimilarViewController.selectedImageAssets.firstIndex(where: { $0 == pairToRemove }) {
-            SimilarViewController.selectedImageAssets.remove(at: index)
+        if let index = SimilarViewController.selectedSimilarImageAssets.firstIndex(where: { $0 == pairToRemove }) {
+            SimilarViewController.selectedSimilarImageAssets.remove(at: index)
         }
         delegate?.didDeselectImage(pairToRemove)
     }

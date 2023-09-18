@@ -18,6 +18,25 @@ class DuplicatedTableViewCell: UITableViewCell, UICollectionViewDelegate, UIColl
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let selectedImage = dataTable[indexPath.row].image
+        let selectedAsset = dataTable[indexPath.row].asset
+        let pair = ImageAssetPair(image: selectedImage, asset: selectedAsset)
+        DuplicatedViewController.selectedDuplicatedImageAssets.append(pair)
+        delegate?.didSelectImage(pair)
+    }
+
+    // And when an image is deselected:
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        let deselectedImage = dataTable[indexPath.row].image
+        let deselectedAsset = dataTable[indexPath.row].asset
+        let pairToRemove = ImageAssetPair(image: deselectedImage, asset: deselectedAsset)
+        if let index = DuplicatedViewController.selectedDuplicatedImageAssets.firstIndex(where: { $0 == pairToRemove }) {
+            DuplicatedViewController.selectedDuplicatedImageAssets.remove(at: index)
+        }
+        delegate?.didDeselectImage(pairToRemove)
+    }
+    
     enum Mode {
         case view
         case select
@@ -41,6 +60,7 @@ class DuplicatedTableViewCell: UITableViewCell, UICollectionViewDelegate, UIColl
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var subView: UIView!
     var dataTable: [ImageAssetPair] = []
+    weak var delegate: ImageSelectionDelegate?
     var isSelectedAll = false
     
     override func awakeFromNib() {

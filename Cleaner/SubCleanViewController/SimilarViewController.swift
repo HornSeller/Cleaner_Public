@@ -10,12 +10,12 @@ import Photos
 
 class SimilarViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ImageSelectionDelegate {
     func didSelectImage(_ imageAssetPair: ImageAssetPair) {
-        SimilarViewController.selectedImageAssets.append(imageAssetPair)
+        SimilarViewController.selectedSimilarImageAssets.append(imageAssetPair)
     }
     
     func didDeselectImage(_ imageAssetPair: ImageAssetPair) {
-        if let index = SimilarViewController.selectedImageAssets.firstIndex(where: { $0 == imageAssetPair }) {
-            SimilarViewController.selectedImageAssets.remove(at: index)
+        if let index = SimilarViewController.selectedSimilarImageAssets.firstIndex(where: { $0 == imageAssetPair }) {
+            SimilarViewController.selectedSimilarImageAssets.remove(at: index)
         }
     }
     
@@ -35,7 +35,7 @@ class SimilarViewController: UIViewController, UITableViewDataSource, UITableVie
     var comparisonResults: [[[Int]]] = []
     var images: [UIImage] = []
     var dataTable: [[ImageAssetPair]] = []
-    public static var selectedImageAssets: [ImageAssetPair] = []
+    public static var selectedSimilarImageAssets: [ImageAssetPair] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,13 +55,13 @@ class SimilarViewController: UIViewController, UITableViewDataSource, UITableVie
         self.dismiss(animated: true)
     }
     
-    @IBAction func btn(_ sender: Any) {
+    @IBAction func deleteBtnTapped(_ sender: Any) {
         var indexPathsToDelete: [IndexPath] = []
         var assetToDelete: [PHAsset] = []
         var sectionToDelete: [Int] = []
         //print(SimilarViewController.selectedImageAssets)
         
-        if SimilarViewController.selectedImageAssets.count == 0 {
+        if SimilarViewController.selectedSimilarImageAssets.count == 0 {
             let alert = UIAlertController(title: "Please choose at least 1 Photo to delete", message: nil, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default))
             self.present(alert, animated: true)
@@ -70,7 +70,7 @@ class SimilarViewController: UIViewController, UITableViewDataSource, UITableVie
         
         for (section, sectionImages) in dataTable.enumerated() {
             for (row, imageAssetPair) in sectionImages.enumerated() {
-                if SimilarViewController.selectedImageAssets.contains(imageAssetPair) {
+                if SimilarViewController.selectedSimilarImageAssets.contains(imageAssetPair) {
                     // Nếu cặp (UIImage, PHAsset) nằm trong selectedImageAssets,
                     // thêm index path của cell tương ứng vào mảng indexPathsToDelete.
                     let indexPath = IndexPath(row: row, section: section)
@@ -81,7 +81,6 @@ class SimilarViewController: UIViewController, UITableViewDataSource, UITableVie
             }
         }
         print("\(indexPathsToDelete) a")
-        
         
         PHPhotoLibrary.shared().performChanges {
             let assetsToDelete = NSArray(array: assetToDelete)
@@ -112,7 +111,8 @@ extension UITableView {
         // Thực hiện các tác vụ tùy chỉnh sau khi gọi reloadData()
         
         // Ví dụ: In ra thông báo sau khi reloadData()
-        SimilarViewController.selectedImageAssets = []
+        SimilarViewController.selectedSimilarImageAssets = []
+        DuplicatedViewController.selectedDuplicatedImageAssets = []
         
         // Gọi reloadData() để cập nhật dữ liệu của collectionView
         reloadData()
