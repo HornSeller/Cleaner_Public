@@ -100,7 +100,6 @@ class SimilarTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollect
         
         let cell = collectionView.cellForItem(at: IndexPath(item: 1, section: 0)) as? SimilarCollectionViewCell
         cell?.isSelected = isSelectedAll
-        
     }
     
 }

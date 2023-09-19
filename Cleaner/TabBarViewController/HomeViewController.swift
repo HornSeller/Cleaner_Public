@@ -11,15 +11,12 @@ import KDCircularProgress
 
 class HomeViewController: UIViewController, URLSessionDelegate {
 
-    @IBOutlet weak var totalStorageLb: UILabel!
-    @IBOutlet weak var usedStorageLb: UILabel!
-    @IBOutlet weak var percentLb2: UILabel!
+    @IBOutlet weak var speedTestBtn: UIButton!
+    @IBOutlet weak var compressVideoBtn: UIButton!
+    @IBOutlet weak var privateMediaBtn: UIButton!
+    @IBOutlet weak var privateBrowserBtn: UIButton!
     @IBOutlet weak var percentLb: UILabel!
     @IBOutlet weak var storageLb: UILabel!
-    @IBOutlet weak var batteryChartBtn: UIButton!
-    @IBOutlet weak var storageBtn: UIButton!
-    @IBOutlet weak var speedTestBtn: UIButton!
-    @IBOutlet weak var compressBtn: UIButton!
     
     public static var width: CGFloat?
     
@@ -34,10 +31,10 @@ class HomeViewController: UIViewController, URLSessionDelegate {
         // Do any additional setup after loading the view.
         HomeViewController.width = view.frame.width
         
-        batteryChartBtn.layer.cornerRadius = 12
-        storageBtn.layer.cornerRadius = 12
-        compressBtn.layer.cornerRadius = 12
-        speedTestBtn.layer.cornerRadius = 12
+        privateBrowserBtn.layer.cornerRadius = 14
+        privateMediaBtn.layer.cornerRadius = 14
+        compressVideoBtn.layer.cornerRadius = 14
+        speedTestBtn.layer.cornerRadius = 14
         
         let totalDiskSpace = UIDevice.current.totalDiskSpaceInGB
         let usedDiskSpace = UIDevice.current.usedDiskSpaceInGB
@@ -49,9 +46,6 @@ class HomeViewController: UIViewController, URLSessionDelegate {
         let x = (Double(UIDevice.current.usedDiskSpaceInBytes) / Double(UIDevice.current.totalDiskSpaceInBytes)) * 100
         let percent = Int(round(x))
         percentLb.text = "\(percent)%"
-        percentLb2.text = "\(percent)%"
-        usedStorageLb.text = "\(usedDiskSpace1)"
-        totalStorageLb.text = "/\(totalDiskSpace1)GB"
         
         let circularProgressWidth: CGFloat = 0.62 * view.frame.width
         let circularProgressFrame = CGRect(x: (view.frame.width - circularProgressWidth) / 2, y: view.frame.height * 3.5 / 12 - circularProgressWidth / 2, width: circularProgressWidth, height: circularProgressWidth)
@@ -74,29 +68,10 @@ class HomeViewController: UIViewController, URLSessionDelegate {
         //circularProgress.progress = Double(percent) / 100.0
         view.addSubview(circularProgress)
         circularProgress.animate(toAngle: Double(percent) / 100.0 * 360, duration: 1, completion: nil)
-        
-        let subCircularProgressWidth: CGFloat = 0.28244 * view.frame.width
-        let subCircularProgress = KDCircularProgress(frame: CGRect(x: view.frame.width * 0.5954, y: view.frame.height * 0.649, width: subCircularProgressWidth, height: subCircularProgressWidth))
-        print(storageBtn.frame.width)
-        subCircularProgress.startAngle = -90
-        subCircularProgress.progressThickness = 0.32
-        subCircularProgress.trackThickness = 0.5
-        subCircularProgress.clockwise = false
-        subCircularProgress.gradientRotateSpeed = 2
-        subCircularProgress.roundedCorners = true
-        subCircularProgress.glowAmount = 0.5
-        let trackColor = UIColor(hex: "#ffffff", alpha: 0.1)
-        subCircularProgress.trackColor = trackColor
-        subCircularProgress.set(colors: UIColor.white)
-        //subCircularProgress.progress = Double(percent) / 100.0
-        view.addSubview(subCircularProgress)
-        //subCircularProgress.center = storageBtn.center
-        subCircularProgress.animate(toAngle: Double(percent) / 100.0 * 360, duration: 1, completion: nil)
-        
     }
     
-    @IBAction func speedTestBtnTapped(_ sender: UIButton) {
-        self.performSegue(withIdentifier: "speedTestSegue", sender: self)
+    @IBAction func cleanBtnTapped(_ sender: UIButton) {
+        self.performSegue(withIdentifier: "cleanSegue", sender: self    )
     }
     
     func createGradientColor(startColor: UIColor, endColor: UIColor, size: CGSize) -> UIColor {

@@ -104,6 +104,10 @@ class CleanViewController: UIViewController {
         self.performSegue(withIdentifier: "duplicatedSegue", sender: self)
     }
     
+    @IBAction func backBtnTapped(_ sender: Any) {
+        self.dismiss(animated: true)
+    }
+    
     func fileSize(of image: UIImage?) -> Int {
         guard let imageData = image?.jpegData(compressionQuality: 1.0) else {
             return 0
