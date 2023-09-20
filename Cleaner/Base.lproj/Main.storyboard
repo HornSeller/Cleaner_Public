@@ -2,7 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="j0w-uj-y7B">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -16,7 +16,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Type=Ô dề tối" translatesAutoresizingMaskIntoConstraints="NO" id="kNn-4I-PfL">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Type=Ô dề tối" translatesAutoresizingMaskIntoConstraints="NO" id="kNn-4I-PfL">
                                 <rect key="frame" x="-15" y="-12" width="428" height="880"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                             </imageView>
@@ -74,6 +74,9 @@
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.082082988410596025" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title=" "/>
+                                        <connections>
+                                            <action selector="privateBrowserBtnTapped:" destination="j0w-uj-y7B" eventType="touchUpInside" id="e1A-zl-2CE"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eEt-CC-KoE">
                                         <rect key="frame" x="24" y="502" width="345" height="65"/>
@@ -188,11 +191,12 @@
                         <outlet property="storageLb" destination="rj6-OK-gF4" id="Zbd-Em-hQ3"/>
                         <segue destination="wr5-gu-azj" kind="presentation" identifier="speedTestSegue" modalPresentationStyle="fullScreen" id="ju3-hB-c3t"/>
                         <segue destination="541-SB-ayB" kind="presentation" identifier="cleanSegue" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="gxX-3A-K5s"/>
+                        <segue destination="BPv-sB-9ij" kind="presentation" identifier="browserSegue" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="HiJ-9q-oPy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fLp-oI-6g5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-668" y="-430"/>
+            <point key="canvasLocation" x="-654" y="-398"/>
         </scene>
         <!--Speed Test View Controller-->
         <scene sceneID="GYE-ld-tHq">
@@ -220,7 +224,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pW8-iJ-v5L" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1738" y="1305"/>
+            <point key="canvasLocation" x="3221" y="1294"/>
         </scene>
         <!--Screenshots-->
         <scene sceneID="Giy-oL-dbR">
@@ -289,7 +293,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="v9c-Wg-xbd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-295.41984732824426" y="2797.8873239436621"/>
+            <point key="canvasLocation" x="-5459" y="2798"/>
         </scene>
         <!--Similar Photos-->
         <scene sceneID="RYd-ca-b1m">
@@ -351,7 +355,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SgL-jr-HDe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="464.8854961832061" y="2797.8873239436621"/>
+            <point key="canvasLocation" x="-4700" y="2798"/>
         </scene>
         <!--Clean View Controller-->
         <scene sceneID="Z9t-gx-Pm1">
@@ -535,23 +539,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WFc-ON-ttC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="464.8854961832061" y="1304.9295774647887"/>
-        </scene>
-        <!--Settings-->
-        <scene sceneID="GxT-sw-2H0">
-            <objects>
-                <viewController id="HfU-c4-N2W" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="2O6-4X-gff">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="om7-1d-cOl"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Settings" image="setting-2" landscapeImage="setting-2" largeContentSizeImage="setting-2" selectedImage="setting-2" id="J7c-0x-BQ9"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Gvi-VD-UFm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4103.0534351145034" y="541.54929577464793"/>
+            <point key="canvasLocation" x="-4700" y="1306"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="g7v-6z-I2a">
@@ -569,7 +557,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8PH-Cx-UtG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1738" y="542"/>
+            <point key="canvasLocation" x="3221" y="532"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="yhk-BO-ExO">
@@ -588,7 +576,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sLq-zA-6jR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="465" y="532"/>
+            <point key="canvasLocation" x="-4700" y="532"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="lbk-jf-VLx">
@@ -607,7 +595,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0ZA-wb-A61" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-294" y="2015"/>
+            <point key="canvasLocation" x="-5459" y="2015"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="I5f-ZW-1DI">
@@ -625,7 +613,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lUJ-hY-fbn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="465" y="2015"/>
+            <point key="canvasLocation" x="-4700" y="2015"/>
         </scene>
         <!--Duplicated Photos-->
         <scene sceneID="4Ek-1v-kfL">
@@ -687,7 +675,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cK3-s9-EJ6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1251.145038167939" y="2797.8873239436621"/>
+            <point key="canvasLocation" x="-3912" y="2798"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="l91-lu-W8P">
@@ -705,7 +693,143 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Y2-Tw-1pq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1257" y="2015"/>
+            <point key="canvasLocation" x="-3915" y="2015"/>
+        </scene>
+        <!--Private Browser View Controller-->
+        <scene sceneID="fLt-ge-DxK">
+            <objects>
+                <viewController id="vjn-bI-Nx5" customClass="PrivateBrowserViewController" customModule="Cleaner" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="yNk-iO-AwE">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Type=Ô dề tối" translatesAutoresizingMaskIntoConstraints="NO" id="www-Cg-N0u">
+                                <rect key="frame" x="-10" y="-13" width="418" height="877"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iTf-As-NID">
+                                <rect key="frame" x="0.0" y="44" width="393" height="808"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Vector" translatesAutoresizingMaskIntoConstraints="NO" id="lwW-z8-iPz">
+                                        <rect key="frame" x="164" y="86" width="64" height="64"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Private Browser" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LeT-vN-jvI">
+                                        <rect key="frame" x="91" y="160" width="210" height="43"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Say goodbye to worrying about who might see your Browser" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nuQ-9E-NYb">
+                                        <rect key="frame" x="74" y="199" width="245" height="69"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.59215686274509804" green="0.65098039215686276" blue="0.68627450980392157" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aV6-x3-pGe">
+                                        <rect key="frame" x="0.0" y="409" width="98" height="75"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" image="facebook"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Aox-d8-6hF">
+                                        <rect key="frame" x="196" y="409" width="98" height="75"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" image="google"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PCr-TO-IUh">
+                                        <rect key="frame" x="294" y="409" width="98" height="75"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" image="linkedin"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cwj-xp-6BK">
+                                        <rect key="frame" x="98" y="409" width="98" height="75"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" image="twitter"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mhl-Ud-bQV">
+                                        <rect key="frame" x="0.0" y="504" width="98" height="75"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" image="youtube"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fC9-hK-HOd">
+                                        <rect key="frame" x="196" y="504" width="98" height="75"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" image="pinterest"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KdD-gt-6yF">
+                                        <rect key="frame" x="294" y="504" width="98" height="75"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" image="snapchat"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z6D-rv-FfG">
+                                        <rect key="frame" x="98" y="504" width="98" height="75"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" image="instagram"/>
+                                    </button>
+                                    <searchBar contentMode="redraw" fixedFrame="YES" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="S6X-Ix-X5B">
+                                        <rect key="frame" x="16" y="303" width="360" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="vjn-bI-Nx5" id="83A-N8-N58"/>
+                                        </connections>
+                                    </searchBar>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="sUF-9G-V4p"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="iTf-As-NID" firstAttribute="centerX" secondItem="sUF-9G-V4p" secondAttribute="centerX" id="NK0-bv-UXF"/>
+                            <constraint firstItem="iTf-As-NID" firstAttribute="centerY" secondItem="sUF-9G-V4p" secondAttribute="centerY" id="Y5Y-l1-Fd4"/>
+                            <constraint firstItem="iTf-As-NID" firstAttribute="height" secondItem="sUF-9G-V4p" secondAttribute="height" id="b6J-cE-3Ee"/>
+                            <constraint firstItem="iTf-As-NID" firstAttribute="width" secondItem="sUF-9G-V4p" secondAttribute="width" id="pj8-Ko-fb7"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="2qn-1A-mTe">
+                        <barButtonItem key="leftBarButtonItem" image="chevron.down" catalog="system" style="plain" id="8RP-Q2-JX2">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="backBtnTapped:" destination="vjn-bI-Nx5" id="SG8-Be-gaE"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="searchBar" destination="S6X-Ix-X5B" id="ctB-vT-J88"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hqo-8S-J8G" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2411.450381679389" y="1293.661971830986"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="5sl-Lj-ax7">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="BPv-sB-9ij" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Ngp-W1-bDS">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="vjn-bI-Nx5" kind="relationship" relationship="rootViewController" id="Q9y-HG-oRM"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kL8-gH-ZPE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2410" y="532"/>
         </scene>
     </scenes>
     <resources>
@@ -719,15 +843,24 @@
         <image name="Icon" width="34" height="34"/>
         <image name="Tick" width="35.333332061767578" height="35.333332061767578"/>
         <image name="Type=Ô dề tối" width="375" height="812"/>
+        <image name="Type=Ô dề tối" width="375" height="812"/>
+        <image name="Vector" width="64" height="64"/>
         <image name="arrow-right" width="24" height="24"/>
         <image name="arrow-right 1" width="16" height="16"/>
         <image name="chevron.down" catalog="system" width="128" height="70"/>
         <image name="compress" width="32" height="32"/>
+        <image name="facebook" width="94" height="74"/>
+        <image name="google" width="94" height="74"/>
         <image name="home-2" width="24.333333969116211" height="24"/>
+        <image name="instagram" width="94" height="74"/>
+        <image name="linkedin" width="94" height="74"/>
+        <image name="pinterest" width="94" height="74"/>
         <image name="privatebrowser" width="32" height="32"/>
         <image name="privatemedia" width="32" height="32"/>
-        <image name="setting-2" width="24.333333969116211" height="24"/>
+        <image name="snapchat" width="94" height="74"/>
         <image name="speedtest" width="32" height="32"/>
+        <image name="twitter" width="94" height="74"/>
+        <image name="youtube" width="94" height="74"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

@@ -70,6 +70,10 @@ class HomeViewController: UIViewController, URLSessionDelegate {
         circularProgress.animate(toAngle: Double(percent) / 100.0 * 360, duration: 1, completion: nil)
     }
     
+    @IBAction func privateBrowserBtnTapped(_ sender: UIButton) {
+        self.performSegue(withIdentifier: "browserSegue", sender: self)
+    }
+    
     @IBAction func cleanBtnTapped(_ sender: UIButton) {
         self.performSegue(withIdentifier: "cleanSegue", sender: self    )
     }

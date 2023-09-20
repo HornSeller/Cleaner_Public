@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		044A958A2ABA93DA00B17B9C /* PrivateBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044A95892ABA93DA00B17B9C /* PrivateBrowserViewController.swift */; };
 		04FFD0F72A848E7500CB3646 /* CleanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FFD0F62A848E7500CB3646 /* CleanViewController.swift */; };
 		0F17E3D38029462C98AAB67E /* Pods_Cleaner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CB2D8FD5116621A3E63EE72 /* Pods_Cleaner.framework */; };
 		9A842F2F2A8F5EA200A7603E /* SimilarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A842F2E2A8F5EA200A7603E /* SimilarViewController.swift */; };
 		9A842F312A8F5EB400A7603E /* DuplicatedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A842F302A8F5EB400A7603E /* DuplicatedViewController.swift */; };
 		9A9A48432A6F7947000D4705 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9A48422A6F7947000D4705 /* HomeViewController.swift */; };
 		9A9A48462A6F7F26000D4705 /* SpeedTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9A48452A6F7F26000D4705 /* SpeedTestViewController.swift */; };
-		9A9A48482A6FBE17000D4705 /* FileManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9A48472A6FBE17000D4705 /* FileManagerViewController.swift */; };
 		9AA7E5302A935ECB0035EEA7 /* SimilarCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA7E52E2A935ECB0035EEA7 /* SimilarCollectionViewCell.swift */; };
 		9AA7E5312A935ECB0035EEA7 /* SimilarCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AA7E52F2A935ECB0035EEA7 /* SimilarCollectionViewCell.xib */; };
 		9AAF3F0A2A95EA2000D6B153 /* DuplicatedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAF3F082A95EA2000D6B153 /* DuplicatedTableViewCell.swift */; };
@@ -35,6 +35,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		044A95892ABA93DA00B17B9C /* PrivateBrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateBrowserViewController.swift; sourceTree = "<group>"; };
 		04FFD0F62A848E7500CB3646 /* CleanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CleanViewController.swift; sourceTree = "<group>"; };
 		3CB2D8FD5116621A3E63EE72 /* Pods_Cleaner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cleaner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F082DA3BF0FFCFA12C4AA7C /* Pods-Cleaner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cleaner.release.xcconfig"; path = "Target Support Files/Pods-Cleaner/Pods-Cleaner.release.xcconfig"; sourceTree = "<group>"; };
@@ -43,7 +44,6 @@
 		9A842F302A8F5EB400A7603E /* DuplicatedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuplicatedViewController.swift; sourceTree = "<group>"; };
 		9A9A48422A6F7947000D4705 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		9A9A48452A6F7F26000D4705 /* SpeedTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedTestViewController.swift; sourceTree = "<group>"; };
-		9A9A48472A6FBE17000D4705 /* FileManagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerViewController.swift; sourceTree = "<group>"; };
 		9AA7E52E2A935ECB0035EEA7 /* SimilarCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimilarCollectionViewCell.swift; sourceTree = "<group>"; };
 		9AA7E52F2A935ECB0035EEA7 /* SimilarCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SimilarCollectionViewCell.xib; sourceTree = "<group>"; };
 		9AAF3F082A95EA2000D6B153 /* DuplicatedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuplicatedTableViewCell.swift; sourceTree = "<group>"; };
@@ -95,19 +95,11 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		9A9A48412A6F792B000D4705 /* TabBarViewController */ = {
-			isa = PBXGroup;
-			children = (
-				9A9A48422A6F7947000D4705 /* HomeViewController.swift */,
-				9A9A48472A6FBE17000D4705 /* FileManagerViewController.swift */,
-				04FFD0F62A848E7500CB3646 /* CleanViewController.swift */,
-			);
-			path = TabBarViewController;
-			sourceTree = "<group>";
-		};
 		9A9A48442A6F7F0E000D4705 /* SubHomeViewController */ = {
 			isa = PBXGroup;
 			children = (
+				044A95892ABA93DA00B17B9C /* PrivateBrowserViewController.swift */,
+				04FFD0F62A848E7500CB3646 /* CleanViewController.swift */,
 				9A9A48452A6F7F26000D4705 /* SpeedTestViewController.swift */,
 			);
 			path = SubHomeViewController;
@@ -170,7 +162,7 @@
 		9AD4D65E2A5FD5A000146E9B /* Cleaner */ = {
 			isa = PBXGroup;
 			children = (
-				9A9A48412A6F792B000D4705 /* TabBarViewController */,
+				9A9A48422A6F7947000D4705 /* HomeViewController.swift */,
 				9A9A48442A6F7F0E000D4705 /* SubHomeViewController */,
 				9AB8E2CC2A89CB6A008FA25A /* SubCleanViewController */,
 				9AC5577A2A7767750038CC35 /* TableViewCell */,
@@ -306,7 +298,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9A9A48482A6FBE17000D4705 /* FileManagerViewController.swift in Sources */,
 				9ABEAA0E2A930F450036F2C9 /* SimilarTableViewCell.swift in Sources */,
 				9A9A48462A6F7F26000D4705 /* SpeedTestViewController.swift in Sources */,
 				9AB8E2D12A89CE58008FA25A /* ScreenshotsCollectionViewCell.swift in Sources */,
@@ -318,6 +309,7 @@
 				9A842F312A8F5EB400A7603E /* DuplicatedViewController.swift in Sources */,
 				9AAF3F0E2A95F32E00D6B153 /* DuplicatedCollectionViewCell.swift in Sources */,
 				9ABABC532A78AD0000E44E8B /* FileManagerTableViewCell.swift in Sources */,
+				044A958A2ABA93DA00B17B9C /* PrivateBrowserViewController.swift in Sources */,
 				9AD4D6622A5FD5A000146E9B /* SceneDelegate.swift in Sources */,
 				9A9A48432A6F7947000D4705 /* HomeViewController.swift in Sources */,
 				9AA7E5302A935ECB0035EEA7 /* SimilarCollectionViewCell.swift in Sources */,
