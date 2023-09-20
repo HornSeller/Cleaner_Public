@@ -733,48 +733,72 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" image="facebook"/>
+                                        <connections>
+                                            <action selector="facebookBtnTapped:" destination="vjn-bI-Nx5" eventType="touchUpInside" id="4yR-Gp-2nT"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Aox-d8-6hF">
                                         <rect key="frame" x="196" y="409" width="98" height="75"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" image="google"/>
+                                        <connections>
+                                            <action selector="googleBtnTapped:" destination="vjn-bI-Nx5" eventType="touchUpInside" id="qoZ-Nv-l3m"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PCr-TO-IUh">
                                         <rect key="frame" x="294" y="409" width="98" height="75"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" image="linkedin"/>
+                                        <connections>
+                                            <action selector="linkedinBtnTapped:" destination="vjn-bI-Nx5" eventType="touchUpInside" id="ZOc-a7-YGb"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cwj-xp-6BK">
                                         <rect key="frame" x="98" y="409" width="98" height="75"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" image="twitter"/>
+                                        <connections>
+                                            <action selector="twitterBtnTapped:" destination="vjn-bI-Nx5" eventType="touchUpInside" id="8r9-jn-pYd"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mhl-Ud-bQV">
                                         <rect key="frame" x="0.0" y="504" width="98" height="75"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" image="youtube"/>
+                                        <connections>
+                                            <action selector="youtubeBtnTapped:" destination="vjn-bI-Nx5" eventType="touchUpInside" id="syj-pR-hal"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fC9-hK-HOd">
                                         <rect key="frame" x="196" y="504" width="98" height="75"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" image="pinterest"/>
+                                        <connections>
+                                            <action selector="pinterestBtnTapped:" destination="vjn-bI-Nx5" eventType="touchUpInside" id="Q6q-Op-hHM"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KdD-gt-6yF">
                                         <rect key="frame" x="294" y="504" width="98" height="75"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" image="snapchat"/>
+                                        <connections>
+                                            <action selector="snapchatBtnTapped:" destination="vjn-bI-Nx5" eventType="touchUpInside" id="XhF-QK-Q4v"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z6D-rv-FfG">
                                         <rect key="frame" x="98" y="504" width="98" height="75"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" image="instagram"/>
+                                        <connections>
+                                            <action selector="instagramBtnTapped:" destination="vjn-bI-Nx5" eventType="touchUpInside" id="XxB-gZ-R03"/>
+                                        </connections>
                                     </button>
                                     <searchBar contentMode="redraw" fixedFrame="YES" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="S6X-Ix-X5B">
                                         <rect key="frame" x="16" y="303" width="360" height="44"/>
@@ -784,12 +808,17 @@
                                             <outlet property="delegate" destination="vjn-bI-Nx5" id="83A-N8-N58"/>
                                         </connections>
                                     </searchBar>
+                                    <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hQy-v7-y93">
+                                        <rect key="frame" x="0.0" y="710" width="393" height="53"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" systemColor="linkColor"/>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="sUF-9G-V4p"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="iTf-As-NID" firstAttribute="centerX" secondItem="sUF-9G-V4p" secondAttribute="centerX" id="NK0-bv-UXF"/>
                             <constraint firstItem="iTf-As-NID" firstAttribute="centerY" secondItem="sUF-9G-V4p" secondAttribute="centerY" id="Y5Y-l1-Fd4"/>
@@ -806,6 +835,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="backgroundImageView" destination="www-Cg-N0u" id="pf4-bZ-xKq"/>
+                        <outlet property="navView" destination="hQy-v7-y93" id="tdZ-P5-9xx"/>
                         <outlet property="searchBar" destination="S6X-Ix-X5B" id="ctB-vT-J88"/>
                     </connections>
                 </viewController>
@@ -861,6 +892,9 @@
         <image name="speedtest" width="32" height="32"/>
         <image name="twitter" width="94" height="74"/>
         <image name="youtube" width="94" height="74"/>
+        <systemColor name="linkColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
