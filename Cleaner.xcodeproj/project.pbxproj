@@ -98,8 +98,8 @@
 		9A9A48442A6F7F0E000D4705 /* SubHomeViewController */ = {
 			isa = PBXGroup;
 			children = (
-				044A95892ABA93DA00B17B9C /* PrivateBrowserViewController.swift */,
 				04FFD0F62A848E7500CB3646 /* CleanViewController.swift */,
+				044A95892ABA93DA00B17B9C /* PrivateBrowserViewController.swift */,
 				9A9A48452A6F7F26000D4705 /* SpeedTestViewController.swift */,
 			);
 			path = SubHomeViewController;

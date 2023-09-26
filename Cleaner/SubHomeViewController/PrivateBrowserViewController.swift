@@ -16,6 +16,7 @@ class PrivateBrowserViewController: UIViewController, UISearchBarDelegate, WKNav
     @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var navView: UIView!
     @IBOutlet weak var searchBar: UISearchBar!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -46,6 +47,46 @@ class PrivateBrowserViewController: UIViewController, UISearchBarDelegate, WKNav
         webView = WKWebView(frame: .zero, configuration: configuration)
         webView?.navigationDelegate = self
         webView?.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        searchBar.showsCancelButton = true
+        return true
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        searchBar.showsCancelButton = false
+        searchBar.text = ""
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        if !isWebViewVisible {
+            // Thêm WKWebView vào view
+            if let webView = webView {
+                view.addSubview(webView)
+                
+                // Tạo constraints tùy chỉnh cho kích thước và vị trí
+                NSLayoutConstraint.activate([
+                    webView.topAnchor.constraint(equalTo: view.topAnchor, constant: 50), // Vị trí top
+                    webView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -135), // Vị trí bottom
+                    webView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0), // Vị trí left
+                    webView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0) // Vị trí right
+                ])
+                
+                // Tạo URL của trang web bạn muốn hiển thị và tải nó lên WKWebView
+                let request = URLRequest(url: URL(string: "https://google.com/search?q=\(searchBar.text ?? "")")!)
+                webView.load(request)
+                searchBar.resignFirstResponder()
+                isWebViewVisible = true
+            }
+            navView.isHidden = false
+            backgroundImageView.image = nil
+            
+        }
+        
+        let closeButton = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(closeWebView))
+        navigationItem.rightBarButtonItem = closeButton
     }
     
     @IBAction func backBtnTapped(_ sender: UIBarButtonItem) {
