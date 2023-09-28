@@ -13,6 +13,9 @@ class PrivateBrowserViewController: UIViewController, UISearchBarDelegate, WKNav
     var webView: WKWebView?
     var isWebViewVisible = false
     
+    @IBOutlet weak var urlLb: UILabel!
+    @IBOutlet weak var forwardBtn: UIButton!
+    @IBOutlet weak var backBtn: UIButton!
     @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var navView: UIView!
     @IBOutlet weak var searchBar: UISearchBar!
@@ -47,6 +50,7 @@ class PrivateBrowserViewController: UIViewController, UISearchBarDelegate, WKNav
         webView = WKWebView(frame: .zero, configuration: configuration)
         webView?.navigationDelegate = self
         webView?.translatesAutoresizingMaskIntoConstraints = false
+        checkBtnEnable()
     }
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
@@ -82,11 +86,18 @@ class PrivateBrowserViewController: UIViewController, UISearchBarDelegate, WKNav
             }
             navView.isHidden = false
             backgroundImageView.image = nil
-            
+            checkBtnEnable()
+            updateURLLabel()
+            navigationController?.isNavigationBarHidden = true
         }
-        
-        let closeButton = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(closeWebView))
-        navigationItem.rightBarButtonItem = closeButton
+    }
+    
+    @IBAction func closeBtnTapped(_ sender: UIButton) {
+        webView?.removeFromSuperview()
+        isWebViewVisible = false
+        navView.isHidden = true
+        backgroundImageView.image = UIImage(named: "Type=Ô dề tối")
+        navigationController?.isNavigationBarHidden = false
     }
     
     @IBAction func backBtnTapped(_ sender: UIBarButtonItem) {
@@ -125,6 +136,45 @@ class PrivateBrowserViewController: UIViewController, UISearchBarDelegate, WKNav
         loadWebView(url: "https://snapchat.com")
     }
     
+    @IBAction func gobackBtnTapped(_ sender: UIButton) {
+        webView?.goBack()
+        checkBtnEnable()
+        updateURLLabel()
+    }
+    
+    @IBAction func goforwardBtnTapped(_ sender: UIButton) {
+        webView?.goForward()
+        checkBtnEnable()
+        updateURLLabel()
+    }
+    
+    func checkBtnEnable() {
+        if webView!.canGoBack {
+            backBtn.isEnabled = true
+        }
+        else {
+            backBtn.isEnabled = false
+        }
+        
+        if webView!.canGoForward {
+            forwardBtn.isEnabled = true
+        }
+        else {
+            forwardBtn.isEnabled = false
+        }
+
+    }
+    
+    func updateURLLabel() {
+        if let currentURL = webView?.url {
+            // Chuyển đổi đối tượng URL thành chuỗi và gán vào UILabel
+            urlLb.text = currentURL.absoluteString
+        } else {
+            // Xử lý trường hợp không có URL hiện tại
+            urlLb.text = "Không có URL hiện tại"
+        }
+    }
+    
     func loadWebView(url: String) {
         if !isWebViewVisible {
             // Thêm WKWebView vào view
@@ -142,27 +192,20 @@ class PrivateBrowserViewController: UIViewController, UISearchBarDelegate, WKNav
                 // Tạo URL của trang web bạn muốn hiển thị và tải nó lên WKWebView
                 let request = URLRequest(url: URL(string: url)!)
                 webView.load(request)
-                
+
                 isWebViewVisible = true
+                navView.isHidden = false
+                backgroundImageView.image = nil
+                checkBtnEnable()
+                updateURLLabel()
+                navigationController?.isNavigationBarHidden = true
             }
-            navView.isHidden = false
-            backgroundImageView.image = nil
         }
-        
-        let closeButton = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(closeWebView))
-        navigationItem.rightBarButtonItem = closeButton
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         print("Trang đã tải xong.")
-    }
-    
-    @objc func closeWebView() {
-        // Đóng WKWebView và trở lại ViewController chính
-        webView?.removeFromSuperview()
-        isWebViewVisible = false
-        navView.isHidden = true
-        navigationItem.rightBarButtonItem = nil
-        backgroundImageView.image = UIImage(named: "Type=Ô dề tối")
+        checkBtnEnable()
+        updateURLLabel()
     }
 }

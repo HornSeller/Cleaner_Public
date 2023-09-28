@@ -193,6 +193,7 @@
                         <segue destination="wr5-gu-azj" kind="presentation" identifier="speedTestSegue" modalPresentationStyle="fullScreen" id="ju3-hB-c3t"/>
                         <segue destination="541-SB-ayB" kind="presentation" identifier="cleanSegue" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="gxX-3A-K5s"/>
                         <segue destination="BPv-sB-9ij" kind="presentation" identifier="browserSegue" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="HiJ-9q-oPy"/>
+                        <segue destination="Ens-Ti-0Yj" kind="presentation" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="XHI-Wy-F9K"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fLp-oI-6g5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -225,7 +226,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pW8-iJ-v5L" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3221" y="1294"/>
+            <point key="canvasLocation" x="4147.3282442748086" y="1293.661971830986"/>
         </scene>
         <!--Screenshots-->
         <scene sceneID="Giy-oL-dbR">
@@ -814,21 +815,45 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lwU-vG-avX">
-                                                <rect key="frame" x="287" y="10" width="40" height="35"/>
+                                                <rect key="frame" x="284" y="10" width="40" height="35"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" image="chevron.right" catalog="system"/>
+                                                <connections>
+                                                    <action selector="goforwardBtnTapped:" destination="vjn-bI-Nx5" eventType="touchUpInside" id="A1J-QI-SU8"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V7e-eQ-0Go">
-                                                <rect key="frame" x="67" y="10" width="40" height="35"/>
+                                                <rect key="frame" x="70" y="10" width="40" height="35"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" image="chevron.left" catalog="system"/>
+                                                <connections>
+                                                    <action selector="gobackBtnTapped:" destination="vjn-bI-Nx5" eventType="touchUpInside" id="cll-4r-Ape"/>
+                                                </connections>
                                             </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iec-qN-Fs9">
+                                                <rect key="frame" x="22" y="10" width="40" height="35"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" image="close"/>
+                                                <connections>
+                                                    <action selector="closeBtnTapped:" destination="vjn-bI-Nx5" eventType="touchUpInside" id="iJz-C5-Bof"/>
+                                                    <action selector="gobackBtnTapped:" destination="vjn-bI-Nx5" eventType="touchUpInside" id="L1G-ew-2kq"/>
+                                                </connections>
+                                            </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TmH-jJ-EwN">
+                                                <rect key="frame" x="118" y="10" width="158" height="35"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="linkColor"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -852,9 +877,12 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="backBtn" destination="V7e-eQ-0Go" id="2Qa-GZ-Fpg"/>
                         <outlet property="backgroundImageView" destination="www-Cg-N0u" id="pf4-bZ-xKq"/>
+                        <outlet property="forwardBtn" destination="lwU-vG-avX" id="Nps-Hr-3r3"/>
                         <outlet property="navView" destination="hQy-v7-y93" id="tdZ-P5-9xx"/>
                         <outlet property="searchBar" destination="S6X-Ix-X5B" id="ctB-vT-J88"/>
+                        <outlet property="urlLb" destination="TmH-jJ-EwN" id="xUO-28-BIx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hqo-8S-J8G" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -879,6 +907,46 @@
             </objects>
             <point key="canvasLocation" x="-2410" y="532"/>
         </scene>
+        <!--Private Photos View Controller-->
+        <scene sceneID="ytz-Lc-nWD">
+            <objects>
+                <viewController id="GAm-2N-cMx" customClass="PrivatePhotosViewController" customModule="Cleaner" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="BBC-HG-1TL">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Type=Ô dề tối" translatesAutoresizingMaskIntoConstraints="NO" id="ff7-cb-TZD">
+                                <rect key="frame" x="-35" y="-14" width="453" height="880"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="hJ3-qa-1Ip"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="hDq-4G-lLH"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OuE-zl-JqM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-761.06870229007632" y="1293.661971830986"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="McA-bi-5WR">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Ens-Ti-0Yj" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="hf9-jt-grN">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="GAm-2N-cMx" kind="relationship" relationship="rootViewController" id="92r-te-cgg"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5kR-lm-71z" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-761" y="532"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Btn" width="48" height="48"/>
@@ -898,6 +966,7 @@
         <image name="chevron.down" catalog="system" width="128" height="70"/>
         <image name="chevron.left" catalog="system" width="97" height="128"/>
         <image name="chevron.right" catalog="system" width="97" height="128"/>
+        <image name="close" width="24" height="24"/>
         <image name="compress" width="32" height="32"/>
         <image name="facebook" width="94" height="74"/>
         <image name="google" width="94" height="74"/>
@@ -911,9 +980,6 @@
         <image name="speedtest" width="32" height="32"/>
         <image name="twitter" width="94" height="74"/>
         <image name="youtube" width="94" height="74"/>
-        <systemColor name="linkColor">
-            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
