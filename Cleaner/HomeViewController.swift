@@ -70,12 +70,16 @@ class HomeViewController: UIViewController, URLSessionDelegate {
         circularProgress.animate(toAngle: Double(percent) / 100.0 * 360, duration: 1, completion: nil)
     }
     
+    @IBAction func privatePhotosBtnTapped(_ sender: UIButton) {
+        self.performSegue(withIdentifier: "photosSegue", sender: self)
+    }
+    
     @IBAction func privateBrowserBtnTapped(_ sender: UIButton) {
         self.performSegue(withIdentifier: "browserSegue", sender: self)
     }
     
     @IBAction func cleanBtnTapped(_ sender: UIButton) {
-        self.performSegue(withIdentifier: "cleanSegue", sender: self    )
+        self.performSegue(withIdentifier: "cleanSegue", sender: self)
     }
     
     func createGradientColor(startColor: UIColor, endColor: UIColor, size: CGSize) -> UIColor {

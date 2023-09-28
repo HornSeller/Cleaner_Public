@@ -14,5 +14,8 @@ class PrivatePhotosViewController: UIViewController {
 
     }
     
-
+    @IBAction func backBtnTapped(_ sender: UIBarButtonItem) {
+        self.dismiss(animated: true)
+    }
+    
 }

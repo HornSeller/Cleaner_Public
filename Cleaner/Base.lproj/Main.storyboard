@@ -85,6 +85,9 @@
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.082082988410000002" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title=" "/>
+                                        <connections>
+                                            <action selector="privatePhotosBtnTapped:" destination="j0w-uj-y7B" eventType="touchUpInside" id="mWb-hl-Fqz"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zga-GX-W5p">
                                         <rect key="frame" x="24" y="579" width="345" height="65"/>
@@ -193,7 +196,7 @@
                         <segue destination="wr5-gu-azj" kind="presentation" identifier="speedTestSegue" modalPresentationStyle="fullScreen" id="ju3-hB-c3t"/>
                         <segue destination="541-SB-ayB" kind="presentation" identifier="cleanSegue" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="gxX-3A-K5s"/>
                         <segue destination="BPv-sB-9ij" kind="presentation" identifier="browserSegue" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="HiJ-9q-oPy"/>
-                        <segue destination="Ens-Ti-0Yj" kind="presentation" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="XHI-Wy-F9K"/>
+                        <segue destination="Ens-Ti-0Yj" kind="presentation" identifier="photosSegue" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="XHI-Wy-F9K"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fLp-oI-6g5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -919,11 +922,29 @@
                                 <rect key="frame" x="-35" y="-14" width="453" height="880"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="It looks like your folder is empty, try adding somethings by tap the “Add” button at the top screen" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CIW-sL-8uW">
+                                <rect key="frame" x="61" y="510" width="270" height="131"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="0.39605753311258279" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="022-mail" translatesAutoresizingMaskIntoConstraints="NO" id="WLV-bc-0AA">
+                                <rect key="frame" x="69" y="253" width="255" height="239"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="hJ3-qa-1Ip"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" id="hDq-4G-lLH"/>
+                    <navigationItem key="navigationItem" id="hDq-4G-lLH">
+                        <barButtonItem key="leftBarButtonItem" image="chevron.down" catalog="system" style="plain" id="WJB-MU-lJX">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="backBtnTapped:" destination="GAm-2N-cMx" id="2d8-AJ-W5W"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OuE-zl-JqM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -949,6 +970,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="022-mail" width="239" height="224"/>
         <image name="Btn" width="48" height="48"/>
         <image name="CleanBtn" width="200" height="44"/>
         <image name="Dust" width="36" height="36"/>
@@ -958,8 +980,8 @@
         <image name="Dust (4)" width="67" height="67"/>
         <image name="Icon" width="34" height="34"/>
         <image name="Tick" width="35.333332061767578" height="35.333332061767578"/>
-        <image name="Type=Ô dề tối" width="375" height="812"/>
         <image name="Type=Ô dề tối" width="375" height="812"/>
+        <image name="Type=Ô dề tối" width="375" height="812"/>
         <image name="Vector" width="64" height="64"/>
         <image name="arrow-right" width="24" height="24"/>
         <image name="arrow-right 1" width="16" height="16"/>
