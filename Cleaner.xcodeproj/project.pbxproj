@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		044A958A2ABA93DA00B17B9C /* PrivateBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044A95892ABA93DA00B17B9C /* PrivateBrowserViewController.swift */; };
+		048E9B852AC6778800E3833C /* ShowImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048E9B842AC6778800E3833C /* ShowImageViewController.swift */; };
 		04A70C582AC5BEEA0042D810 /* PrivatePhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A70C562AC5BEEA0042D810 /* PrivatePhotosCollectionViewCell.swift */; };
 		04A70C592AC5BEEA0042D810 /* PrivatePhotosCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04A70C572AC5BEEA0042D810 /* PrivatePhotosCollectionViewCell.xib */; };
 		04FFD0F72A848E7500CB3646 /* CleanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FFD0F62A848E7500CB3646 /* CleanViewController.swift */; };
@@ -39,6 +40,7 @@
 
 /* Begin PBXFileReference section */
 		044A95892ABA93DA00B17B9C /* PrivateBrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateBrowserViewController.swift; sourceTree = "<group>"; };
+		048E9B842AC6778800E3833C /* ShowImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowImageViewController.swift; sourceTree = "<group>"; };
 		04A70C562AC5BEEA0042D810 /* PrivatePhotosCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivatePhotosCollectionViewCell.swift; sourceTree = "<group>"; };
 		04A70C572AC5BEEA0042D810 /* PrivatePhotosCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PrivatePhotosCollectionViewCell.xib; sourceTree = "<group>"; };
 		04FFD0F62A848E7500CB3646 /* CleanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CleanViewController.swift; sourceTree = "<group>"; };
@@ -108,6 +110,7 @@
 				044A95892ABA93DA00B17B9C /* PrivateBrowserViewController.swift */,
 				9A5594692AC418AA00E2733D /* PrivatePhotosViewController.swift */,
 				9A9A48452A6F7F26000D4705 /* SpeedTestViewController.swift */,
+				048E9B842AC6778800E3833C /* ShowImageViewController.swift */,
 			);
 			path = SubHomeViewController;
 			sourceTree = "<group>";
@@ -321,6 +324,7 @@
 				9AAF3F0E2A95F32E00D6B153 /* DuplicatedCollectionViewCell.swift in Sources */,
 				9ABABC532A78AD0000E44E8B /* FileManagerTableViewCell.swift in Sources */,
 				044A958A2ABA93DA00B17B9C /* PrivateBrowserViewController.swift in Sources */,
+				048E9B852AC6778800E3833C /* ShowImageViewController.swift in Sources */,
 				9AD4D6622A5FD5A000146E9B /* SceneDelegate.swift in Sources */,
 				04A70C582AC5BEEA0042D810 /* PrivatePhotosCollectionViewCell.swift in Sources */,
 				9A9A48432A6F7947000D4705 /* HomeViewController.swift in Sources */,

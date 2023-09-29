@@ -963,6 +963,24 @@
                                     <outlet property="delegate" destination="GAm-2N-cMx" id="WPs-7Q-JUQ"/>
                                 </connections>
                             </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qux-NJ-eei">
+                                <rect key="frame" x="324" y="95" width="53" height="52"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="addBtn"/>
+                                <connections>
+                                    <action selector="addBtnTapped:" destination="GAm-2N-cMx" eventType="touchUpInside" id="Jfj-cX-okF"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bXo-4s-k3H">
+                                <rect key="frame" x="50" y="763" width="292" height="58"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="deleteBtn"/>
+                                <connections>
+                                    <action selector="deleteBtnTapped:" destination="GAm-2N-cMx" eventType="touchUpInside" id="BSf-tW-UKQ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="hJ3-qa-1Ip"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -974,14 +992,77 @@
                                 <action selector="backBtnTapped:" destination="GAm-2N-cMx" id="2d8-AJ-W5W"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="selectBtn" landscapeImage="selectBtn" largeContentSizeImage="selectBtn" style="plain" id="0hq-gT-UWJ">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="selectBtnTapped:" destination="GAm-2N-cMx" id="pNE-lA-5Oz"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="qOc-6m-yK9" id="cwg-MM-ijt"/>
+                        <outlet property="deleteBtn" destination="bXo-4s-k3H" id="Chb-yD-9FM"/>
+                        <outlet property="imageBackground" destination="WLV-bc-0AA" id="doY-Me-KfF"/>
+                        <outlet property="labelBackground" destination="CIW-sL-8uW" id="seq-Ez-30q"/>
+                        <outlet property="photoCountLb" destination="oPs-fE-7vn" id="FvE-hV-anF"/>
+                        <outlet property="selectBtn" destination="0hq-gT-UWJ" id="ezt-Ib-vzx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OuE-zl-JqM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-761.06870229007632" y="1293.661971830986"/>
+        </scene>
+        <!--Show Image View Controller-->
+        <scene sceneID="sHg-hQ-QeQ">
+            <objects>
+                <viewController storyboardIdentifier="ShowImageViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BjQ-Yg-bBy" customClass="ShowImageViewController" customModule="Cleaner" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="nVO-wI-Hcv">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Type=Ô dề tối" translatesAutoresizingMaskIntoConstraints="NO" id="V8E-N3-w2n">
+                                <rect key="frame" x="-22" y="-13" width="431" height="878"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" maximumZoomScale="10" translatesAutoresizingMaskIntoConstraints="NO" id="1Ee-fe-TKv">
+                                <rect key="frame" x="0.0" y="103" width="393" height="715"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="c1n-qO-ond">
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="715"/>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="c1n-qO-ond" firstAttribute="bottom" secondItem="5ek-cZ-1uN" secondAttribute="bottom" constant="715" id="AKs-A2-GUF"/>
+                                    <constraint firstItem="c1n-qO-ond" firstAttribute="trailing" secondItem="5ek-cZ-1uN" secondAttribute="trailing" constant="393" id="DLP-Bl-xMg"/>
+                                    <constraint firstItem="c1n-qO-ond" firstAttribute="height" secondItem="oEd-cU-wXc" secondAttribute="height" id="GX0-aL-ejK"/>
+                                    <constraint firstItem="c1n-qO-ond" firstAttribute="width" secondItem="oEd-cU-wXc" secondAttribute="width" id="Gmg-DL-ccd"/>
+                                    <constraint firstItem="c1n-qO-ond" firstAttribute="top" secondItem="5ek-cZ-1uN" secondAttribute="top" id="Lw9-cf-5NJ"/>
+                                    <constraint firstItem="c1n-qO-ond" firstAttribute="leading" secondItem="5ek-cZ-1uN" secondAttribute="leading" id="YOt-ft-3Q4"/>
+                                </constraints>
+                                <viewLayoutGuide key="contentLayoutGuide" id="5ek-cZ-1uN"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="oEd-cU-wXc"/>
+                            </scrollView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="0V4-xg-fIU"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="ueV-4o-r8t">
+                        <barButtonItem key="rightBarButtonItem" image="trash" catalog="system" landscapeImage="trash" style="plain" id="A3M-d7-yjB">
+                            <color key="tintColor" systemColor="systemRedColor"/>
+                            <connections>
+                                <action selector="deleteBtnTapped:" destination="BjQ-Yg-bBy" id="rEX-65-wxn"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="imageView" destination="c1n-qO-ond" id="qtL-V9-JLO"/>
+                        <outlet property="scrollView" destination="1Ee-fe-TKv" id="079-1S-XXo"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3sM-Zk-oVm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-356.48854961832058" y="2052.816901408451"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="McA-bi-5WR">
@@ -1001,6 +1082,24 @@
             </objects>
             <point key="canvasLocation" x="-761" y="532"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="ooi-Iz-GJc">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="xEV-LP-EWB" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="vo1-bp-2tb">
+                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BjQ-Yg-bBy" kind="relationship" relationship="rootViewController" id="Oqt-Ar-Zhk"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8K4-pK-aF2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1274" y="2053"/>
+        </scene>
     </scenes>
     <resources>
         <image name="022-mail" width="239" height="224"/>
@@ -1013,9 +1112,10 @@
         <image name="Dust (4)" width="67" height="67"/>
         <image name="Icon" width="34" height="34"/>
         <image name="Tick" width="35.333332061767578" height="35.333332061767578"/>
-        <image name="Type=Ô dề tối" width="375" height="812"/>
         <image name="Type=Ô dề tối" width="375" height="812"/>
+        <image name="Type=Ô dề tối" width="375" height="812"/>
         <image name="Vector" width="64" height="64"/>
+        <image name="addBtn" width="44" height="44"/>
         <image name="arrow-right" width="24" height="24"/>
         <image name="arrow-right 1" width="16" height="16"/>
         <image name="chevron.down" catalog="system" width="128" height="70"/>
@@ -1023,6 +1123,7 @@
         <image name="chevron.right" catalog="system" width="97" height="128"/>
         <image name="close" width="24" height="24"/>
         <image name="compress" width="32" height="32"/>
+        <image name="deleteBtn" width="268" height="44"/>
         <image name="facebook" width="94" height="74"/>
         <image name="google" width="94" height="74"/>
         <image name="home-2" width="24.333333969116211" height="24"/>
@@ -1031,12 +1132,17 @@
         <image name="pinterest" width="94" height="74"/>
         <image name="privatebrowser" width="32" height="32"/>
         <image name="privatemedia" width="32" height="32"/>
+        <image name="selectBtn" width="82" height="24"/>
         <image name="snapchat" width="94" height="74"/>
         <image name="speedtest" width="32" height="32"/>
+        <image name="trash" catalog="system" width="117" height="128"/>
         <image name="twitter" width="94" height="74"/>
         <image name="youtube" width="94" height="74"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
