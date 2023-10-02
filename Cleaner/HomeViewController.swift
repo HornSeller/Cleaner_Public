@@ -42,6 +42,7 @@ class HomeViewController: UIViewController, URLSessionDelegate {
         let usedDiskSpace1 = usedDiskSpace.components(separatedBy: " ").first ?? "1"
 
         storageLb.text = "\(usedDiskSpace1)/\(totalDiskSpace1) GB"
+        CleanViewController.storage = "\(usedDiskSpace1)/\(totalDiskSpace1) GB"
 
         let x = (Double(UIDevice.current.usedDiskSpaceInBytes) / Double(UIDevice.current.totalDiskSpaceInBytes)) * 100
         let percent = Int(round(x))

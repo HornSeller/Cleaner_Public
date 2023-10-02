@@ -145,6 +145,8 @@ class PrivatePhotosViewController: UIViewController, UICollectionViewDelegateFlo
     @IBOutlet weak var collectionView: UICollectionView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        deleteBtn.layer.cornerRadius = 25
 
         collectionView.register(UINib(nibName: "PrivatePhotosCollectionViewCell", bundle: .main), forCellWithReuseIdentifier: "myCell")
         
@@ -159,7 +161,7 @@ class PrivatePhotosViewController: UIViewController, UICollectionViewDelegateFlo
         }
 
         layout.itemSize = CGSize(width: sizeCell, height: sizeCell)
-        layout.sectionInset = UIEdgeInsets.init(top: 0, left: 16, bottom: 0, right: 16)
+        layout.sectionInset = UIEdgeInsets.init(top: 0, left: 16, bottom: 3, right: 16)
         collectionView.collectionViewLayout = layout
         
         // tạo folder Photos tại lần đầu tiên sử dụng app

@@ -12,6 +12,9 @@ import CryptoKit
 class CleanViewController: UIViewController {
 
 
+    @IBOutlet weak var tickImageView: UIImageView!
+    @IBOutlet weak var finishLoadingLb: UILabel!
+    @IBOutlet weak var storageLb: UILabel!
     @IBOutlet weak var countAndSizeDuplicatedLb: UILabel!
     @IBOutlet weak var countAndSizeSimilarLb: UILabel!
     @IBOutlet weak var countAndSizeScreenshotsLb: UILabel!
@@ -36,13 +39,15 @@ class CleanViewController: UIViewController {
     public static var similarDataTable: [[ImageAssetPair]] = []
     public static var duplicatedDataTable: [[ImageAssetPair]] = []
     public static var screenshotDataTable: [UIImage] = []
+    public static var storage = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         screenshotsBtn.layer.cornerRadius = 12
         similarPhotosBtn.layer.cornerRadius = 12
         duplicatedPhotosBtn.layer.cornerRadius = 12
-        clearBtn.layer.cornerRadius = 25
+        
+        storageLb.text = CleanViewController.storage
         
         DispatchQueue.main.async {
             self.fetchScreenshotsAlbum()
@@ -89,6 +94,8 @@ class CleanViewController: UIViewController {
             self.countAndSizeSimilarLb.text = "\(self.similarCount) photo(s) | \(self.similarSize)"
             self.duplicatedSize = self.formatSize(Int64(self.duplicatedTotalSize))
             self.countAndSizeDuplicatedLb.text = "\(self.duplicatedCount) photo(s) | \(self.duplicatedSize)"
+            self.finishLoadingLb.text = "Finished Cleaning"
+            self.tickImageView.isHidden = false
         }
     }
     
