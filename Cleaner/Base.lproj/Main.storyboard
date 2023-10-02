@@ -95,6 +95,9 @@
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.082082988410000002" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title=" "/>
+                                        <connections>
+                                            <action selector="compressVideoBtnTapped:" destination="j0w-uj-y7B" eventType="touchUpInside" id="aLH-xd-aci"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WOO-UA-FFQ">
                                         <rect key="frame" x="24" y="656" width="345" height="65"/>
@@ -1108,8 +1111,8 @@
         <image name="Dust (4)" width="67" height="67"/>
         <image name="Icon" width="34" height="34"/>
         <image name="Tick" width="35.333332061767578" height="35.333332061767578"/>
-        <image name="Type=Ô dề tối" width="375" height="812"/>
         <image name="Type=Ô dề tối" width="375" height="812"/>
+        <image name="Type=Ô dề tối" width="375" height="812"/>
         <image name="Vector" width="64" height="64"/>
         <image name="addBtn" width="44" height="44"/>
         <image name="arrow-right" width="24" height="24"/>

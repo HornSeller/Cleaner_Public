@@ -7,9 +7,10 @@
 
 import UIKit
 import Alamofire
+import MobileCoreServices
 import KDCircularProgress
 
-class HomeViewController: UIViewController, URLSessionDelegate {
+class HomeViewController: UIViewController, URLSessionDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var speedTestBtn: UIButton!
     @IBOutlet weak var compressVideoBtn: UIButton!
@@ -69,6 +70,28 @@ class HomeViewController: UIViewController, URLSessionDelegate {
         //circularProgress.progress = Double(percent) / 100.0
         view.addSubview(circularProgress)
         circularProgress.animate(toAngle: Double(percent) / 100.0 * 360, duration: 1, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        dismiss(animated: true, completion: nil)
+
+        if let videoURL = info[UIImagePickerController.InfoKey.mediaURL] as? URL {
+            // Bạn có thể sử dụng videoURL ở đây để làm gì bạn muốn, ví dụ: lưu vào CoreData hoặc hiển thị trên một AVPlayer.
+            print("Đường dẫn video: \(videoURL)")
+            //self.performSegue(withIdentifier: "segue", sender: self)
+        }
+    }
+    
+    @IBAction func compressVideoBtnTapped(_ sender: UIButton) {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.sourceType = .photoLibrary
+        imagePickerController.mediaTypes = [kUTTypeMovie as String]
+        imagePickerController.delegate = self
+        present(imagePickerController, animated: true, completion: nil)
     }
     
     @IBAction func privatePhotosBtnTapped(_ sender: UIButton) {
