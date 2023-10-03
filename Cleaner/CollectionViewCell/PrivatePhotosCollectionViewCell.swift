@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class PrivatePhotosCollectionViewCell: UICollectionViewCell {
 
@@ -26,5 +27,12 @@ class PrivatePhotosCollectionViewCell: UICollectionViewCell {
                 iconCheckBoxImg.image = UIImage(named: "Check box")
             }
         }
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        // Hủy tải ảnh nếu cell không còn hiển thị nữa
+        imageView.kf.cancelDownloadTask()
+        imageView.image = nil // Xóa ảnh khỏi imageView
     }
 }

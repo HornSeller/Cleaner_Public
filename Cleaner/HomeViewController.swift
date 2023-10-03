@@ -10,7 +10,7 @@ import Alamofire
 import MobileCoreServices
 import KDCircularProgress
 
-class HomeViewController: UIViewController, URLSessionDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var speedTestBtn: UIButton!
     @IBOutlet weak var compressVideoBtn: UIButton!

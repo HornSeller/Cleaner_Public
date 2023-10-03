@@ -42,7 +42,7 @@ class PrivatePhotosViewController: UIViewController, UICollectionViewDelegateFlo
                                     self.photoCountLb.text = "\(self.photosName.count) photo(s)"
                                     self.checkPhotoCount()
                                 }
-                                
+                                self.cacheImage(path: imageUrl.path)
                             } catch {
                                 print(error.localizedDescription)
                             }
@@ -81,7 +81,6 @@ class PrivatePhotosViewController: UIViewController, UICollectionViewDelegateFlo
         }
     }
     
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         photosName.count
     }
@@ -89,7 +88,23 @@ class PrivatePhotosViewController: UIViewController, UICollectionViewDelegateFlo
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myCell", for: indexPath) as! PrivatePhotosCollectionViewCell
         let imageName = photosName[indexPath.row]
-        cell.imageView.kf.setImage(with: albumUrl!.appendingPathComponent(imageName), placeholder: UIImage(named: "loading"), options: nil, progressBlock: nil, completionHandler: nil)
+        let imageURL = albumUrl?.appendingPathComponent(imageName)
+        
+        if !ImageCache.default.isCached(forKey: imageURL!.path) {
+            cacheImage(path: imageURL!.path)
+        }
+        
+        ImageCache.default.retrieveImage(forKey: imageURL!.path, options: nil) { result in
+            switch result {
+                case .success(let value):
+                cell.imageView.image = value.image
+                break
+                case .failure(let error):
+                    print(error)
+                break
+            }
+        }
+        
         if mMode == .select {
             cell.iconCheckBoxImg.isHidden = false
         } else {
@@ -111,6 +126,18 @@ class PrivatePhotosViewController: UIViewController, UICollectionViewDelegateFlo
             break
         }
     }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        // Xác định indexPath của cell đã lướt qua
+        // Lấy cache key hoặc URL tương ứng với indexPath này
+        let imageName = photosName[indexPath.row]
+        let imagePath = albumUrl?.appendingPathComponent(imageName)
+        let cacheKey = imagePath!.path
+        
+        // Xoá ảnh từ cache
+        ImageCache.default.removeImage(forKey: cacheKey)
+    }
+
     
     enum Mode {
         case view
@@ -277,5 +304,35 @@ class PrivatePhotosViewController: UIViewController, UICollectionViewDelegateFlo
             self.present(alert, animated: true)
             
         }
+    }
+    
+    func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
+        let size = image.size
+        
+        let widthRatio  = targetSize.width  / size.width
+        let heightRatio = targetSize.height / size.height
+        
+        // Chọn tỷ lệ thu nhỏ tốt nhất để giữ cho tỷ lệ hình dạng của ảnh không bị thay đổi.
+        let scaleFactor = min(widthRatio, heightRatio)
+        
+        // Tính toán kích thước mới dựa trên tỷ lệ thu nhỏ.
+        let scaledSize = CGSize(width: size.width * scaleFactor, height: size.height * scaleFactor)
+        
+        // Tạo và trả về ảnh đã được thu nhỏ.
+        UIGraphicsBeginImageContext(scaledSize)
+        image.draw(in: CGRect(origin: .zero, size: scaledSize))
+        let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return scaledImage!
+    }
+    
+    func cacheImage(path: String) {
+        if ImageCache.default.isCached(forKey: path) {
+            return
+        }
+        
+        let image = UIImage(contentsOfFile: path)
+        ImageCache.default.store(image!, forKey: path)
     }
 }
