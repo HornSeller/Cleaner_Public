@@ -83,6 +83,9 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             // Bạn có thể sử dụng videoURL ở đây để làm gì bạn muốn, ví dụ: lưu vào CoreData hoặc hiển thị trên một AVPlayer.
             print("Đường dẫn video: \(videoURL)")
             //self.performSegue(withIdentifier: "segue", sender: self)
+            
+            self.navigationController?.pushViewController(CompressVideoViewController.makeSelf(url: videoURL), animated: true)
+            print(CompressVideoViewController.makeSelf(url: videoURL))
         }
     }
     

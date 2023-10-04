@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		044A958A2ABA93DA00B17B9C /* PrivateBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044A95892ABA93DA00B17B9C /* PrivateBrowserViewController.swift */; };
+		0460AF3D2ACD445600DA66A7 /* CompressVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0460AF3C2ACD445600DA66A7 /* CompressVideoViewController.swift */; };
 		048E9B852AC6778800E3833C /* ShowImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048E9B842AC6778800E3833C /* ShowImageViewController.swift */; };
 		04A70C582AC5BEEA0042D810 /* PrivatePhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A70C562AC5BEEA0042D810 /* PrivatePhotosCollectionViewCell.swift */; };
 		04A70C592AC5BEEA0042D810 /* PrivatePhotosCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04A70C572AC5BEEA0042D810 /* PrivatePhotosCollectionViewCell.xib */; };
@@ -40,6 +41,7 @@
 
 /* Begin PBXFileReference section */
 		044A95892ABA93DA00B17B9C /* PrivateBrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateBrowserViewController.swift; sourceTree = "<group>"; };
+		0460AF3C2ACD445600DA66A7 /* CompressVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompressVideoViewController.swift; sourceTree = "<group>"; };
 		048E9B842AC6778800E3833C /* ShowImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowImageViewController.swift; sourceTree = "<group>"; };
 		04A70C562AC5BEEA0042D810 /* PrivatePhotosCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivatePhotosCollectionViewCell.swift; sourceTree = "<group>"; };
 		04A70C572AC5BEEA0042D810 /* PrivatePhotosCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PrivatePhotosCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 				04FFD0F62A848E7500CB3646 /* CleanViewController.swift */,
 				044A95892ABA93DA00B17B9C /* PrivateBrowserViewController.swift */,
 				9A5594692AC418AA00E2733D /* PrivatePhotosViewController.swift */,
+				0460AF3C2ACD445600DA66A7 /* CompressVideoViewController.swift */,
 				9A9A48452A6F7F26000D4705 /* SpeedTestViewController.swift */,
 				048E9B842AC6778800E3833C /* ShowImageViewController.swift */,
 			);
@@ -319,6 +322,7 @@
 				9AD4D6602A5FD5A000146E9B /* AppDelegate.swift in Sources */,
 				9A842F2F2A8F5EA200A7603E /* SimilarViewController.swift in Sources */,
 				9AAF3F0A2A95EA2000D6B153 /* DuplicatedTableViewCell.swift in Sources */,
+				0460AF3D2ACD445600DA66A7 /* CompressVideoViewController.swift in Sources */,
 				9A842F312A8F5EB400A7603E /* DuplicatedViewController.swift in Sources */,
 				9A55946A2AC418AA00E2733D /* PrivatePhotosViewController.swift in Sources */,
 				9AAF3F0E2A95F32E00D6B153 /* DuplicatedCollectionViewCell.swift in Sources */,

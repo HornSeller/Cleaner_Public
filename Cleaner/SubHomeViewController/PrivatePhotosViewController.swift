@@ -42,7 +42,6 @@ class PrivatePhotosViewController: UIViewController, UICollectionViewDelegateFlo
                                     self.photoCountLb.text = "\(self.photosName.count) photo(s)"
                                     self.checkPhotoCount()
                                 }
-                                self.cacheImage(path: imageUrl.path)
                             } catch {
                                 print(error.localizedDescription)
                             }
@@ -80,7 +79,7 @@ class PrivatePhotosViewController: UIViewController, UICollectionViewDelegateFlo
             print("Error: \(error.localizedDescription)")
         }
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         photosName.count
     }
@@ -90,20 +89,9 @@ class PrivatePhotosViewController: UIViewController, UICollectionViewDelegateFlo
         let imageName = photosName[indexPath.row]
         let imageURL = albumUrl?.appendingPathComponent(imageName)
         
-        if !ImageCache.default.isCached(forKey: imageURL!.path) {
-            cacheImage(path: imageURL!.path)
-        }
-        
-        ImageCache.default.retrieveImage(forKey: imageURL!.path, options: nil) { result in
-            switch result {
-                case .success(let value):
-                cell.imageView.image = value.image
-                break
-                case .failure(let error):
-                    print(error)
-                break
-            }
-        }
+        let processor = DownsamplingImageProcessor(size: cell.imageView.bounds.size)
+        cell.imageView.kf.indicatorType = .activity
+        cell.imageView.kf.setImage(with: imageURL, placeholder: UIImage(named: "loading"), options: [.processor(processor)])
         
         if mMode == .select {
             cell.iconCheckBoxImg.isHidden = false
@@ -231,7 +219,7 @@ class PrivatePhotosViewController: UIViewController, UICollectionViewDelegateFlo
             self.collectionView.reloadData()
         }
     }
-    
+
     func checkPhotoCount() {
         if photosName.count > 0 {
             imageBackground.isHidden = true
@@ -325,14 +313,5 @@ class PrivatePhotosViewController: UIViewController, UICollectionViewDelegateFlo
         UIGraphicsEndImageContext()
         
         return scaledImage!
-    }
-    
-    func cacheImage(path: String) {
-        if ImageCache.default.isCached(forKey: path) {
-            return
-        }
-        
-        let image = UIImage(contentsOfFile: path)
-        ImageCache.default.store(image!, forKey: path)
     }
 }
