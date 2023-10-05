@@ -53,8 +53,8 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         let circularProgressFrame = CGRect(x: (view.frame.width - circularProgressWidth) / 2, y: view.frame.height * 3.5 / 12 - circularProgressWidth / 2, width: circularProgressWidth, height: circularProgressWidth)
         let circularProgress = KDCircularProgress(frame: circularProgressFrame)
         
-        let startColor = UIColor(red: 244/255, green: 38/255, blue: 244/255, alpha: 1) // Mã màu đầu tiên: #F426F4
-        let endColor = UIColor(red: 52/255, green: 69/255, blue: 233/255, alpha: 1) // Mã màu thứ hai: #3445DF
+        let startColor = UIColor(hex: "#F426F4", alpha: 1)
+        let endColor = UIColor(hex: "#3445DF", alpha: 1)
         let gradientSize = CGSize(width: circularProgressWidth, height: circularProgressWidth)
         let gradientColor = createGradientColor(startColor: startColor, endColor: endColor, size: gradientSize)
         
