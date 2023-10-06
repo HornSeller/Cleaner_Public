@@ -7,6 +7,7 @@
 
 import UIKit
 import AVKit
+import Photos
 
 class CompressVideoViewController: UIViewController {
 
@@ -15,7 +16,7 @@ class CompressVideoViewController: UIViewController {
     @IBOutlet weak var lowCompressBtn: UIButton!
     @IBOutlet weak var thumbnail: UIImageView!
     
-    var imageURL: URL? = nil
+    var videoURL: URL? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +31,7 @@ class CompressVideoViewController: UIViewController {
         ]
         thumbnail.layer.cornerRadius = 16
         
-        thumbnail.image = generateThumbnail(url: imageURL!)
+        thumbnail.image = generateThumbnail(url: videoURL!)
     }
     
     @IBAction func lowCompressBtnTapped(_ sender: UIButton) {
@@ -79,8 +80,16 @@ class CompressVideoViewController: UIViewController {
         }
     }
     
+    @IBAction func compressBtnTapped(_ sender: UIButton) {
+        if lowCompressBtn.isSelected {
+            compressAndSaveVideoToPhotoLibrary(inputURL: videoURL!, presetName: AVAssetExportPresetHighestQuality)
+        } else {
+            compressAndSaveVideoToPhotoLibrary(inputURL: videoURL!, presetName: AVAssetExportPresetMediumQuality)
+        }
+    }
+    
     @IBAction func playBtnTapped(_ sender: UIButton) {
-        let player = AVPlayer(url: imageURL!)
+        let player = AVPlayer(url: videoURL!)
         let playerViewController = AVPlayerViewController()
         playerViewController.player = player
         present(playerViewController, animated: true) {
@@ -95,7 +104,7 @@ class CompressVideoViewController: UIViewController {
     static func makeSelf(url: URL) -> CompressVideoViewController {
         let storyboard:UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let rootViewController: CompressVideoViewController = storyboard.instantiateViewController(withIdentifier: "CompressVideoViewController") as! CompressVideoViewController
-        rootViewController.imageURL = url
+        rootViewController.videoURL = url
         
         return rootViewController
     }
@@ -126,5 +135,68 @@ class CompressVideoViewController: UIViewController {
         UIGraphicsEndImageContext()
 
         return UIColor(patternImage: image!)
+    }
+    
+    func compressAndSaveVideoToPhotoLibrary(inputURL: URL, presetName: String) {
+        let inputAsset = AVURLAsset(url: inputURL)
+        let asset = AVAsset(url: inputURL)
+        guard let exportSession = AVAssetExportSession(asset: inputAsset, presetName: presetName) else {
+            print("Failed to create AVAssetExportSession")
+            return
+        }
+        
+        exportSession.outputFileType = AVFileType.mp4
+        exportSession.shouldOptimizeForNetworkUse = true
+        
+        let outputFileName = "compressed_video.mp4"
+        let outputURL = FileManager.default.temporaryDirectory.appendingPathComponent(outputFileName)
+        exportSession.outputURL = outputURL
+        
+        exportSession.exportAsynchronously {
+            switch exportSession.status {
+            case .completed:
+                // Lưu video từ thư mục temporary vào thư viện ảnh
+                PHPhotoLibrary.shared().performChanges({
+                    PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: outputURL)
+                }) { success, error in
+                    if success {
+                        print("Video compressed and saved to photo library successfully!")
+                        do {
+                            try FileManager.default.removeItem(at: outputURL)
+                        } catch {
+                            print(error.localizedDescription)
+                        }
+                        DispatchQueue.main.async {
+                            let alert = UIAlertController(title: "Compress video successfully", message: "Compressed video has been saved to your device", preferredStyle: .alert)
+                            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [self] (_) in
+                                let fetchOptions = PHFetchOptions()
+                                fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+                                
+                                let fetchResult = PHAsset.fetchAssets(with: .video, options: fetchOptions)
+                                
+                                for index in 0..<fetchResult.count {
+                                    let asset = fetchResult.object(at: index)
+                                    
+                                }
+                                
+                                // Video không được tìm thấy trong thư viện ảnh
+                                print("Video not found in the photo library.")
+                            }))
+                            self.present(alert, animated: true)
+                        }
+                    } else if let error = error {
+                        print("Error saving video to photo library: \(error.localizedDescription)")
+                    }
+                }
+            case .failed:
+                if let error = exportSession.error {
+                    print("Error exporting video: \(error.localizedDescription)")
+                }
+            case .cancelled:
+                print("Export session cancelled")
+            default:
+                break
+            }
+        }
     }
 }
