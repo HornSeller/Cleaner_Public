@@ -16,7 +16,9 @@ class CompressVideoViewController: UIViewController {
     @IBOutlet weak var lowCompressBtn: UIButton!
     @IBOutlet weak var thumbnail: UIImageView!
     
-    var videoURL: URL? = nil
+    var videoURL: URL?
+    var videoAssets: PHFetchResult<PHAsset>?
+    let activityIndicatorView = UIActivityIndicatorView.init(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +34,9 @@ class CompressVideoViewController: UIViewController {
         thumbnail.layer.cornerRadius = 16
         
         thumbnail.image = generateThumbnail(url: videoURL!)
+        
+        activityIndicatorView.transform = CGAffineTransform(scaleX: 2, y: 2)
+        activityIndicatorView.color = .white
     }
     
     @IBAction func lowCompressBtnTapped(_ sender: UIButton) {
@@ -101,10 +106,11 @@ class CompressVideoViewController: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
-    static func makeSelf(url: URL) -> CompressVideoViewController {
+    static func makeSelf(url: URL, asset: PHFetchResult<PHAsset>) -> CompressVideoViewController {
         let storyboard:UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let rootViewController: CompressVideoViewController = storyboard.instantiateViewController(withIdentifier: "CompressVideoViewController") as! CompressVideoViewController
         rootViewController.videoURL = url
+        rootViewController.videoAssets = asset
         
         return rootViewController
     }
@@ -138,8 +144,15 @@ class CompressVideoViewController: UIViewController {
     }
     
     func compressAndSaveVideoToPhotoLibrary(inputURL: URL, presetName: String) {
+        self.view.addSubview(activityIndicatorView)
+        activityIndicatorView.center = CGPoint.init(x: view.frame.size.width / 2, y: view.frame.size.height / 2)
+        activityIndicatorView.startAnimating()
+        DispatchQueue.main.async {
+            self.view.isUserInteractionEnabled = false
+            self.navigationItem.leftBarButtonItem?.isEnabled = false
+        }
+        
         let inputAsset = AVURLAsset(url: inputURL)
-        let asset = AVAsset(url: inputURL)
         guard let exportSession = AVAssetExportSession(asset: inputAsset, presetName: presetName) else {
             print("Failed to create AVAssetExportSession")
             return
@@ -150,8 +163,8 @@ class CompressVideoViewController: UIViewController {
         
         let outputFileName = "compressed_video.mp4"
         let outputURL = FileManager.default.temporaryDirectory.appendingPathComponent(outputFileName)
+        print(outputURL)
         exportSession.outputURL = outputURL
-        
         exportSession.exportAsynchronously {
             switch exportSession.status {
             case .completed:
@@ -169,18 +182,22 @@ class CompressVideoViewController: UIViewController {
                         DispatchQueue.main.async {
                             let alert = UIAlertController(title: "Compress video successfully", message: "Compressed video has been saved to your device", preferredStyle: .alert)
                             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [self] (_) in
-                                let fetchOptions = PHFetchOptions()
-                                fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+                                self.activityIndicatorView.stopAnimating()
+                                self.view.isUserInteractionEnabled = true
+                                self.navigationItem.leftBarButtonItem?.isEnabled = true
                                 
-                                let fetchResult = PHAsset.fetchAssets(with: .video, options: fetchOptions)
-                                
-                                for index in 0..<fetchResult.count {
-                                    let asset = fetchResult.object(at: index)
-                                    
+                                PHPhotoLibrary.shared().performChanges({
+                                    PHAssetChangeRequest.deleteAssets(self.videoAssets!)
+                                }) { success, error in
+                                    if success {
+                                        // Photo was successfully removed
+                                        DispatchQueue.main.async {
+                                            self.navigationController?.popViewController(animated: true)
+                                        }
+                                    } else {
+                                        // Error occurred while removing the photo
+                                    }
                                 }
-                                
-                                // Video không được tìm thấy trong thư viện ảnh
-                                print("Video not found in the photo library.")
                             }))
                             self.present(alert, animated: true)
                         }
@@ -191,6 +208,11 @@ class CompressVideoViewController: UIViewController {
             case .failed:
                 if let error = exportSession.error {
                     print("Error exporting video: \(error.localizedDescription)")
+                    DispatchQueue.main.async {
+                        self.activityIndicatorView.stopAnimating()
+                        self.view.isUserInteractionEnabled = true
+                        self.navigationItem.leftBarButtonItem?.isEnabled = true
+                    }
                 }
             case .cancelled:
                 print("Export session cancelled")

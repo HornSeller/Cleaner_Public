@@ -9,8 +9,34 @@ import UIKit
 import Alamofire
 import MobileCoreServices
 import KDCircularProgress
+import PhotosUI
+    
+class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, PHPickerViewControllerDelegate {
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        dismiss(animated: true)
+        
+        guard let assetIdentifier = results.first?.assetIdentifier else {
+            print("Không có video nào được chọn.")
+            return
+        }
 
-class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+        let fetchResult = PHAsset.fetchAssets(withLocalIdentifiers: [assetIdentifier], options: nil)
+        if let asset = fetchResult.firstObject {
+            PHImageManager.default().requestAVAsset(forVideo: asset, options: nil) { avAsset, _, _ in
+                if let urlAsset = avAsset as? AVURLAsset {
+                    let videoURL = urlAsset.url
+                    print("Đường dẫn của video: \(videoURL)")
+                    
+                    DispatchQueue.main.async {
+                        self.navigationController?.pushViewController(CompressVideoViewController.makeSelf(url: videoURL, asset: fetchResult), animated: true)
+                    }
+                }
+            }
+        } else {
+            print("Không thể lấy video từ asset identifier.")
+        }
+    }
+    
 
     @IBOutlet weak var speedTestBtn: UIButton!
     @IBOutlet weak var compressVideoBtn: UIButton!
@@ -76,25 +102,38 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         dismiss(animated: true, completion: nil)
     }
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        dismiss(animated: true, completion: nil)
-
-        if let videoURL = info[UIImagePickerController.InfoKey.mediaURL] as? URL {
-            // Bạn có thể sử dụng videoURL ở đây để làm gì bạn muốn, ví dụ: lưu vào CoreData hoặc hiển thị trên một AVPlayer.
-            print("Đường dẫn video: \(videoURL)")
-            //self.performSegue(withIdentifier: "segue", sender: self)
-            
-            self.navigationController?.pushViewController(CompressVideoViewController.makeSelf(url: videoURL), animated: true)
-            print(CompressVideoViewController.makeSelf(url: videoURL))
-        }
-    }
+//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+//        dismiss(animated: true, completion: nil)
+//
+//        if let videoURL = info[.mediaURL] as? URL {
+//            // Bạn có thể sử dụng videoURL ở đây để làm gì bạn muốn, ví dụ: lưu vào CoreData hoặc hiển thị trên một AVPlayer.
+//            let assetURLs = [videoURL] // Chuyển đổi thành một mảng của URLs
+//            let assetLocalIdentifiers = assetURLs.compactMap { url -> String? in
+//                guard let asset = PHAsset.fetchAssets(withALAssetURLs: [url] as NSArray as! [URL], options: nil).firstObject else {
+//                    return nil
+//                }
+//                return asset.localIdentifier
+//            }
+//            if let firstLocalIdentifier = assetLocalIdentifiers.first {
+//                print("Local Identifier của video: \(firstLocalIdentifier)")
+//                // Gọi hàm xoá video với local identifier nếu cần
+//                // deleteVideo(withLocalIdentifier: firstLocalIdentifier)
+//            } else {
+//                print("Không thể lấy local identifier của video.")
+//            }
+//            self.navigationController?.pushViewController(CompressVideoViewController.makeSelf(url: videoURL), animated: true)
+//        }
+//    }
     
     @IBAction func compressVideoBtnTapped(_ sender: UIButton) {
-        let imagePickerController = UIImagePickerController()
-        imagePickerController.sourceType = .photoLibrary
-        imagePickerController.mediaTypes = [kUTTypeMovie as String]
-        imagePickerController.delegate = self
-        present(imagePickerController, animated: true, completion: nil)
+        let photoLibrary = PHPhotoLibrary.shared()
+        var configuration = PHPickerConfiguration(photoLibrary: photoLibrary)
+        configuration.filter = .videos
+        configuration.selectionLimit = 1
+                
+        let picker = PHPickerViewController(configuration: configuration)
+        picker.delegate = self
+        present(picker, animated: true, completion: nil)
     }
     
     @IBAction func privatePhotosBtnTapped(_ sender: UIButton) {
