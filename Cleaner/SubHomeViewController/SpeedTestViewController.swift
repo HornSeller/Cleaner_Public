@@ -9,12 +9,14 @@ import UIKit
 import Alamofire
 
 class SpeedTestViewController: UIViewController {
-
+    var uploadSpeed: Double = 0.0
     override func viewDidLoad() {
         super.viewDidLoad()
 
         testDownloadSpeed()
-        testUploadSpeed()
+        testUploadSpeed() { speed in
+            print("\(speed)mb")
+        }
     }
     
     @IBAction func backBtnTapped(_ sender: UIBarButtonItem) {
@@ -55,42 +57,45 @@ class SpeedTestViewController: UIViewController {
         }
     }
 
-    func testUploadSpeed() {
-        let uploadURLString = "https://drive.google.com/file/d/1Gz539JHD3PaskU4gJu9h4suHv5QK1ruG/view?usp=drive_link" // Replace with the file upload URL
-
-        // Create a sample file for upload (You can replace this with your own file)
-        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        let fileURL = documentsURL.appendingPathComponent("imageTest.jpeg")
-
+    func testUploadSpeed(completion: @escaping (Double) -> Void) {
+        guard let image = UIImage(named: "imagetest") else {
+            print("Image not found")
+            completion(0.0)
+            return
+        }
+        
+        guard let imageData = image.jpegData(compressionQuality: 1.0) else {
+            print("Error converting image to data")
+            completion(0.0)
+            return
+        }
+        
+        var request = URLRequest(url: URL(string: "https://freeimage.host/api/1/upload")!)
+        request.httpMethod = "POST"
+        request.httpBody = imageData
+        
         let startTime = CFAbsoluteTimeGetCurrent()
-
-        AF.upload(fileURL, to: uploadURLString).uploadProgress { progress in
-            print("Upload Progress: \(progress.fractionCompleted)")
-        }.responseString { response in
-            if let error = response.error {
-                print("Upload Error: \(error)")
+        
+        URLSession.shared.dataTask(with: request) { (_, response, error) in
+            if let error = error {
+                print("Upload failed with error: \(error)")
+                completion(0.0)
             } else {
                 let endTime = CFAbsoluteTimeGetCurrent()
                 let elapsedTime = endTime - startTime
-
-                // Here you can access the responseString if needed
-                if let responseString = response.value {
-                    print("Response String: \(responseString)")
-                }
-
-                // Get file size using FileManager
-                let fileManager = FileManager.default
-                do {
-                    let attributes = try fileManager.attributesOfItem(atPath: fileURL.path)
-                    if let fileSize = attributes[FileAttributeKey.size] as? Double {
-                        let uploadSpeed = fileSize / elapsedTime / 1024 / 1024 // in KB/s
-                        print("Upload Speed: \(uploadSpeed) MB/s")
-                    }
-                } catch {
-                    print("Error getting file attributes: \(error)")
+                
+                if let dataSize = response?.expectedContentLength {
+                    // Tính tốc độ upload ở đơn vị Megabits mỗi giây (Mbps)
+                    let uploadSpeed = Double(dataSize) * 8 / elapsedTime / 1_000_000
+                    self.uploadSpeed = uploadSpeed
+                    completion(uploadSpeed)
+                } else {
+                    print("Invalid or unknown response size")
+                    completion(0.0)
                 }
             }
-        }
+        }.resume()
     }
 
 }
+

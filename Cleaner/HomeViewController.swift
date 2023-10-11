@@ -125,6 +125,10 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
 //        }
 //    }
     
+    @IBAction func speedTestBtnTapped(_ sender: UIButton) {
+        self.performSegue(withIdentifier: "speedTestSegue", sender: self)
+    }
+    
     @IBAction func compressVideoBtnTapped(_ sender: UIButton) {
         let photoLibrary = PHPhotoLibrary.shared()
         var configuration = PHPickerConfiguration(photoLibrary: photoLibrary)

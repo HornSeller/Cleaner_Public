@@ -168,7 +168,6 @@ class CompressVideoViewController: UIViewController {
         exportSession.exportAsynchronously {
             switch exportSession.status {
             case .completed:
-                // Lưu video từ thư mục temporary vào thư viện ảnh
                 PHPhotoLibrary.shared().performChanges({
                     PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: outputURL)
                 }) { success, error in

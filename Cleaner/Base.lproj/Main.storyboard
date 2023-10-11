@@ -106,6 +106,9 @@
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.082082988410000002" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title=" "/>
+                                        <connections>
+                                            <action selector="speedTestBtnTapped:" destination="j0w-uj-y7B" eventType="touchUpInside" id="7s2-Oc-dzM"/>
+                                        </connections>
                                     </button>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="privatebrowser" translatesAutoresizingMaskIntoConstraints="NO" id="Q9M-yy-XXH">
                                         <rect key="frame" x="39" y="392" width="32" height="33"/>
@@ -1275,8 +1278,8 @@
         <image name="Dust (4)" width="67" height="67"/>
         <image name="Icon" width="34" height="34"/>
         <image name="Tick" width="35.333332061767578" height="35.333332061767578"/>
-        <image name="Type=Ô dề tối" width="375" height="812"/>
         <image name="Type=Ô dề tối" width="375" height="812"/>
+        <image name="Type=Ô dề tối" width="375" height="812"/>
         <image name="Vector" width="64" height="64"/>
         <image name="addBtn" width="44" height="44"/>
         <image name="arrow-left" width="24" height="24"/>
