@@ -2,23 +2,27 @@ PODS:
   - Alamofire (5.8.0)
   - KDCircularProgress (1.5.4)
   - Kingfisher (7.9.1)
+  - PasscodeKit (1.0.4)
 
 DEPENDENCIES:
   - Alamofire
   - KDCircularProgress
   - Kingfisher
+  - PasscodeKit
 
 SPEC REPOS:
   trunk:
     - Alamofire
     - KDCircularProgress
     - Kingfisher
+    - PasscodeKit
 
 SPEC CHECKSUMS:
   Alamofire: 0e92e751b3e9e66d7982db43919d01f313b8eb91
   KDCircularProgress: 98200c6b8e85d22bc04eb644721d3b1e12b0686b
   Kingfisher: 1d14e9f59cbe19389f591c929000332bf70efd32
+  PasscodeKit: ef46a237bdf5d7e551a2dbe3e8fe53d2ca58c10b
 
-PODFILE CHECKSUM: 25cbdf7d14e06454c32880a1ec19554b00ad3da1
+PODFILE CHECKSUM: 5aa25c85b425909a9b821949281a988b3a06057c
 
 COCOAPODS: 1.12.0

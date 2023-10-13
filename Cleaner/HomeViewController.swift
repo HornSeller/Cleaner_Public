@@ -125,6 +125,10 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
 //        }
 //    }
     
+    @IBAction func settingBtnTapped(_ sender: UIBarButtonItem) {
+        self.navigationController?.pushViewController(SettingViewController.makeSelf(), animated: true)
+    }
+    
     @IBAction func speedTestBtnTapped(_ sender: UIButton) {
         self.performSegue(withIdentifier: "speedTestSegue", sender: self)
     }

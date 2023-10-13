@@ -1,0 +1,6 @@
+framework module PasscodeKit {
+  umbrella header "PasscodeKit-umbrella.h"
+
+  export *
+  module * { export * }
+}

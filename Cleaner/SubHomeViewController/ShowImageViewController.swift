@@ -65,7 +65,7 @@ class ShowImageViewController: UIViewController, UIScrollViewDelegate {
     }
     
     static func cellTapped(image: UIImage, imageName: String) -> ShowImageViewController {
-        let storyboard:UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let rootViewController: ShowImageViewController = storyboard.instantiateViewController(withIdentifier: "ShowImageViewController") as! ShowImageViewController
         rootViewController.imageV = image
         rootViewController.imageN = imageName

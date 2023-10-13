@@ -9,7 +9,8 @@ import UIKit
 import Alamofire
 
 class SpeedTestViewController: UIViewController {
-    var uploadSpeed: Double = 0.0
+    
+    @IBOutlet weak var pingLb: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -17,6 +18,15 @@ class SpeedTestViewController: UIViewController {
         testUploadSpeed() { speed in
             print("\(speed)mb")
         }
+        
+        let pinger = try? SwiftyPing(host: "1.1.1.1", configuration: PingConfiguration(interval: 0.5, with: 5), queue: DispatchQueue.global())
+        pinger?.observer = { (response) in
+            let duration = response.duration
+            print("\(Int(duration * 1000))ms")
+            self.pingLb.text = "\(Int(duration * 1000))"
+        }
+        try? pinger?.startPinging()
+        
     }
     
     @IBAction func backBtnTapped(_ sender: UIBarButtonItem) {
