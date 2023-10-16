@@ -7,6 +7,7 @@
 
 import UIKit
 import Alamofire
+import KDCircularProgress
 
 class SpeedTestViewController: UIViewController {
     
@@ -27,12 +28,48 @@ class SpeedTestViewController: UIViewController {
         }
         try? pinger?.startPinging()
         
+        let circularProgressWidth: CGFloat = 0.55 * view.frame.width
+        let circularProgressFrame = CGRect(x: (view.frame.width - circularProgressWidth) / 2, y: view.frame.height * 0.255, width: circularProgressWidth, height: circularProgressWidth)
+        let circularProgress = KDCircularProgress(frame: circularProgressFrame)
+        
+        let startColor = UIColor(hex: "#2135E4", alpha: 1)
+        let endColor = UIColor(hex: "#DF34CE", alpha: 1)
+        let gradientSize = CGSize(width: circularProgressWidth, height: circularProgressWidth)
+        let gradientColor = createGradientColor(startColor: startColor, endColor: endColor, size: gradientSize)
+        
+        circularProgress.startAngle = -210
+        circularProgress.progressThickness = 0.32
+        circularProgress.trackThickness = 0.2
+        circularProgress.clockwise = true
+        circularProgress.gradientRotateSpeed = 2
+        circularProgress.roundedCorners = true
+        circularProgress.glowAmount = 0.9
+        circularProgress.trackColor = UIColor.clear
+        circularProgress.set(colors: gradientColor)
+        
+        view.addSubview(circularProgress)
+        circularProgress.animate(toAngle: 0.6667 * 360, duration: 1, completion: nil)
+        
     }
     
     @IBAction func backBtnTapped(_ sender: UIBarButtonItem) {
         self.dismiss(animated: true)
     }
     
+    func createGradientColor(startColor: UIColor, endColor: UIColor, size: CGSize) -> UIColor {
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = CGRect(origin: .zero, size: size)
+        gradientLayer.colors = [startColor.cgColor, endColor.cgColor]
+        gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
+        gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
+
+        UIGraphicsBeginImageContext(gradientLayer.bounds.size)
+        gradientLayer.render(in: UIGraphicsGetCurrentContext()!)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        return UIColor(patternImage: image!)
+    }
     
     func testDownloadSpeed() {
         let downloadURLString = "https://images.apple.com/v/imac-with-retina/a/images/overview/5k_image.jpg" // Replace with a large file download URL
@@ -97,6 +134,4 @@ class SpeedTestViewController: UIViewController {
                 }
             }
     }
-
 }
-

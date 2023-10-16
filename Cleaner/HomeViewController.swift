@@ -86,12 +86,12 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
         circularProgress.startAngle = -90
         circularProgress.progressThickness = 0.32
-        circularProgress.trackThickness = 0.5
+        circularProgress.trackThickness = 0.3
         circularProgress.clockwise = false
         circularProgress.gradientRotateSpeed = 2
         circularProgress.roundedCorners = true
         circularProgress.glowAmount = 0.9
-        circularProgress.trackColor = UIColor.clear
+        circularProgress.trackColor = UIColor(hex: "#FFFFFF", alpha: 0.1)
         circularProgress.set(colors: gradientColor)
         //circularProgress.progress = Double(percent) / 100.0
         view.addSubview(circularProgress)
