@@ -31,7 +31,7 @@ public class PasscodeKit: NSObject {
 		return instance
 	}()
 
-	public static var passcodeLength			= 4
+	public static var passcodeLength			= 6
 	public static var allowedFailedAttempts		= 3
 
 	public static var textColor					= UIColor.darkText

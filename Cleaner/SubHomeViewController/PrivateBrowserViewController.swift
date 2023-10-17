@@ -23,6 +23,11 @@ class PrivateBrowserViewController: UIViewController, UISearchBarDelegate, WKNav
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        urlLb.isUserInteractionEnabled = true
+
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(labelTapped))
+        urlLb.addGestureRecognizer(tapGesture)
+        
         UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).defaultTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         
         UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).font = UIFont.systemFont(ofSize: 18)
@@ -51,6 +56,27 @@ class PrivateBrowserViewController: UIViewController, UISearchBarDelegate, WKNav
         webView?.navigationDelegate = self
         webView?.translatesAutoresizingMaskIntoConstraints = false
         checkBtnEnable()
+    }
+    
+    @objc func labelTapped(sender: UITapGestureRecognizer) {
+        let alertController = UIAlertController(title: "Search Something", message: nil, preferredStyle: .alert)
+        
+        alertController.addTextField { (textField) in
+            textField.placeholder = "Search something"
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let submitAction = UIAlertAction(title: "Enter", style: .default) { [weak self, weak alertController] _ in
+            if let textField = alertController?.textFields?.first, let inputText = textField.text {
+                let request = URLRequest(url: URL(string: "https://google.com/search?q=\(inputText)")!)
+                self!.webView!.load(request)
+            }
+        }
+        
+        alertController.addAction(cancelAction)
+        alertController.addAction(submitAction)
+        
+        present(alertController, animated: true, completion: nil)
     }
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
