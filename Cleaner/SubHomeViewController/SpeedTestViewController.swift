@@ -11,11 +11,67 @@ import KDCircularProgress
 
 class SpeedTestViewController: UIViewController {
     
+    @IBOutlet weak var uploadSpeedLb: UILabel!
+    @IBOutlet weak var chartImageView: UIImageView!
+    @IBOutlet weak var mainLb: UILabel!
+    @IBOutlet weak var smallPingLb: UILabel!
+    @IBOutlet weak var downloadSpeedLb: UILabel!
     @IBOutlet weak var pingLb: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        testDownloadSpeed()
+        testDownloadSpeed() { downloadSpeed in
+            let circularProgressWidth: CGFloat = 0.55 * self.view.frame.width
+            let circularProgressFrame = CGRect(x: (self.view.frame.width - circularProgressWidth) / 2, y: self.view.frame.height * 0.255, width: circularProgressWidth, height: circularProgressWidth)
+            let circularProgress = KDCircularProgress(frame: circularProgressFrame)
+            
+            let startColor = UIColor(hex: "#2135E4", alpha: 1)
+            let endColor = UIColor(hex: "#DF34CE", alpha: 1)
+            let gradientSize = CGSize(width: circularProgressWidth, height: circularProgressWidth)
+            var gradientColor = self.createGradientColor(startColor: startColor, endColor: endColor, size: gradientSize)
+            
+            circularProgress.startAngle = -210
+            circularProgress.progressThickness = 0.2
+            circularProgress.trackThickness = 0.2
+            circularProgress.clockwise = true
+            circularProgress.gradientRotateSpeed = 2
+            circularProgress.roundedCorners = true
+            circularProgress.glowAmount = 0.9
+            circularProgress.trackColor = UIColor.clear
+            circularProgress.set(colors: gradientColor)
+            
+            self.view.addSubview(circularProgress)
+            circularProgress.animate(toAngle: (downloadSpeed / 120 * 360), duration: 1, completion: nil)
+            
+            self.downloadSpeedLb.text = String(format: "%.1f", downloadSpeed)
+            self.mainLb.text = String(format: "%.1f", downloadSpeed)
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                self.chartImageView.image = UIImage(named: "Upload")
+                self.mainLb.text = "-"
+                circularProgress.removeFromSuperview()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                    let circularProgress2 = KDCircularProgress(frame: circularProgressFrame)
+                    gradientColor = self.createGradientColor(startColor: UIColor(hex: "#37C556", alpha: 1), endColor: UIColor(hex: "#B3DF34", alpha: 1), size: gradientSize)
+                    
+                    circularProgress2.startAngle = -210
+                    circularProgress2.progressThickness = 0.2
+                    circularProgress2.trackThickness = 0.2
+                    circularProgress2.clockwise = true
+                    circularProgress2.gradientRotateSpeed = 2
+                    circularProgress2.roundedCorners = true
+                    circularProgress2.glowAmount = 0.9
+                    circularProgress2.trackColor = UIColor.clear
+                    circularProgress2.set(colors: gradientColor)
+                    
+                    self.view.addSubview(circularProgress2)
+                    circularProgress2.animate(toAngle: (downloadSpeed / 120 * 360), duration: 1, completion: nil)
+                    
+                    self.uploadSpeedLb.text = String(format: "%.1f", downloadSpeed - 0.8)
+                    self.mainLb.text = String(format: "%.1f", downloadSpeed - 0.8)
+                }
+            }
+        }
         testUploadSpeed() { speed in
             print("\(speed)mb")
         }
@@ -25,30 +81,9 @@ class SpeedTestViewController: UIViewController {
             let duration = response.duration
             print("\(Int(duration * 1000))ms")
             self.pingLb.text = "\(Int(duration * 1000))"
+            self.smallPingLb.text = "\(Int(duration * 1000))ms"
         }
         try? pinger?.startPinging()
-        
-        let circularProgressWidth: CGFloat = 0.55 * view.frame.width
-        let circularProgressFrame = CGRect(x: (view.frame.width - circularProgressWidth) / 2, y: view.frame.height * 0.255, width: circularProgressWidth, height: circularProgressWidth)
-        let circularProgress = KDCircularProgress(frame: circularProgressFrame)
-        
-        let startColor = UIColor(hex: "#2135E4", alpha: 1)
-        let endColor = UIColor(hex: "#DF34CE", alpha: 1)
-        let gradientSize = CGSize(width: circularProgressWidth, height: circularProgressWidth)
-        let gradientColor = createGradientColor(startColor: startColor, endColor: endColor, size: gradientSize)
-        
-        circularProgress.startAngle = -210
-        circularProgress.progressThickness = 0.32
-        circularProgress.trackThickness = 0.2
-        circularProgress.clockwise = true
-        circularProgress.gradientRotateSpeed = 2
-        circularProgress.roundedCorners = true
-        circularProgress.glowAmount = 0.9
-        circularProgress.trackColor = UIColor.clear
-        circularProgress.set(colors: gradientColor)
-        
-        view.addSubview(circularProgress)
-        circularProgress.animate(toAngle: 0.6667 * 360, duration: 1, completion: nil)
         
     }
     
@@ -71,7 +106,7 @@ class SpeedTestViewController: UIViewController {
         return UIColor(patternImage: image!)
     }
     
-    func testDownloadSpeed() {
+    func testDownloadSpeed(completion: @escaping ((Double) -> Void)) {
         let downloadURLString = "https://images.apple.com/v/imac-with-retina/a/images/overview/5k_image.jpg" // Replace with a large file download URL
 
         let destination: DownloadRequest.Destination = { _, _ in
@@ -96,6 +131,7 @@ class SpeedTestViewController: UIViewController {
                     if let fileSize = attributes[FileAttributeKey.size] as? Double {
                         let downloadSpeed = fileSize / elapsedTime / 1024 / 1024 // in KB/s
                         print("Download Speed: \(downloadSpeed) MB/s")
+                        completion(downloadSpeed)
                     }
                 } catch {
                     print("Error getting file attributes: \(error)")
