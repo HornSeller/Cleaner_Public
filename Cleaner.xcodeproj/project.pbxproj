@@ -34,6 +34,7 @@
 		9ABABC542A78AD0000E44E8B /* FileManagerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ABABC522A78AD0000E44E8B /* FileManagerTableViewCell.xib */; };
 		9ABEAA0E2A930F450036F2C9 /* SimilarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABEAA0C2A930F450036F2C9 /* SimilarTableViewCell.swift */; };
 		9ABEAA0F2A930F450036F2C9 /* SimilarTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ABEAA0D2A930F450036F2C9 /* SimilarTableViewCell.xib */; };
+		9AC031BD2ADFBC1300F70FA8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9AC031BC2ADFBC1300F70FA8 /* GoogleService-Info.plist */; };
 		9AD4D6602A5FD5A000146E9B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD4D65F2A5FD5A000146E9B /* AppDelegate.swift */; };
 		9AD4D6622A5FD5A000146E9B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD4D6612A5FD5A000146E9B /* SceneDelegate.swift */; };
 		9AD4D6672A5FD5A000146E9B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9AD4D6652A5FD5A000146E9B /* Main.storyboard */; };
@@ -71,6 +72,7 @@
 		9ABABC522A78AD0000E44E8B /* FileManagerTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FileManagerTableViewCell.xib; sourceTree = "<group>"; };
 		9ABEAA0C2A930F450036F2C9 /* SimilarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimilarTableViewCell.swift; sourceTree = "<group>"; };
 		9ABEAA0D2A930F450036F2C9 /* SimilarTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SimilarTableViewCell.xib; sourceTree = "<group>"; };
+		9AC031BC2ADFBC1300F70FA8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9AD4D65C2A5FD5A000146E9B /* Cleaner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cleaner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9AD4D65F2A5FD5A000146E9B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9AD4D6612A5FD5A000146E9B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -194,6 +196,7 @@
 				9AD4D6682A5FD5A200146E9B /* Assets.xcassets */,
 				9AD4D66A2A5FD5A200146E9B /* LaunchScreen.storyboard */,
 				9AD4D66D2A5FD5A200146E9B /* Info.plist */,
+				9AC031BC2ADFBC1300F70FA8 /* GoogleService-Info.plist */,
 			);
 			path = Cleaner;
 			sourceTree = "<group>";
@@ -266,6 +269,7 @@
 				9AB8E2D22A89CE58008FA25A /* ScreenshotsCollectionViewCell.xib in Resources */,
 				9AA7E5312A935ECB0035EEA7 /* SimilarCollectionViewCell.xib in Resources */,
 				9AAF3F0B2A95EA2000D6B153 /* DuplicatedTableViewCell.xib in Resources */,
+				9AC031BD2ADFBC1300F70FA8 /* GoogleService-Info.plist in Resources */,
 				9ABABC542A78AD0000E44E8B /* FileManagerTableViewCell.xib in Resources */,
 				04A70C592AC5BEEA0042D810 /* PrivatePhotosCollectionViewCell.xib in Resources */,
 			);

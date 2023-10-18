@@ -11,5 +11,6 @@ pod 'KDCircularProgress'
 pod 'Alamofire'
 pod 'Kingfisher'
 pod 'PasscodeKit'
+pod 'Firebase/Storage'
 
 end

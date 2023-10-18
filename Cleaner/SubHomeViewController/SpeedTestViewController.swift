@@ -7,74 +7,28 @@
 
 import UIKit
 import Alamofire
+import FirebaseStorage
 import KDCircularProgress
 
 class SpeedTestViewController: UIViewController {
     
+    @IBOutlet weak var startAgainBtn: UIButton!
     @IBOutlet weak var uploadSpeedLb: UILabel!
     @IBOutlet weak var chartImageView: UIImageView!
     @IBOutlet weak var mainLb: UILabel!
     @IBOutlet weak var smallPingLb: UILabel!
     @IBOutlet weak var downloadSpeedLb: UILabel!
     @IBOutlet weak var pingLb: UILabel!
+    let circularProgressWidth: CGFloat = 0.55 * HomeViewController.width!
+    var circularProgress = KDCircularProgress()
+    var circularProgressFrame = CGRect()
+    var circularProgress2 = KDCircularProgress()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        testDownloadSpeed() { downloadSpeed in
-            let circularProgressWidth: CGFloat = 0.55 * self.view.frame.width
-            let circularProgressFrame = CGRect(x: (self.view.frame.width - circularProgressWidth) / 2, y: self.view.frame.height * 0.255, width: circularProgressWidth, height: circularProgressWidth)
-            let circularProgress = KDCircularProgress(frame: circularProgressFrame)
-            
-            let startColor = UIColor(hex: "#2135E4", alpha: 1)
-            let endColor = UIColor(hex: "#DF34CE", alpha: 1)
-            let gradientSize = CGSize(width: circularProgressWidth, height: circularProgressWidth)
-            var gradientColor = self.createGradientColor(startColor: startColor, endColor: endColor, size: gradientSize)
-            
-            circularProgress.startAngle = -210
-            circularProgress.progressThickness = 0.2
-            circularProgress.trackThickness = 0.2
-            circularProgress.clockwise = true
-            circularProgress.gradientRotateSpeed = 2
-            circularProgress.roundedCorners = true
-            circularProgress.glowAmount = 0.9
-            circularProgress.trackColor = UIColor.clear
-            circularProgress.set(colors: gradientColor)
-            
-            self.view.addSubview(circularProgress)
-            circularProgress.animate(toAngle: (downloadSpeed / 120 * 360), duration: 1, completion: nil)
-            
-            self.downloadSpeedLb.text = String(format: "%.1f", downloadSpeed)
-            self.mainLb.text = String(format: "%.1f", downloadSpeed)
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                self.chartImageView.image = UIImage(named: "Upload")
-                self.mainLb.text = "-"
-                circularProgress.removeFromSuperview()
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                    let circularProgress2 = KDCircularProgress(frame: circularProgressFrame)
-                    gradientColor = self.createGradientColor(startColor: UIColor(hex: "#37C556", alpha: 1), endColor: UIColor(hex: "#B3DF34", alpha: 1), size: gradientSize)
-                    
-                    circularProgress2.startAngle = -210
-                    circularProgress2.progressThickness = 0.2
-                    circularProgress2.trackThickness = 0.2
-                    circularProgress2.clockwise = true
-                    circularProgress2.gradientRotateSpeed = 2
-                    circularProgress2.roundedCorners = true
-                    circularProgress2.glowAmount = 0.9
-                    circularProgress2.trackColor = UIColor.clear
-                    circularProgress2.set(colors: gradientColor)
-                    
-                    self.view.addSubview(circularProgress2)
-                    circularProgress2.animate(toAngle: (downloadSpeed / 120 * 360), duration: 1, completion: nil)
-                    
-                    self.uploadSpeedLb.text = String(format: "%.1f", downloadSpeed - 0.8)
-                    self.mainLb.text = String(format: "%.1f", downloadSpeed - 0.8)
-                }
-            }
-        }
-        testUploadSpeed() { speed in
-            print("\(speed)mb")
-        }
+        circularProgressFrame = CGRect(x: (self.view.frame.width - circularProgressWidth) / 2, y: self.view.frame.height * 0.255, width: circularProgressWidth, height: circularProgressWidth)
+        circularProgress = KDCircularProgress(frame: circularProgressFrame)
+        startAgainBtn.layer.cornerRadius = 20
         
         let pinger = try? SwiftyPing(host: "1.1.1.1", configuration: PingConfiguration(interval: 0.5, with: 5), queue: DispatchQueue.global())
         pinger?.observer = { (response) in
@@ -85,10 +39,79 @@ class SpeedTestViewController: UIViewController {
         }
         try? pinger?.startPinging()
         
+        testDownloadAndUploadSpeed()
+    }
+    
+    @IBAction func startAgainBtnTapped(_ sender: UIButton) {
+        startAgainBtn.isHidden = true
+        circularProgress2.removeFromSuperview()
+        circularProgress.progress = -210
+        circularProgress2.progress = -210
+        chartImageView.image = UIImage(named: "Download")
+        mainLb.text = "-"
+        downloadSpeedLb.text = "-"
+        uploadSpeedLb.text = "-"
+        testDownloadAndUploadSpeed()
+        
     }
     
     @IBAction func backBtnTapped(_ sender: UIBarButtonItem) {
         self.dismiss(animated: true)
+    }
+    
+    func testDownloadAndUploadSpeed() {
+        testDownloadSpeed() { downloadSpeed in
+            let gradientSize = CGSize(width: self.circularProgressWidth, height: self.circularProgressWidth)
+            var gradientColor = self.createGradientColor(startColor: UIColor(hex: "#2135E4", alpha: 1), endColor: UIColor(hex: "#DF34CE", alpha: 1), size: gradientSize)
+            
+            self.circularProgress.startAngle = -210
+            self.circularProgress.progressThickness = 0.2
+            self.circularProgress.trackThickness = 0.2
+            self.circularProgress.clockwise = true
+            self.circularProgress.gradientRotateSpeed = 2
+            self.circularProgress.roundedCorners = true
+            self.circularProgress.glowAmount = 0.9
+            self.circularProgress.trackColor = UIColor.clear
+            self.circularProgress.set(colors: gradientColor)
+            
+            self.view.addSubview(self.circularProgress)
+            self.circularProgress.animate(toAngle: (15 / 30 * 360), duration: 1, completion: nil)
+            
+            self.downloadSpeedLb.text = String(format: "%.1f", downloadSpeed)
+            self.mainLb.text = String(format: "%.1f", downloadSpeed)
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+                self.chartImageView.image = UIImage(named: "Upload")
+                self.mainLb.text = "-"
+                self.circularProgress.removeFromSuperview()
+                
+                self.uploadMedia { uploadTime, fileSize in
+                    print("upload time: \(String(describing: uploadTime))\nfile size: \(String(describing: fileSize))")
+                    let uploadSpeed = Double(fileSize!) / ( 1024 * 1024) / uploadTime!
+                    print("\(uploadSpeed)mbps")
+                    
+                    self.circularProgress2 = KDCircularProgress(frame: self.circularProgressFrame)
+                    gradientColor = self.createGradientColor(startColor: UIColor(hex: "#37C556", alpha: 1), endColor: UIColor(hex: "#B3DF34", alpha: 1), size: gradientSize)
+                    
+                    self.circularProgress2.startAngle = -210
+                    self.circularProgress2.progressThickness = 0.2
+                    self.circularProgress2.trackThickness = 0.2
+                    self.circularProgress2.clockwise = true
+                    self.circularProgress2.gradientRotateSpeed = 2
+                    self.circularProgress2.roundedCorners = true
+                    self.circularProgress2.glowAmount = 0.9
+                    self.circularProgress2.trackColor = UIColor.clear
+                    self.circularProgress2.set(colors: gradientColor)
+                    
+                    self.view.addSubview(self.circularProgress2)
+                    self.circularProgress2.animate(toAngle: (uploadSpeed / 30 * 360), duration: 1, completion: nil)
+                    
+                    self.uploadSpeedLb.text = String(format: "%.1f", uploadSpeed)
+                    self.mainLb.text = String(format: "%.1f", uploadSpeed)
+                    self.startAgainBtn.isHidden = false
+                }
+            }
+        }
     }
     
     func createGradientColor(startColor: UIColor, endColor: UIColor, size: CGSize) -> UIColor {
@@ -140,34 +163,30 @@ class SpeedTestViewController: UIViewController {
         }
     }
 
-    func testUploadSpeed(completion: @escaping (Double) -> Void) {
-        let url = "https://freeimage.host/api/1/upload"
-        let data = "https://images.apple.com/v/imac-with-retina/a/images/overview/5k_image.jpg".data(using: .utf8)!
-        print(data.count)
-        let startTime = CFAbsoluteTimeGetCurrent()
-        AF.upload(data, to: url, method: .post)
-            .uploadProgress(queue: .main, closure: { progress in
-                print("Upload Progress: \(progress.fractionCompleted)")
-            })
-            .responseJSON { response in
-                switch response.result {
-                case .success:
-                    let endTime = CFAbsoluteTimeGetCurrent()
-                    let elapsedTime = endTime - startTime
-
-                    if let dataSize = response.response?.expectedContentLength {
-                        // Tính tốc độ upload ở đơn vị Megabits mỗi giây (Mbps)
-                        print(dataSize)
-                        let uploadSpeed = Double(dataSize) * 8 / elapsedTime / 1_000_000
-                        completion(uploadSpeed)
-                    } else {
-                        print("Invalid or unknown response size")
-                        completion(0.0)
+    func uploadMedia(completion: @escaping (_ uploadTime: TimeInterval?, _ fileSize: Int?) -> Void) {
+        let imageName = UUID().uuidString
+        let storageRef = Storage.storage().reference().child(imageName)
+        if let uploadData = UIImage(named: "80987170-3497-460F-90DD-1244D9169C17")?.jpegData(compressionQuality: 1) {
+            let startTime = Date()
+            let metaDataForImage = StorageMetadata()
+            metaDataForImage.contentType = "image/jpeg"
+            storageRef.putData(uploadData, metadata: metaDataForImage) { (_, error) in
+                let endTime = Date()
+                if let error = error {
+                    print("error: \(error)")
+                } else {
+                    storageRef.getMetadata { metadata, error in
+                        if let fileSize = metadata?.size {
+                            let uploadTime = endTime.timeIntervalSince(startTime)
+                            print("Thời gian upload: \(uploadTime) giây")
+                            completion(uploadTime, Int(fileSize))
+                        } else {
+                            print("Error getting file size: \(error?.localizedDescription ?? "Unknown error")")
+                            completion(nil, nil)
+                        }
                     }
-                case .failure(let error):
-                    print("Upload failed with error: \(error)")
-                    completion(0.0)
                 }
             }
+        }
     }
 }
