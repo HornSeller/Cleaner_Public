@@ -44,10 +44,13 @@ class ScreenshotsViewController: UIViewController, UICollectionViewDelegateFlowL
     var dataCollection: [UIImage] = []
     var selectedCell: [Int] = []
     public static var assetArr: [PHAsset] = []
+    @IBOutlet weak var deleteBtn: UIButton!
     @IBOutlet weak var collectionView: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        deleteBtn.layer.cornerRadius = 18
         
         dataCollection = CleanViewController.screenshotDataTable
         print(ScreenshotsViewController.assetArr)

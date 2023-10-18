@@ -31,6 +31,7 @@ class DuplicatedViewController: UIViewController, UITableViewDelegate, UITableVi
         return cell
     }
     
+    @IBOutlet weak var deleteBtn: UIButton!
     @IBOutlet weak var tableView: UITableView!
     var dataTable: [[ImageAssetPair]] = []
     var images: [UIImage] = []
@@ -39,6 +40,8 @@ class DuplicatedViewController: UIViewController, UITableViewDelegate, UITableVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        deleteBtn.layer.cornerRadius = 18
         
         tableView.register(UINib(nibName: "DuplicatedTableViewCell", bundle: .main), forCellReuseIdentifier: "duplicatedCell")
 

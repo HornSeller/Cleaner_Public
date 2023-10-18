@@ -35,10 +35,13 @@ class SimilarViewController: UIViewController, UITableViewDataSource, UITableVie
     var comparisonResults: [[[Int]]] = []
     var images: [UIImage] = []
     var dataTable: [[ImageAssetPair]] = []
+    @IBOutlet weak var deleteBtn: UIButton!
     public static var selectedSimilarImageAssets: [ImageAssetPair] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        deleteBtn.layer.cornerRadius = 18
         
         tableView.register(UINib(nibName: "SimilarTableViewCell", bundle: .main), forCellReuseIdentifier: "similarCell")
         tableView.rowHeight = 0.32 * view.frame.height
