@@ -103,7 +103,7 @@ class SpeedTestViewController: UIViewController {
             self.downloadSpeedLb.text = String(format: "%.1f", downloadSpeed)
             self.mainLb.text = String(format: "%.1f", downloadSpeed)
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                 self.chartImageView.image = UIImage(named: "Upload")
                 self.mainLb.text = "-"
                 self.circularProgress1.removeFromSuperview()
