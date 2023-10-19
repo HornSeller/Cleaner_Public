@@ -30,7 +30,6 @@
 		9AB8E2CE2A89CB9B008FA25A /* ScreenshotsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB8E2CD2A89CB9B008FA25A /* ScreenshotsViewController.swift */; };
 		9AB8E2D12A89CE58008FA25A /* ScreenshotsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB8E2CF2A89CE58008FA25A /* ScreenshotsCollectionViewCell.swift */; };
 		9AB8E2D22A89CE58008FA25A /* ScreenshotsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AB8E2D02A89CE58008FA25A /* ScreenshotsCollectionViewCell.xib */; };
-		9ABA0CBD2AE0EBF700B43415 /* Poppins in Resources */ = {isa = PBXBuildFile; fileRef = 9ABA0CBC2AE0EBE800B43415 /* Poppins */; };
 		9ABABC532A78AD0000E44E8B /* FileManagerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABABC512A78AD0000E44E8B /* FileManagerTableViewCell.swift */; };
 		9ABABC542A78AD0000E44E8B /* FileManagerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ABABC522A78AD0000E44E8B /* FileManagerTableViewCell.xib */; };
 		9ABEAA0E2A930F450036F2C9 /* SimilarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABEAA0C2A930F450036F2C9 /* SimilarTableViewCell.swift */; };
@@ -69,7 +68,6 @@
 		9AB8E2CD2A89CB9B008FA25A /* ScreenshotsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotsViewController.swift; sourceTree = "<group>"; };
 		9AB8E2CF2A89CE58008FA25A /* ScreenshotsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotsCollectionViewCell.swift; sourceTree = "<group>"; };
 		9AB8E2D02A89CE58008FA25A /* ScreenshotsCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScreenshotsCollectionViewCell.xib; sourceTree = "<group>"; };
-		9ABA0CBC2AE0EBE800B43415 /* Poppins */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Poppins; path = /Users/macmini/Documents/Cleaner/Poppins; sourceTree = "<absolute>"; };
 		9ABABC512A78AD0000E44E8B /* FileManagerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerTableViewCell.swift; sourceTree = "<group>"; };
 		9ABABC522A78AD0000E44E8B /* FileManagerTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FileManagerTableViewCell.xib; sourceTree = "<group>"; };
 		9ABEAA0C2A930F450036F2C9 /* SimilarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimilarTableViewCell.swift; sourceTree = "<group>"; };
@@ -171,7 +169,6 @@
 				9AD4D65D2A5FD5A000146E9B /* Products */,
 				7DB8B37FFAA6B20EEDA52B2E /* Pods */,
 				59093189CC83E2FCC7AE5C60 /* Frameworks */,
-				9ABA0CBC2AE0EBE800B43415 /* Poppins */,
 			);
 			sourceTree = "<group>";
 		};
@@ -264,7 +261,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9ABA0CBD2AE0EBF700B43415 /* Poppins in Resources */,
 				9AD4D66C2A5FD5A200146E9B /* LaunchScreen.storyboard in Resources */,
 				9ABEAA0F2A930F450036F2C9 /* SimilarTableViewCell.xib in Resources */,
 				9AD4D6692A5FD5A200146E9B /* Assets.xcassets in Resources */,
@@ -499,7 +495,6 @@
 				DEVELOPMENT_TEAM = 2FX323KNBX;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Cleaner/Info.plist;
-				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -530,7 +525,6 @@
 				DEVELOPMENT_TEAM = 2FX323KNBX;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Cleaner/Info.plist;
-				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
