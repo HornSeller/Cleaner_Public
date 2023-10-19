@@ -20,15 +20,30 @@ class SpeedTestViewController: UIViewController {
     @IBOutlet weak var downloadSpeedLb: UILabel!
     @IBOutlet weak var pingLb: UILabel!
     let circularProgressWidth: CGFloat = 0.55 * HomeViewController.width!
-    var circularProgress = KDCircularProgress()
+    var circularProgress1 = KDCircularProgress()
     var circularProgressFrame = CGRect()
     var circularProgress2 = KDCircularProgress()
+    var trackCircularProgress = KDCircularProgress()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         circularProgressFrame = CGRect(x: (self.view.frame.width - circularProgressWidth) / 2, y: self.view.frame.height * 0.255, width: circularProgressWidth, height: circularProgressWidth)
-        circularProgress = KDCircularProgress(frame: circularProgressFrame)
+        circularProgress1 = KDCircularProgress(frame: circularProgressFrame)
         circularProgress2 = KDCircularProgress(frame: circularProgressFrame)
+        trackCircularProgress = KDCircularProgress(frame: circularProgressFrame)
+        
+        trackCircularProgress.startAngle = -210
+        trackCircularProgress.progress = 0.666667
+        trackCircularProgress.progressThickness = 0.2
+        trackCircularProgress.trackThickness = 0.2
+        trackCircularProgress.clockwise = true
+        trackCircularProgress.gradientRotateSpeed = 2
+        trackCircularProgress.roundedCorners = true
+        trackCircularProgress.glowAmount = 0
+        trackCircularProgress.trackColor = UIColor.clear
+        trackCircularProgress.set(colors: UIColor(hex: "#FFFFFF", alpha: 0.1))
+        view.addSubview(trackCircularProgress)
+        
         startAgainBtn.layer.cornerRadius = 26
         
         let pinger = try? SwiftyPing(host: "1.1.1.1", configuration: PingConfiguration(interval: 0.5, with: 5), queue: DispatchQueue.global())
@@ -46,7 +61,7 @@ class SpeedTestViewController: UIViewController {
     @IBAction func startAgainBtnTapped(_ sender: UIButton) {
         startAgainBtn.isHidden = true
         circularProgress2.removeFromSuperview()
-        circularProgress.progress = -210
+        circularProgress1.progress = -210
         circularProgress2.progress = -210
         chartImageView.image = UIImage(named: "Download")
         mainLb.text = "-"
@@ -66,18 +81,18 @@ class SpeedTestViewController: UIViewController {
             let gradientColor = self.createGradientColor(startColor: UIColor(hex: "#2135E4", alpha: 1), endColor: UIColor(hex: "#DF34CE", alpha: 1), size: gradientSize)
             let gradientColor2 = self.createGradientColor(startColor: UIColor(hex: "#37C556", alpha: 1), endColor: UIColor(hex: "#B3DF34", alpha: 1), size: gradientSize)
             
-            self.circularProgress.startAngle = -210
-            self.circularProgress.progressThickness = 0.2
-            self.circularProgress.trackThickness = 0.2
-            self.circularProgress.clockwise = true
-            self.circularProgress.gradientRotateSpeed = 2
-            self.circularProgress.roundedCorners = true
-            self.circularProgress.glowAmount = 0.9
-            self.circularProgress.trackColor = UIColor.clear
-            self.circularProgress.set(colors: gradientColor)
+            self.circularProgress1.startAngle = -210
+            self.circularProgress1.progressThickness = 0.2
+            self.circularProgress1.trackThickness = 0.2
+            self.circularProgress1.clockwise = true
+            self.circularProgress1.gradientRotateSpeed = 2
+            self.circularProgress1.roundedCorners = true
+            self.circularProgress1.glowAmount = 0.9
+            self.circularProgress1.trackColor = UIColor.clear
+            self.circularProgress1.set(colors: gradientColor)
             
-            self.view.addSubview(self.circularProgress)
-            self.circularProgress.animate(toAngle: (downloadSpeed / 30 * 360), duration: 1, completion: nil)
+            self.view.addSubview(self.circularProgress1)
+            self.circularProgress1.animate(toAngle: (downloadSpeed / 30 * 360), duration: 1, completion: nil)
             
             self.downloadSpeedLb.text = String(format: "%.1f", downloadSpeed)
             self.mainLb.text = String(format: "%.1f", downloadSpeed)
@@ -85,7 +100,7 @@ class SpeedTestViewController: UIViewController {
             DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
                 self.chartImageView.image = UIImage(named: "Upload")
                 self.mainLb.text = "-"
-                self.circularProgress.removeFromSuperview()
+                self.circularProgress1.removeFromSuperview()
                 
                 self.uploadMedia { uploadTime, fileSize in
                     print("upload time: \(String(describing: uploadTime))\nfile size: \(String(describing: fileSize))")
