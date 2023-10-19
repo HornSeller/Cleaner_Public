@@ -28,7 +28,8 @@ class SpeedTestViewController: UIViewController {
         super.viewDidLoad()
         circularProgressFrame = CGRect(x: (self.view.frame.width - circularProgressWidth) / 2, y: self.view.frame.height * 0.255, width: circularProgressWidth, height: circularProgressWidth)
         circularProgress = KDCircularProgress(frame: circularProgressFrame)
-        startAgainBtn.layer.cornerRadius = 20
+        circularProgress2 = KDCircularProgress(frame: circularProgressFrame)
+        startAgainBtn.layer.cornerRadius = 26
         
         let pinger = try? SwiftyPing(host: "1.1.1.1", configuration: PingConfiguration(interval: 0.5, with: 5), queue: DispatchQueue.global())
         pinger?.observer = { (response) in
@@ -62,7 +63,8 @@ class SpeedTestViewController: UIViewController {
     func testDownloadAndUploadSpeed() {
         testDownloadSpeed() { downloadSpeed in
             let gradientSize = CGSize(width: self.circularProgressWidth, height: self.circularProgressWidth)
-            var gradientColor = self.createGradientColor(startColor: UIColor(hex: "#2135E4", alpha: 1), endColor: UIColor(hex: "#DF34CE", alpha: 1), size: gradientSize)
+            let gradientColor = self.createGradientColor(startColor: UIColor(hex: "#2135E4", alpha: 1), endColor: UIColor(hex: "#DF34CE", alpha: 1), size: gradientSize)
+            let gradientColor2 = self.createGradientColor(startColor: UIColor(hex: "#37C556", alpha: 1), endColor: UIColor(hex: "#B3DF34", alpha: 1), size: gradientSize)
             
             self.circularProgress.startAngle = -210
             self.circularProgress.progressThickness = 0.2
@@ -75,7 +77,7 @@ class SpeedTestViewController: UIViewController {
             self.circularProgress.set(colors: gradientColor)
             
             self.view.addSubview(self.circularProgress)
-            self.circularProgress.animate(toAngle: (15 / 30 * 360), duration: 1, completion: nil)
+            self.circularProgress.animate(toAngle: (downloadSpeed / 30 * 360), duration: 1, completion: nil)
             
             self.downloadSpeedLb.text = String(format: "%.1f", downloadSpeed)
             self.mainLb.text = String(format: "%.1f", downloadSpeed)
@@ -90,9 +92,6 @@ class SpeedTestViewController: UIViewController {
                     let uploadSpeed = Double(fileSize!) / ( 1024 * 1024) / uploadTime!
                     print("\(uploadSpeed)mbps")
                     
-                    self.circularProgress2 = KDCircularProgress(frame: self.circularProgressFrame)
-                    gradientColor = self.createGradientColor(startColor: UIColor(hex: "#37C556", alpha: 1), endColor: UIColor(hex: "#B3DF34", alpha: 1), size: gradientSize)
-                    
                     self.circularProgress2.startAngle = -210
                     self.circularProgress2.progressThickness = 0.2
                     self.circularProgress2.trackThickness = 0.2
@@ -101,7 +100,7 @@ class SpeedTestViewController: UIViewController {
                     self.circularProgress2.roundedCorners = true
                     self.circularProgress2.glowAmount = 0.9
                     self.circularProgress2.trackColor = UIColor.clear
-                    self.circularProgress2.set(colors: gradientColor)
+                    self.circularProgress2.set(colors: gradientColor2)
                     
                     self.view.addSubview(self.circularProgress2)
                     self.circularProgress2.animate(toAngle: (uploadSpeed / 30 * 360), duration: 1, completion: nil)

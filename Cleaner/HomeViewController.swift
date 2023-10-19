@@ -10,7 +10,7 @@ import Alamofire
 import MobileCoreServices
 import KDCircularProgress
 import PhotosUI
-    
+
 class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, PHPickerViewControllerDelegate {
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         dismiss(animated: true)
@@ -84,7 +84,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         let gradientSize = CGSize(width: circularProgressWidth, height: circularProgressWidth)
         let gradientColor = createGradientColor(startColor: startColor, endColor: endColor, size: gradientSize)
         
-        circularProgress.startAngle = -90
+        circularProgress.startAngle = 270
         circularProgress.progressThickness = 0.32
         circularProgress.trackThickness = 0.3
         circularProgress.clockwise = false
