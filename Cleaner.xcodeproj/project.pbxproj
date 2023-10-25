@@ -21,6 +21,7 @@
 		9A842F312A8F5EB400A7603E /* DuplicatedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A842F302A8F5EB400A7603E /* DuplicatedViewController.swift */; };
 		9A9A48432A6F7947000D4705 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9A48422A6F7947000D4705 /* HomeViewController.swift */; };
 		9A9A48462A6F7F26000D4705 /* SpeedTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9A48452A6F7F26000D4705 /* SpeedTestViewController.swift */; };
+		9AA4072F2AE8B0AC004944D6 /* ContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA4072E2AE8B0AC004944D6 /* ContactViewController.swift */; };
 		9AA7E5302A935ECB0035EEA7 /* SimilarCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA7E52E2A935ECB0035EEA7 /* SimilarCollectionViewCell.swift */; };
 		9AA7E5312A935ECB0035EEA7 /* SimilarCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AA7E52F2A935ECB0035EEA7 /* SimilarCollectionViewCell.xib */; };
 		9AAF3F0A2A95EA2000D6B153 /* DuplicatedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAF3F082A95EA2000D6B153 /* DuplicatedTableViewCell.swift */; };
@@ -60,6 +61,7 @@
 		9A842F302A8F5EB400A7603E /* DuplicatedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuplicatedViewController.swift; sourceTree = "<group>"; };
 		9A9A48422A6F7947000D4705 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		9A9A48452A6F7F26000D4705 /* SpeedTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedTestViewController.swift; sourceTree = "<group>"; };
+		9AA4072E2AE8B0AC004944D6 /* ContactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactViewController.swift; sourceTree = "<group>"; };
 		9AA7E52E2A935ECB0035EEA7 /* SimilarCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimilarCollectionViewCell.swift; sourceTree = "<group>"; };
 		9AA7E52F2A935ECB0035EEA7 /* SimilarCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SimilarCollectionViewCell.xib; sourceTree = "<group>"; };
 		9AAF3F082A95EA2000D6B153 /* DuplicatedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuplicatedTableViewCell.swift; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 				0460AF3C2ACD445600DA66A7 /* CompressVideoViewController.swift */,
 				9A9A48452A6F7F26000D4705 /* SpeedTestViewController.swift */,
 				048E9B842AC6778800E3833C /* ShowImageViewController.swift */,
+				9AA4072E2AE8B0AC004944D6 /* ContactViewController.swift */,
 			);
 			path = SubHomeViewController;
 			sourceTree = "<group>";
@@ -345,6 +348,7 @@
 				04BEFEFA2AD8EDF800711CED /* SwiftPing.swift in Sources */,
 				044A958A2ABA93DA00B17B9C /* PrivateBrowserViewController.swift in Sources */,
 				048E9B852AC6778800E3833C /* ShowImageViewController.swift in Sources */,
+				9AA4072F2AE8B0AC004944D6 /* ContactViewController.swift in Sources */,
 				9AD4D6622A5FD5A000146E9B /* SceneDelegate.swift in Sources */,
 				04A70C582AC5BEEA0042D810 /* PrivatePhotosCollectionViewCell.swift in Sources */,
 				9A9A48432A6F7947000D4705 /* HomeViewController.swift in Sources */,
@@ -499,6 +503,7 @@
 				DEVELOPMENT_TEAM = 2FX323KNBX;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Cleaner/Info.plist;
+				INFOPLIST_KEY_NSContactsUsageDescription = "We need access to your contacts to display them.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -529,6 +534,7 @@
 				DEVELOPMENT_TEAM = 2FX323KNBX;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Cleaner/Info.plist;
+				INFOPLIST_KEY_NSContactsUsageDescription = "We need access to your contacts to display them.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
