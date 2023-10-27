@@ -125,6 +125,11 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
 //        }
 //    }
     
+    @IBAction func tapped(_ sender: UIButton) {
+        self.navigationController?.pushViewController(ContactViewController.makeSelf(), animated: true)
+    }
+    
+    
     @IBAction func settingBtnTapped(_ sender: UIBarButtonItem) {
         self.navigationController?.pushViewController(SettingViewController.makeSelf(), animated: true)
     }

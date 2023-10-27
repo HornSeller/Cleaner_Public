@@ -8,11 +8,26 @@
 import UIKit
 import Contacts
 
-class ContactViewController: UIViewController {
+class ContactViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        duplicateContacts.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath) as! DuplicatedContactsTableViewCell
+        
+        return cell
+    }
+    
 
+    @IBOutlet weak var tableView: UITableView!
     var duplicateContacts: [[ContactInfo]] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tableView.register(UINib(nibName: "DuplicatedContactsTableViewCell", bundle: .main), forCellReuseIdentifier: "myCell")
+        tableView.rowHeight = 0.21127 * view.frame.height
         
         getContacts() { contacts in
             var result: [[ContactInfo]] = []
@@ -41,6 +56,7 @@ class ContactViewController: UIViewController {
                     self.duplicateContacts = result
                     print(self.duplicateContacts)
                     print(addedElement)
+                    self.tableView.reloadData()
                 }
             }
         }
@@ -70,6 +86,23 @@ class ContactViewController: UIViewController {
                     print("Access denied")
                 }
             }
+        }
+    }
+    
+    func deleteContacts(contacts: [CNContact], completion: @escaping (Bool, Error?) -> Void) {
+        let contactStore = CNContactStore()
+        let saveRequest = CNSaveRequest()
+
+        for contact in contacts {
+            saveRequest.delete(contact.mutableCopy() as! CNMutableContact)
+        }
+
+        do {
+            try contactStore.execute(saveRequest)
+            completion(true, nil) // Xoá liên hệ thành công
+        } catch {
+            print("Error deleting contacts: \(error)")
+            completion(false, error) // Xoá liên hệ thất bại, trả về lỗi
         }
     }
 
@@ -103,6 +136,13 @@ class ContactViewController: UIViewController {
                 }
             }
         }
+    }
+    
+    static func makeSelf() -> ContactViewController {
+        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let rootViewController: ContactViewController = storyboard.instantiateViewController(withIdentifier: "ContactViewController") as! ContactViewController
+        
+        return rootViewController
     }
 }
 

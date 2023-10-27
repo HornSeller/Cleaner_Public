@@ -31,11 +31,13 @@
 		9AB8E2CE2A89CB9B008FA25A /* ScreenshotsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB8E2CD2A89CB9B008FA25A /* ScreenshotsViewController.swift */; };
 		9AB8E2D12A89CE58008FA25A /* ScreenshotsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB8E2CF2A89CE58008FA25A /* ScreenshotsCollectionViewCell.swift */; };
 		9AB8E2D22A89CE58008FA25A /* ScreenshotsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AB8E2D02A89CE58008FA25A /* ScreenshotsCollectionViewCell.xib */; };
-		9ABABC532A78AD0000E44E8B /* FileManagerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABABC512A78AD0000E44E8B /* FileManagerTableViewCell.swift */; };
-		9ABABC542A78AD0000E44E8B /* FileManagerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ABABC522A78AD0000E44E8B /* FileManagerTableViewCell.xib */; };
 		9ABEAA0E2A930F450036F2C9 /* SimilarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABEAA0C2A930F450036F2C9 /* SimilarTableViewCell.swift */; };
 		9ABEAA0F2A930F450036F2C9 /* SimilarTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ABEAA0D2A930F450036F2C9 /* SimilarTableViewCell.xib */; };
 		9AC031BD2ADFBC1300F70FA8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9AC031BC2ADFBC1300F70FA8 /* GoogleService-Info.plist */; };
+		9AC609DF2AEB5AE700D671D5 /* DuplicatedContactsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC609DD2AEB5AE700D671D5 /* DuplicatedContactsTableViewCell.swift */; };
+		9AC609E02AEB5AE700D671D5 /* DuplicatedContactsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AC609DE2AEB5AE700D671D5 /* DuplicatedContactsTableViewCell.xib */; };
+		9AC609E32AEB614500D671D5 /* DuplicatedContactsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC609E12AEB614500D671D5 /* DuplicatedContactsCollectionViewCell.swift */; };
+		9AC609E42AEB614500D671D5 /* DuplicatedContactsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AC609E22AEB614500D671D5 /* DuplicatedContactsCollectionViewCell.xib */; };
 		9AD4D6602A5FD5A000146E9B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD4D65F2A5FD5A000146E9B /* AppDelegate.swift */; };
 		9AD4D6622A5FD5A000146E9B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD4D6612A5FD5A000146E9B /* SceneDelegate.swift */; };
 		9AD4D6672A5FD5A000146E9B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9AD4D6652A5FD5A000146E9B /* Main.storyboard */; };
@@ -71,11 +73,13 @@
 		9AB8E2CD2A89CB9B008FA25A /* ScreenshotsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotsViewController.swift; sourceTree = "<group>"; };
 		9AB8E2CF2A89CE58008FA25A /* ScreenshotsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotsCollectionViewCell.swift; sourceTree = "<group>"; };
 		9AB8E2D02A89CE58008FA25A /* ScreenshotsCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScreenshotsCollectionViewCell.xib; sourceTree = "<group>"; };
-		9ABABC512A78AD0000E44E8B /* FileManagerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerTableViewCell.swift; sourceTree = "<group>"; };
-		9ABABC522A78AD0000E44E8B /* FileManagerTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FileManagerTableViewCell.xib; sourceTree = "<group>"; };
 		9ABEAA0C2A930F450036F2C9 /* SimilarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimilarTableViewCell.swift; sourceTree = "<group>"; };
 		9ABEAA0D2A930F450036F2C9 /* SimilarTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SimilarTableViewCell.xib; sourceTree = "<group>"; };
 		9AC031BC2ADFBC1300F70FA8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		9AC609DD2AEB5AE700D671D5 /* DuplicatedContactsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuplicatedContactsTableViewCell.swift; sourceTree = "<group>"; };
+		9AC609DE2AEB5AE700D671D5 /* DuplicatedContactsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DuplicatedContactsTableViewCell.xib; sourceTree = "<group>"; };
+		9AC609E12AEB614500D671D5 /* DuplicatedContactsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuplicatedContactsCollectionViewCell.swift; sourceTree = "<group>"; };
+		9AC609E22AEB614500D671D5 /* DuplicatedContactsCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DuplicatedContactsCollectionViewCell.xib; sourceTree = "<group>"; };
 		9AD4D65C2A5FD5A000146E9B /* Cleaner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cleaner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9AD4D65F2A5FD5A000146E9B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9AD4D6612A5FD5A000146E9B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -150,6 +154,8 @@
 				9AAF3F0D2A95F32E00D6B153 /* DuplicatedCollectionViewCell.xib */,
 				04A70C562AC5BEEA0042D810 /* PrivatePhotosCollectionViewCell.swift */,
 				04A70C572AC5BEEA0042D810 /* PrivatePhotosCollectionViewCell.xib */,
+				9AC609E12AEB614500D671D5 /* DuplicatedContactsCollectionViewCell.swift */,
+				9AC609E22AEB614500D671D5 /* DuplicatedContactsCollectionViewCell.xib */,
 			);
 			path = CollectionViewCell;
 			sourceTree = "<group>";
@@ -157,12 +163,12 @@
 		9AC5577A2A7767750038CC35 /* TableViewCell */ = {
 			isa = PBXGroup;
 			children = (
-				9ABABC512A78AD0000E44E8B /* FileManagerTableViewCell.swift */,
-				9ABABC522A78AD0000E44E8B /* FileManagerTableViewCell.xib */,
 				9ABEAA0C2A930F450036F2C9 /* SimilarTableViewCell.swift */,
 				9ABEAA0D2A930F450036F2C9 /* SimilarTableViewCell.xib */,
 				9AAF3F082A95EA2000D6B153 /* DuplicatedTableViewCell.swift */,
 				9AAF3F092A95EA2000D6B153 /* DuplicatedTableViewCell.xib */,
+				9AC609DD2AEB5AE700D671D5 /* DuplicatedContactsTableViewCell.swift */,
+				9AC609DE2AEB5AE700D671D5 /* DuplicatedContactsTableViewCell.xib */,
 			);
 			path = TableViewCell;
 			sourceTree = "<group>";
@@ -272,12 +278,13 @@
 				9ABEAA0F2A930F450036F2C9 /* SimilarTableViewCell.xib in Resources */,
 				9AD4D6692A5FD5A200146E9B /* Assets.xcassets in Resources */,
 				9AAF3F0F2A95F32E00D6B153 /* DuplicatedCollectionViewCell.xib in Resources */,
+				9AC609E02AEB5AE700D671D5 /* DuplicatedContactsTableViewCell.xib in Resources */,
 				9AD4D6672A5FD5A000146E9B /* Main.storyboard in Resources */,
 				9AB8E2D22A89CE58008FA25A /* ScreenshotsCollectionViewCell.xib in Resources */,
+				9AC609E42AEB614500D671D5 /* DuplicatedContactsCollectionViewCell.xib in Resources */,
 				9AA7E5312A935ECB0035EEA7 /* SimilarCollectionViewCell.xib in Resources */,
 				9AAF3F0B2A95EA2000D6B153 /* DuplicatedTableViewCell.xib in Resources */,
 				9AC031BD2ADFBC1300F70FA8 /* GoogleService-Info.plist in Resources */,
-				9ABABC542A78AD0000E44E8B /* FileManagerTableViewCell.xib in Resources */,
 				04A70C592AC5BEEA0042D810 /* PrivatePhotosCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -336,6 +343,7 @@
 				9AB8E2D12A89CE58008FA25A /* ScreenshotsCollectionViewCell.swift in Sources */,
 				9AB8E2CE2A89CB9B008FA25A /* ScreenshotsViewController.swift in Sources */,
 				04FFD0F72A848E7500CB3646 /* CleanViewController.swift in Sources */,
+				9AC609DF2AEB5AE700D671D5 /* DuplicatedContactsTableViewCell.swift in Sources */,
 				04BEFEFC2AD92FE100711CED /* SettingViewController.swift in Sources */,
 				9AD4D6602A5FD5A000146E9B /* AppDelegate.swift in Sources */,
 				9A842F2F2A8F5EA200A7603E /* SimilarViewController.swift in Sources */,
@@ -344,9 +352,9 @@
 				9A842F312A8F5EB400A7603E /* DuplicatedViewController.swift in Sources */,
 				9A55946A2AC418AA00E2733D /* PrivatePhotosViewController.swift in Sources */,
 				9AAF3F0E2A95F32E00D6B153 /* DuplicatedCollectionViewCell.swift in Sources */,
-				9ABABC532A78AD0000E44E8B /* FileManagerTableViewCell.swift in Sources */,
 				04BEFEFA2AD8EDF800711CED /* SwiftPing.swift in Sources */,
 				044A958A2ABA93DA00B17B9C /* PrivateBrowserViewController.swift in Sources */,
+				9AC609E32AEB614500D671D5 /* DuplicatedContactsCollectionViewCell.swift in Sources */,
 				048E9B852AC6778800E3833C /* ShowImageViewController.swift in Sources */,
 				9AA4072F2AE8B0AC004944D6 /* ContactViewController.swift in Sources */,
 				9AD4D6622A5FD5A000146E9B /* SceneDelegate.swift in Sources */,
