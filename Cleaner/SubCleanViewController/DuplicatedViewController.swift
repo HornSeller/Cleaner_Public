@@ -15,7 +15,7 @@ class DuplicatedViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func didDeselectImage(_ imageAssetPair: ImageAssetPair) {
-        if let index = SimilarViewController.selectedSimilarImageAssets.firstIndex(where: { $0 == imageAssetPair }) {
+        if let index = DuplicatedViewController.selectedDuplicatedImageAssets.firstIndex(where: { $0 == imageAssetPair }) {
             DuplicatedViewController.selectedDuplicatedImageAssets.remove(at: index)
         }
     }

@@ -494,3 +494,18 @@ extension PHAsset {
         return assetSize
     }
 }
+
+struct ImageAssetPair: Equatable {
+    let image: UIImage
+    let asset: PHAsset
+    
+    static func == (lhs: ImageAssetPair, rhs: ImageAssetPair) -> Bool {
+        // So sánh các thuộc tính của cặp (UIImage, PHAsset)
+        return lhs.image == rhs.image && lhs.asset == rhs.asset
+    }
+}
+
+protocol ImageSelectionDelegate: AnyObject {
+    func didSelectImage(_ imageAssetPair: ImageAssetPair)
+    func didDeselectImage(_ imageAssetPair: ImageAssetPair)
+}

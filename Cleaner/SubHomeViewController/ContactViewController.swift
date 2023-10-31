@@ -8,20 +8,32 @@
 import UIKit
 import Contacts
 
-class ContactViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ContactViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ContactSelectionDelegate {
+    func didSelectContact(_ contactInfo: ContactInfo) {
+        ContactViewController.selectedDuplicatedContact.append(contactInfo)
+    }
+    
+    func didDeselectContact(_ contactInfo: ContactInfo) {
+        if let index = ContactViewController.selectedDuplicatedContact.firstIndex(where: { $0 == contactInfo }) {
+            ContactViewController.selectedDuplicatedContact.remove(at: index)
+        }
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         duplicateContacts.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath) as! DuplicatedContactsTableViewCell
-        
+        cell.dataCollectionView = duplicateContacts[indexPath.row]
+        cell.collectionView.reloadData()
         return cell
     }
     
 
     @IBOutlet weak var tableView: UITableView!
     var duplicateContacts: [[ContactInfo]] = []
+    public static var selectedDuplicatedContact: [ContactInfo] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,6 +74,10 @@ class ContactViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
+    @IBAction func backBtnTapped(_ sender: UIBarButtonItem) {
+        self.navigationController?.popViewController(animated: true)
+    }
+        
     func getContacts(completion: @escaping ([ContactInfo]) -> Void) {
         // Tạo một đối tượng CNContactStore
         let contactStore = CNContactStore()
@@ -149,4 +165,14 @@ class ContactViewController: UIViewController, UITableViewDelegate, UITableViewD
 struct ContactInfo {
     var name: String
     var phoneNumber: String
+    
+    static func == (lhs: ContactInfo, rhs: ContactInfo) -> Bool {
+        // So sánh các thuộc tính của cặp (UIImage, PHAsset)
+        return lhs.name == rhs.name && lhs.phoneNumber == rhs.phoneNumber
+    }
+}
+
+protocol ContactSelectionDelegate: AnyObject {
+    func didSelectContact(_ contactInfo: ContactInfo)
+    func didDeselectContact(_ contactInfo: ContactInfo)
 }

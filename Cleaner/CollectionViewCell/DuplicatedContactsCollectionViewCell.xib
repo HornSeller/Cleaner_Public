@@ -61,6 +61,7 @@
             <connections>
                 <outlet property="checkboxImageView" destination="t0U-X1-Fha" id="dx8-mj-cR6"/>
                 <outlet property="contactImage" destination="o4W-KW-63N" id="hdI-Bl-SaJ"/>
+                <outlet property="firstCaseLb" destination="arI-mt-HGc" id="nsV-RP-4L8"/>
                 <outlet property="nameLb" destination="OOe-yB-orP" id="pgp-s8-uXt"/>
                 <outlet property="numberLb" destination="Mmo-cm-tiO" id="dmI-a9-O7G"/>
                 <outlet property="view" destination="ts6-iP-QZY" id="uZV-MB-2Ve"/>

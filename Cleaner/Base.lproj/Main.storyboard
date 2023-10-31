@@ -987,6 +987,9 @@
                     <navigationItem key="navigationItem" id="0PQ-gR-0w6">
                         <barButtonItem key="leftBarButtonItem" image="arrow-left" style="plain" id="iTh-y1-Sjt">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="backBtnTapped:" destination="NEW-YG-WGE" id="E5j-y1-NqI"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
@@ -1757,8 +1760,8 @@
         <image name="Line 4" width="344" height="1"/>
         <image name="Plane" width="129" height="102"/>
         <image name="Tick" width="35.333332061767578" height="35.333332061767578"/>
-        <image name="Type=Ô dề tối" width="375" height="812"/>
         <image name="Type=Ô dề tối" width="375" height="812"/>
+        <image name="Type=Ô dề tối" width="375" height="812"/>
         <image name="Vector" width="64" height="64"/>
         <image name="addBtn" width="44" height="44"/>
         <image name="arrow-down" width="24" height="24"/>
