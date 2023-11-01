@@ -31,19 +31,19 @@ class DuplicatedContactsTableViewCell: UITableViewCell, UICollectionViewDelegate
         let selectedName = dataCollectionView[indexPath.row].name
         let selectedNumber = dataCollectionView[indexPath.row].phoneNumber
         let contact = ContactInfo(name: selectedName, phoneNumber: selectedNumber)
-        DuplicatedViewController.selectedDuplicatedImageAssets.append(pair)
-        delegate?.didSelectImage(pair)
+        ContactViewController.selectedDuplicatedContacts.append(contact)
+        delegate?.didSelectContact(contact)
     }
 
     // And when an image is deselected:
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        let deselectedImage = dataTable[indexPath.row].image
-        let deselectedAsset = dataTable[indexPath.row].asset
-        let pairToRemove = ImageAssetPair(image: deselectedImage, asset: deselectedAsset)
-        if let index = DuplicatedViewController.selectedDuplicatedImageAssets.firstIndex(where: { $0 == pairToRemove }) {
-            DuplicatedViewController.selectedDuplicatedImageAssets.remove(at: index)
+        let deselectedName = dataCollectionView[indexPath.row].name
+        let deselectedNumber = dataCollectionView[indexPath.row].phoneNumber
+        let contactToRemove = ContactInfo(name: deselectedName, phoneNumber: deselectedNumber)
+        if let index = ContactViewController.selectedDuplicatedContacts.firstIndex(where: { $0 == contactToRemove }) {
+            ContactViewController.selectedDuplicatedContacts.remove(at: index)
         }
-        delegate?.didDeselectImage(pairToRemove)
+        delegate?.didDeselectContact(contactToRemove)
     }
     
     @IBOutlet weak var subView: UIView!

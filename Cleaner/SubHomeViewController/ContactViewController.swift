@@ -10,12 +10,12 @@ import Contacts
 
 class ContactViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ContactSelectionDelegate {
     func didSelectContact(_ contactInfo: ContactInfo) {
-        ContactViewController.selectedDuplicatedContact.append(contactInfo)
+        ContactViewController.selectedDuplicatedContacts.append(contactInfo)
     }
     
     func didDeselectContact(_ contactInfo: ContactInfo) {
-        if let index = ContactViewController.selectedDuplicatedContact.firstIndex(where: { $0 == contactInfo }) {
-            ContactViewController.selectedDuplicatedContact.remove(at: index)
+        if let index = ContactViewController.selectedDuplicatedContacts.firstIndex(where: { $0 == contactInfo }) {
+            ContactViewController.selectedDuplicatedContacts.remove(at: index)
         }
     }
     
@@ -29,14 +29,15 @@ class ContactViewController: UIViewController, UITableViewDelegate, UITableViewD
         cell.collectionView.reloadData()
         return cell
     }
-    
 
+    @IBOutlet weak var deleteBtn: UIButton!
     @IBOutlet weak var tableView: UITableView!
     var duplicateContacts: [[ContactInfo]] = []
-    public static var selectedDuplicatedContact: [ContactInfo] = []
+    public static var selectedDuplicatedContacts: [ContactInfo] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        deleteBtn.layer.cornerRadius = 22
         
         tableView.register(UINib(nibName: "DuplicatedContactsTableViewCell", bundle: .main), forCellReuseIdentifier: "myCell")
         tableView.rowHeight = 0.21127 * view.frame.height
@@ -72,6 +73,87 @@ class ContactViewController: UIViewController, UITableViewDelegate, UITableViewD
                 }
             }
         }
+    }
+    
+    @IBAction func deleteBtnTapped(_ sender: UIButton) {
+        print(ContactViewController.selectedDuplicatedContacts)
+        let contactStore = CNContactStore()
+        var contactToDelete: [CNContact] = []
+        var indexPathsToDelete: [IndexPath] = []
+        var sectionToDelete: [Int] = []
+        if ContactViewController.selectedDuplicatedContacts.count == 0 {
+            let alert = UIAlertController(title: "Please choose at least 1 Contact to delete", message: nil, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            self.present(alert, animated: true)
+            return
+        }
+        
+        let alert = UIAlertController(title: "Do you really want to delete this contact(s)?", message: nil, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { (_) in
+            DispatchQueue.global().async {
+                let keysToFetch = [CNContactGivenNameKey, CNContactFamilyNameKey, CNContactPhoneNumbersKey]
+                let fetchRequest = CNContactFetchRequest(keysToFetch: keysToFetch as [CNKeyDescriptor])
+                
+                do {
+                    try contactStore.enumerateContacts(with: fetchRequest) { (contact, stop) in
+                        let givenName = contact.givenName
+                        let familyName = contact.familyName
+                        let phoneNumbers = contact.phoneNumbers.map { $0.value.stringValue }
+                        // Lấy số điện thoại đầu tiên nếu có
+                        if let phoneNumber = phoneNumbers.first {
+                            let contactInfo = ContactInfo(name: "\(givenName) \(familyName)", phoneNumber: phoneNumber)
+                            if ContactViewController.selectedDuplicatedContacts.contains(where: {$0 == contactInfo}) {
+                                contactToDelete.append(contact)
+                            }
+                        }
+                    }
+                    
+                    if contactToDelete.count == ContactViewController.selectedDuplicatedContacts.count {
+                        for (section, sectionContacts) in self.duplicateContacts.enumerated() {
+                            var count = 0
+                            for (row, contactInfo) in sectionContacts.enumerated() {
+                                if ContactViewController.selectedDuplicatedContacts.contains(where: {$0 == contactInfo}) {
+                                    count += 1
+                                    let indexPath = IndexPath(row: row, section: section)
+                                    if count < sectionContacts.count - 1 {
+                                        indexPathsToDelete.append(indexPath)
+                                    } else {
+                                        indexPathsToDelete.append(indexPath)
+                                        if !sectionToDelete.contains(section) {
+                                            sectionToDelete.append(section)
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    print("\(sectionToDelete) & \(indexPathsToDelete)")
+                    self.deleteContacts(contacts: contactToDelete) { success, error in
+                        if success {
+                            for indexPath in indexPathsToDelete.reversed() {
+                                self.duplicateContacts[indexPath.section].remove(at: indexPath.row)
+                            }
+                            
+                            for section in sectionToDelete.reversed() {
+                                self.duplicateContacts.remove(at: section)
+                            }
+                            
+                            DispatchQueue.main.async {
+                                let alert = UIAlertController(title: "Delete successfully!", message: nil, preferredStyle: .alert)
+                                alert.addAction(UIAlertAction(title: "OK", style: .default))
+                                self.present(alert, animated: true)
+                                self.tableView.reloadDataAndPerformCustomLogic()
+                            }
+                        }
+                    }
+                } catch {
+                    // Xử lý lỗi nếu có
+                    print("Error fetching contacts: \(error)")
+                }
+            }
+        }))
+        alert.addAction(UIAlertAction(title: "No", style: .cancel))
+        self.present(alert, animated: true)
     }
     
     @IBAction func backBtnTapped(_ sender: UIBarButtonItem) {

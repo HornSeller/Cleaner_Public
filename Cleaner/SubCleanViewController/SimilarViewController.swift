@@ -116,6 +116,7 @@ extension UITableView {
         // Ví dụ: In ra thông báo sau khi reloadData()
         SimilarViewController.selectedSimilarImageAssets = []
         DuplicatedViewController.selectedDuplicatedImageAssets = []
+        ContactViewController.selectedDuplicatedContacts = []
         
         // Gọi reloadData() để cập nhật dữ liệu của collectionView
         reloadData()
