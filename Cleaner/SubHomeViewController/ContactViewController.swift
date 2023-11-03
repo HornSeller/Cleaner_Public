@@ -141,7 +141,7 @@ class ContactViewController: UIViewController, UITableViewDelegate, UITableViewD
                             DispatchQueue.main.async {
                                 let alert = UIAlertController(title: "Delete successfully!", message: nil, preferredStyle: .alert)
                                 alert.addAction(UIAlertAction(title: "OK", style: .default))
-                                self.present(alert, animated: true)
+                                self.present(alert, animated: true )
                                 self.tableView.reloadDataAndPerformCustomLogic()
                             }
                         }

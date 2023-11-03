@@ -9,17 +9,7 @@ import UIKit
 import Photos
 import CryptoKit
 
-class DuplicatedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ImageSelectionDelegate {
-    func didSelectImage(_ imageAssetPair: ImageAssetPair) {
-        DuplicatedViewController.selectedDuplicatedImageAssets.append(imageAssetPair)
-    }
-    
-    func didDeselectImage(_ imageAssetPair: ImageAssetPair) {
-        if let index = DuplicatedViewController.selectedDuplicatedImageAssets.firstIndex(where: { $0 == imageAssetPair }) {
-            DuplicatedViewController.selectedDuplicatedImageAssets.remove(at: index)
-        }
-    }
-    
+class DuplicatedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         dataTable.count
     }
@@ -47,7 +37,7 @@ class DuplicatedViewController: UIViewController, UITableViewDelegate, UITableVi
 
         tableView.rowHeight = 0.2582 * view.frame.height
         
-        self.dataTable = CleanViewController.duplicatedDataTable
+        dataTable = CleanViewController.duplicatedDataTable
         
         self.navigationController?.navigationBar.titleTextAttributes = [
                     NSAttributedString.Key.foregroundColor: UIColor.white,

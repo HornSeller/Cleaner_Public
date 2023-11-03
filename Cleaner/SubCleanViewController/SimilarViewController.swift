@@ -8,17 +8,7 @@
 import UIKit
 import Photos
 
-class SimilarViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ImageSelectionDelegate {
-    func didSelectImage(_ imageAssetPair: ImageAssetPair) {
-        SimilarViewController.selectedSimilarImageAssets.append(imageAssetPair)
-    }
-    
-    func didDeselectImage(_ imageAssetPair: ImageAssetPair) {
-        if let index = SimilarViewController.selectedSimilarImageAssets.firstIndex(where: { $0 == imageAssetPair }) {
-            SimilarViewController.selectedSimilarImageAssets.remove(at: index)
-        }
-    }
-    
+class SimilarViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         dataTable.count
     }

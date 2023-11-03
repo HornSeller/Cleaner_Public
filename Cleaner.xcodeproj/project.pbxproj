@@ -44,6 +44,7 @@
 		9AD4D6692A5FD5A200146E9B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9AD4D6682A5FD5A200146E9B /* Assets.xcassets */; };
 		9AD4D66C2A5FD5A200146E9B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9AD4D66A2A5FD5A200146E9B /* LaunchScreen.storyboard */; };
 		9AE650CD2AE0F46900125F79 /* Poppins in Resources */ = {isa = PBXBuildFile; fileRef = 9AE650CB2AE0F44900125F79 /* Poppins */; };
+		9AEEC15F2AF23BB000EEDE65 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEEC15E2AF23BB000EEDE65 /* CalendarViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -88,6 +89,7 @@
 		9AD4D66B2A5FD5A200146E9B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9AD4D66D2A5FD5A200146E9B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9AE650CB2AE0F44900125F79 /* Poppins */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Poppins; sourceTree = "<group>"; };
+		9AEEC15E2AF23BB000EEDE65 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +131,7 @@
 				9A9A48452A6F7F26000D4705 /* SpeedTestViewController.swift */,
 				048E9B842AC6778800E3833C /* ShowImageViewController.swift */,
 				9AA4072E2AE8B0AC004944D6 /* ContactViewController.swift */,
+				9AEEC15E2AF23BB000EEDE65 /* CalendarViewController.swift */,
 			);
 			path = SubHomeViewController;
 			sourceTree = "<group>";
@@ -338,6 +341,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9AEEC15F2AF23BB000EEDE65 /* CalendarViewController.swift in Sources */,
 				9ABEAA0E2A930F450036F2C9 /* SimilarTableViewCell.swift in Sources */,
 				9A9A48462A6F7F26000D4705 /* SpeedTestViewController.swift in Sources */,
 				9AB8E2D12A89CE58008FA25A /* ScreenshotsCollectionViewCell.swift in Sources */,
@@ -511,6 +515,7 @@
 				DEVELOPMENT_TEAM = 2FX323KNBX;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Cleaner/Info.plist;
+				INFOPLIST_KEY_NSCalendarsUsageDescription = "We need access to your calendar to display them.";
 				INFOPLIST_KEY_NSContactsUsageDescription = "We need access to your contacts to display them.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -542,6 +547,7 @@
 				DEVELOPMENT_TEAM = 2FX323KNBX;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Cleaner/Info.plist;
+				INFOPLIST_KEY_NSCalendarsUsageDescription = "We need access to your calendar to display them.";
 				INFOPLIST_KEY_NSContactsUsageDescription = "We need access to your contacts to display them.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

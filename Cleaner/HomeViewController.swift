@@ -10,6 +10,8 @@ import Alamofire
 import MobileCoreServices
 import KDCircularProgress
 import PhotosUI
+import ContactsUI
+import EventKit
 
 class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, PHPickerViewControllerDelegate {
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
@@ -56,6 +58,76 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        PHPhotoLibrary.requestAuthorization { status in
+            if status == .authorized {
+                // User has granted access to the photo library
+            } else {
+                // User has denied or restricted access to the photo library
+            }
+        }
+        
+        let contactStore = CNContactStore()
+        
+        // Kiểm tra quyền truy cập danh bạ
+        switch CNContactStore.authorizationStatus(for: .contacts) {
+        case .authorized:
+            print("Access contact")
+        case .denied, .restricted:
+            print("Access denied")
+        case .notDetermined:
+            // Nếu chưa được xác nhận, yêu cầu quyền truy cập danh bạ từ người dùng
+            contactStore.requestAccess(for: .contacts) { (granted, error) in
+                if granted {
+
+                } else {
+                    print("Access denied")
+                }
+            }
+        }
+        
+        let eventStore = EKEventStore()
+        // Kiểm tra quyền truy cập lịch
+        switch EKEventStore.authorizationStatus(for: .event) {
+        case .authorized:
+            // Đã được cấp quyền, có thể truy cập vào dữ liệu lịch
+            print("Access calendar")
+        case .denied, .restricted:
+            // Người dùng từ chối hoặc bị hạn chế quyền truy cập
+            print("Access denied or restricted")
+            
+        case .notDetermined:
+            // Chưa được yêu cầu quyền truy cập, yêu cầu người dùng cấp quyền
+            if #available(iOS 17.0, *) {
+                eventStore.requestWriteOnlyAccessToEvents { granted, error in
+                    if granted {
+                        // Đã được cấp quyền, thực hiện lại quá trình truy cập dữ liệu lịch
+                    } else {
+                        // Quyền truy cập bị từ chối
+                        print("Access denied")
+                    }
+                }
+            } else {
+                // Fallback on earlier versions
+                eventStore.requestAccess(to: .event, completion:
+                { (granted: Bool, error: Error?) in
+                    if granted {
+                        // Đã được cấp quyền, thực hiện lại quá trình truy cập dữ liệu lịch
+                    } else {
+                        // Quyền truy cập bị từ chối
+                        print("Access denied")
+                    }
+                })
+            }
+        
+        case .fullAccess:
+            break
+        case .writeOnly:
+            break
+        @unknown default:
+            break
+        }
+        
         HomeViewController.width = view.frame.width
         
         privateBrowserBtn.layer.cornerRadius = 14
@@ -98,6 +170,13 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         circularProgress.animate(toAngle: Double(percent) / 100.0 * 360, duration: 1, completion: nil)
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        CleanViewController.screenshotDataTable = []
+        CleanViewController.similarDataTable = []
+        CleanViewController.duplicatedDataTable = []
+    }
+    
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
     }
@@ -125,10 +204,13 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
 //        }
 //    }
     
+    @IBAction func calendarBtnTapped(_ sender: UIButton) {
+        self.navigationController?.pushViewController(CalendarViewController.makeSelf(), animated: true)
+    }
+    
     @IBAction func tapped(_ sender: UIButton) {
         self.navigationController?.pushViewController(ContactViewController.makeSelf(), animated: true)
     }
-    
     
     @IBAction func settingBtnTapped(_ sender: UIBarButtonItem) {
         self.navigationController?.pushViewController(SettingViewController.makeSelf(), animated: true)

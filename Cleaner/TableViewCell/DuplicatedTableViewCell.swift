@@ -23,7 +23,6 @@ class DuplicatedTableViewCell: UITableViewCell, UICollectionViewDelegate, UIColl
         let selectedAsset = dataTable[indexPath.row].asset
         let pair = ImageAssetPair(image: selectedImage, asset: selectedAsset)
         DuplicatedViewController.selectedDuplicatedImageAssets.append(pair)
-        delegate?.didSelectImage(pair)
     }
 
     // And when an image is deselected:
@@ -34,7 +33,6 @@ class DuplicatedTableViewCell: UITableViewCell, UICollectionViewDelegate, UIColl
         if let index = DuplicatedViewController.selectedDuplicatedImageAssets.firstIndex(where: { $0 == pairToRemove }) {
             DuplicatedViewController.selectedDuplicatedImageAssets.remove(at: index)
         }
-        delegate?.didDeselectImage(pairToRemove)
     }
     
     enum Mode {
@@ -60,7 +58,6 @@ class DuplicatedTableViewCell: UITableViewCell, UICollectionViewDelegate, UIColl
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var subView: UIView!
     var dataTable: [ImageAssetPair] = []
-    weak var delegate: ImageSelectionDelegate?
     var isSelectedAll = false
     
     override func awakeFromNib() {

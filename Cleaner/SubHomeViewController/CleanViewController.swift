@@ -98,7 +98,7 @@ class CleanViewController: UIViewController {
             self.tickImageView.isHidden = false
         }
     }
-    
+
     @IBAction func screenshotsBtnTapped(_ sender: UIButton) {
         self.performSegue(withIdentifier: "screenshotsSegue", sender: self)
     }
@@ -503,9 +503,4 @@ struct ImageAssetPair: Equatable {
         // So sánh các thuộc tính của cặp (UIImage, PHAsset)
         return lhs.image == rhs.image && lhs.asset == rhs.asset
     }
-}
-
-protocol ImageSelectionDelegate: AnyObject {
-    func didSelectImage(_ imageAssetPair: ImageAssetPair)
-    func didDeselectImage(_ imageAssetPair: ImageAssetPair)
 }

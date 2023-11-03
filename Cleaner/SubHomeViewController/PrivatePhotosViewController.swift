@@ -201,13 +201,6 @@ class PrivatePhotosViewController: UIViewController, UICollectionViewDelegateFlo
         updatePhotosName()
         photoCountLb.text = "\(photosName.count) photo(s)"
         checkPhotoCount()
-        PHPhotoLibrary.requestAuthorization { status in
-            if status == .authorized {
-                // User has granted access to the photo library
-            } else {
-                // User has denied or restricted access to the photo library
-            }
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

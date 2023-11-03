@@ -53,6 +53,7 @@ class ScreenshotsViewController: UIViewController, UICollectionViewDelegateFlowL
         deleteBtn.layer.cornerRadius = 18
         
         dataCollection = CleanViewController.screenshotDataTable
+        
         print(ScreenshotsViewController.assetArr)
         selectBarButton = {
             let barButtonItem = UIBarButtonItem(title: "Select All", style: .plain, target: self, action: #selector(selectBtnTapped(_:)))

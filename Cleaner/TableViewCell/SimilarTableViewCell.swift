@@ -24,7 +24,6 @@ class SimilarTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollect
         let selectedAsset = dataCollection[indexPath.row].asset
         let pair = ImageAssetPair(image: selectedImage, asset: selectedAsset)
         SimilarViewController.selectedSimilarImageAssets.append(pair)
-        delegate?.didSelectImage(pair)
     }
 
     // And when an image is deselected:
@@ -35,7 +34,6 @@ class SimilarTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollect
         if let index = SimilarViewController.selectedSimilarImageAssets.firstIndex(where: { $0 == pairToRemove }) {
             SimilarViewController.selectedSimilarImageAssets.remove(at: index)
         }
-        delegate?.didDeselectImage(pairToRemove)
     }
     
     enum Mode {
@@ -59,7 +57,6 @@ class SimilarTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollect
     @IBOutlet weak var selectAllBtn: UIButton!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var subView: UIView!
-    weak var delegate: ImageSelectionDelegate?
     var dataCollection: [ImageAssetPair] = []
     var isSelectedAll = false
     

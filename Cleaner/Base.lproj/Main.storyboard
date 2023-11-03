@@ -185,12 +185,21 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wg2-9O-0fk">
-                                        <rect key="frame" x="166" y="672" width="75" height="35"/>
+                                        <rect key="frame" x="93" y="672" width="82" height="35"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="contact"/>
                                         <connections>
                                             <action selector="tapped:" destination="j0w-uj-y7B" eventType="touchUpInside" id="ZGT-oE-Fnb"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nN1-x8-rxI">
+                                        <rect key="frame" x="228" y="672" width="90" height="35"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="calendar"/>
+                                        <connections>
+                                            <action selector="calendarBtnTapped:" destination="j0w-uj-y7B" eventType="touchUpInside" id="G1f-KA-sJR"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -1026,6 +1035,22 @@
             </objects>
             <point key="canvasLocation" x="4313.740458015267" y="1293.661971830986"/>
         </scene>
+        <!--Calendar View Controller-->
+        <scene sceneID="wPs-Tc-Gfc">
+            <objects>
+                <viewController storyboardIdentifier="CalendarViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="tXy-Hh-Y4J" customClass="CalendarViewController" customModule="Cleaner" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="LbL-nm-yVZ">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="OMy-B9-ByE"/>
+                        <color key="backgroundColor" systemColor="separatorColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="xQT-2G-z40"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1DM-Ds-7Ek" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5543" y="1294"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="yhk-BO-ExO">
             <objects>
@@ -1768,6 +1793,24 @@
             </objects>
             <point key="canvasLocation" x="4315" y="532"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Qsj-6A-uXq">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="cpM-zh-Eap" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="fe6-cc-O4V">
+                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="tXy-Hh-Y4J" kind="relationship" relationship="rootViewController" id="33g-4D-akY"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6ms-ks-RAF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5543" y="532"/>
+        </scene>
     </scenes>
     <resources>
         <image name="022-mail" width="239" height="224"/>
@@ -1786,8 +1829,8 @@
         <image name="Line 4" width="344" height="1"/>
         <image name="Plane" width="129" height="102"/>
         <image name="Tick" width="35.333332061767578" height="35.333332061767578"/>
-        <image name="Type=Ô dề tối" width="375" height="812"/>
         <image name="Type=Ô dề tối" width="375" height="812"/>
+        <image name="Type=Ô dề tối" width="375" height="812"/>
         <image name="Vector" width="64" height="64"/>
         <image name="addBtn" width="44" height="44"/>
         <image name="arrow-down" width="24" height="24"/>
@@ -1826,11 +1869,14 @@
         <namedColor name="AccentColor">
             <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <systemColor name="separatorColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
