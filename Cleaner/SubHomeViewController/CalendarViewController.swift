@@ -18,7 +18,24 @@ class CalendarViewController: UIViewController {
         switch EKEventStore.authorizationStatus(for: .event) {
         case .authorized:
             // Đã được cấp quyền, có thể truy cập vào dữ liệu lịch
-            break
+            let calendars = eventStore.calendars(for: .event).filter {
+                $0.allowsContentModifications && $0.source.sourceType == .local
+            }
+            let startDate = Date(timeIntervalSinceNow: -10*365*24*60*60)
+            let endDate = Date()
+            
+            for calendar in calendars {
+                // Tạo predicate để lấy sự kiện từ lịch này
+                let predicate = eventStore.predicateForEvents(withStart: startDate, end: endDate, calendars: [calendar])
+                let events = eventStore.events(matching: predicate)
+                print(events.count)
+                for event in events {
+                    print("Event Title: \(event.title)")
+                    print("Event Start Date: \(event.startDate)")
+                    print("Event End Date: \(event.endDate)")
+                }
+            }
+
         case .denied, .restricted:
             // Người dùng từ chối hoặc bị hạn chế quyền truy cập
             print("Access denied or restricted")
