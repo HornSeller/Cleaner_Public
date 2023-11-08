@@ -55,7 +55,6 @@ class SpeedTestViewController: UIViewController {
         let pinger = try? SwiftyPing(host: "1.1.1.1", configuration: PingConfiguration(interval: 0.5, with: 5), queue: DispatchQueue.global())
         pinger?.observer = { (response) in
             let duration = response.duration
-            print("\(Int(duration * 1000))ms")
             self.pingLb.text = "\(Int(duration * 1000))"
             self.smallPingLb.text = "\(Int(duration * 1000))ms"
         }

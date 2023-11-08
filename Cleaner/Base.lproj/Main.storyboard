@@ -190,7 +190,7 @@
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="contact"/>
                                         <connections>
-                                            <action selector="tapped:" destination="j0w-uj-y7B" eventType="touchUpInside" id="ZGT-oE-Fnb"/>
+                                            <action selector="contactBtnTapped:" destination="j0w-uj-y7B" eventType="touchUpInside" id="4U5-Iz-Pu2"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nN1-x8-rxI">
@@ -199,7 +199,7 @@
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="calendar"/>
                                         <connections>
-                                            <action selector="calendarBtnTapped:" destination="j0w-uj-y7B" eventType="touchUpInside" id="G1f-KA-sJR"/>
+                                            <action selector="calendarBtnTapped:" destination="j0w-uj-y7B" eventType="touchUpInside" id="Qcs-wh-GmA"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -1042,14 +1042,37 @@
                     <view key="view" contentMode="scaleToFill" id="LbL-nm-yVZ">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Type=Ô dề tối" translatesAutoresizingMaskIntoConstraints="NO" id="ITr-BA-XcY">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4mC-v1-FVl">
+                                <rect key="frame" x="0.0" y="103" width="393" height="715"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="OMy-B9-ByE"/>
                         <color key="backgroundColor" systemColor="separatorColor"/>
+                        <constraints>
+                            <constraint firstItem="4mC-v1-FVl" firstAttribute="centerY" secondItem="OMy-B9-ByE" secondAttribute="centerY" id="213-da-rPw"/>
+                            <constraint firstItem="4mC-v1-FVl" firstAttribute="width" secondItem="OMy-B9-ByE" secondAttribute="width" id="2s2-NS-E4Y"/>
+                            <constraint firstItem="4mC-v1-FVl" firstAttribute="centerX" secondItem="OMy-B9-ByE" secondAttribute="centerX" id="DyU-XX-4dH"/>
+                            <constraint firstItem="4mC-v1-FVl" firstAttribute="height" secondItem="OMy-B9-ByE" secondAttribute="height" id="ykx-pk-zai"/>
+                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="xQT-2G-z40"/>
+                    <navigationItem key="navigationItem" id="xQT-2G-z40">
+                        <barButtonItem key="leftBarButtonItem" image="arrow-left" style="plain" id="4qW-JE-Tbp">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="backBtnTapped:" destination="tXy-Hh-Y4J" id="lnR-Aq-AGu"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1DM-Ds-7Ek" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5543" y="1294"/>
+            <point key="canvasLocation" x="5542.7480916030536" y="1293.661971830986"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="yhk-BO-ExO">
@@ -1829,8 +1852,8 @@
         <image name="Line 4" width="344" height="1"/>
         <image name="Plane" width="129" height="102"/>
         <image name="Tick" width="35.333332061767578" height="35.333332061767578"/>
-        <image name="Type=Ô dề tối" width="375" height="812"/>
         <image name="Type=Ô dề tối" width="375" height="812"/>
+        <image name="Type=Ô dề tối" width="375" height="812"/>
         <image name="Vector" width="64" height="64"/>
         <image name="addBtn" width="44" height="44"/>
         <image name="arrow-down" width="24" height="24"/>

@@ -168,6 +168,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         //circularProgress.progress = Double(percent) / 100.0
         view.addSubview(circularProgress)
         circularProgress.animate(toAngle: Double(percent) / 100.0 * 360, duration: 1, completion: nil)
+        print("im comeback didload")
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -175,40 +176,18 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         CleanViewController.screenshotDataTable = []
         CleanViewController.similarDataTable = []
         CleanViewController.duplicatedDataTable = []
+        print("im comeback didappear")
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
     }
     
-//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-//        dismiss(animated: true, completion: nil)
-//
-//        if let videoURL = info[.mediaURL] as? URL {
-//            // Bạn có thể sử dụng videoURL ở đây để làm gì bạn muốn, ví dụ: lưu vào CoreData hoặc hiển thị trên một AVPlayer.
-//            let assetURLs = [videoURL] // Chuyển đổi thành một mảng của URLs
-//            let assetLocalIdentifiers = assetURLs.compactMap { url -> String? in
-//                guard let asset = PHAsset.fetchAssets(withALAssetURLs: [url] as NSArray as! [URL], options: nil).firstObject else {
-//                    return nil
-//                }
-//                return asset.localIdentifier
-//            }
-//            if let firstLocalIdentifier = assetLocalIdentifiers.first {
-//                print("Local Identifier của video: \(firstLocalIdentifier)")
-//                // Gọi hàm xoá video với local identifier nếu cần
-//                // deleteVideo(withLocalIdentifier: firstLocalIdentifier)
-//            } else {
-//                print("Không thể lấy local identifier của video.")
-//            }
-//            self.navigationController?.pushViewController(CompressVideoViewController.makeSelf(url: videoURL), animated: true)
-//        }
-//    }
-    
     @IBAction func calendarBtnTapped(_ sender: UIButton) {
         self.navigationController?.pushViewController(CalendarViewController.makeSelf(), animated: true)
     }
     
-    @IBAction func tapped(_ sender: UIButton) {
+    @IBAction func contactBtnTapped(_ sender: UIButton) {
         self.navigationController?.pushViewController(ContactViewController.makeSelf(), animated: true)
     }
     

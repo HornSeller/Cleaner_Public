@@ -10,30 +10,23 @@ import EventKit
 
 class CalendarViewController: UIViewController {
 
+    let eventStore = EKEventStore()
+    var dataTable: [EKEvent] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        let eventStore = EKEventStore()
 
         switch EKEventStore.authorizationStatus(for: .event) {
         case .authorized:
             // Đã được cấp quyền, có thể truy cập vào dữ liệu lịch
-            let calendars = eventStore.calendars(for: .event).filter {
-                $0.allowsContentModifications && $0.source.sourceType == .local
-            }
-            let startDate = Date(timeIntervalSinceNow: -10*365*24*60*60)
-            let endDate = Date()
-            
-            for calendar in calendars {
-                // Tạo predicate để lấy sự kiện từ lịch này
-                let predicate = eventStore.predicateForEvents(withStart: startDate, end: endDate, calendars: [calendar])
-                let events = eventStore.events(matching: predicate)
-                print(events.count)
-                for event in events {
-                    print("Event Title: \(event.title)")
-                    print("Event Start Date: \(event.startDate)")
-                    print("Event End Date: \(event.endDate)")
-                }
+            searchEventsSince1970 { events in
+                self.dataTable = events
+                print(self.dataTable.last?.title)
+//                do {
+//                    try self.eventStore.remove(self.dataTable.last!, span: .thisEvent, commit: true)
+//                } catch {
+//                    print(error.localizedDescription)
+//                }
             }
 
         case .denied, .restricted:
@@ -66,26 +59,49 @@ class CalendarViewController: UIViewController {
             }
         
         case .fullAccess:
-            let calendars = eventStore.calendars(for: .event)
-            
-            for calendar in calendars {
-                // Lấy danh sách sự kiện từ lịch này
-                let predicate = eventStore.predicateForEvents(withStart: Date(), end: Date().addingTimeInterval(365*24*60*60), calendars: [calendar])
-                let events = eventStore.events(matching: predicate)
-                
-                for event in events {
-                    // In ra thông tin của sự kiện
-                    print("Event Title: \(event.title)")
-                    print("Event Start Date: \(event.startDate)")
-                    print("Event End Date: \(event.endDate)")
-                }
+            searchEventsSince1970 { events in
+                self.dataTable = events
+                print(self.dataTable)
             }
+            
         case .writeOnly:
             break
         @unknown default:
             break
         }
-
+    }
+    
+    @IBAction func backBtnTapped(_ sender: UIBarButtonItem) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    func searchEventsSince1970(completion: @escaping ([EKEvent]) -> Void) {
+        var eventsArr: [EKEvent] = []
+        let calendars = eventStore.calendars(for: .event).filter {
+            $0.allowsContentModifications && $0.source.sourceType == .local
+        }
+        var startDate = Date(timeIntervalSinceNow: 0); print(startDate)
+        print(startDate.timeIntervalSince1970)
+        for calendar in calendars {
+            // Tạo predicate để lấy sự kiện từ lịch này
+            while (startDate.timeIntervalSince1970 >= 0) {
+                let predicate = eventStore.predicateForEvents(withStart: startDate - 365*24*60*60, end: startDate, calendars: [calendar])
+                let events = eventStore.events(matching: predicate)
+                print(events.count)
+                for event in events {
+                    print("Event Title: \(event.title ?? "")")
+                    print("Event Start Date: \(event.startDate ?? Date())")
+                    print("Event End Date: \(event.endDate ?? Date())")
+                    eventsArr.append(event)
+                }
+                startDate = startDate - 365*24*60*60
+                print(startDate)
+            }
+            
+            if (startDate.timeIntervalSince1970 < 0) {
+                completion(eventsArr)
+            }
+        }
     }
     
     static func makeSelf() -> CalendarViewController {
