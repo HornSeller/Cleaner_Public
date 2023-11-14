@@ -45,6 +45,8 @@
 		9AD4D66C2A5FD5A200146E9B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9AD4D66A2A5FD5A200146E9B /* LaunchScreen.storyboard */; };
 		9AE650CD2AE0F46900125F79 /* Poppins in Resources */ = {isa = PBXBuildFile; fileRef = 9AE650CB2AE0F44900125F79 /* Poppins */; };
 		9AEEC15F2AF23BB000EEDE65 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEEC15E2AF23BB000EEDE65 /* CalendarViewController.swift */; };
+		9AF0C7CE2B037F8C00F46911 /* CalendarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF0C7CC2B037F8C00F46911 /* CalendarTableViewCell.swift */; };
+		9AF0C7CF2B037F8C00F46911 /* CalendarTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AF0C7CD2B037F8C00F46911 /* CalendarTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -90,6 +92,8 @@
 		9AD4D66D2A5FD5A200146E9B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9AE650CB2AE0F44900125F79 /* Poppins */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Poppins; sourceTree = "<group>"; };
 		9AEEC15E2AF23BB000EEDE65 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
+		9AF0C7CC2B037F8C00F46911 /* CalendarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTableViewCell.swift; sourceTree = "<group>"; };
+		9AF0C7CD2B037F8C00F46911 /* CalendarTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CalendarTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,6 +176,8 @@
 				9AAF3F092A95EA2000D6B153 /* DuplicatedTableViewCell.xib */,
 				9AC609DD2AEB5AE700D671D5 /* DuplicatedContactsTableViewCell.swift */,
 				9AC609DE2AEB5AE700D671D5 /* DuplicatedContactsTableViewCell.xib */,
+				9AF0C7CC2B037F8C00F46911 /* CalendarTableViewCell.swift */,
+				9AF0C7CD2B037F8C00F46911 /* CalendarTableViewCell.xib */,
 			);
 			path = TableViewCell;
 			sourceTree = "<group>";
@@ -287,6 +293,7 @@
 				9AC609E42AEB614500D671D5 /* DuplicatedContactsCollectionViewCell.xib in Resources */,
 				9AA7E5312A935ECB0035EEA7 /* SimilarCollectionViewCell.xib in Resources */,
 				9AAF3F0B2A95EA2000D6B153 /* DuplicatedTableViewCell.xib in Resources */,
+				9AF0C7CF2B037F8C00F46911 /* CalendarTableViewCell.xib in Resources */,
 				9AC031BD2ADFBC1300F70FA8 /* GoogleService-Info.plist in Resources */,
 				04A70C592AC5BEEA0042D810 /* PrivatePhotosCollectionViewCell.xib in Resources */,
 			);
@@ -344,6 +351,7 @@
 				9AEEC15F2AF23BB000EEDE65 /* CalendarViewController.swift in Sources */,
 				9ABEAA0E2A930F450036F2C9 /* SimilarTableViewCell.swift in Sources */,
 				9A9A48462A6F7F26000D4705 /* SpeedTestViewController.swift in Sources */,
+				9AF0C7CE2B037F8C00F46911 /* CalendarTableViewCell.swift in Sources */,
 				9AB8E2D12A89CE58008FA25A /* ScreenshotsCollectionViewCell.swift in Sources */,
 				9AB8E2CE2A89CB9B008FA25A /* ScreenshotsViewController.swift in Sources */,
 				04FFD0F72A848E7500CB3646 /* CleanViewController.swift in Sources */,

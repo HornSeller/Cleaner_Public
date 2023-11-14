@@ -39,7 +39,10 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         }
     }
     
-
+    @IBOutlet weak var contactAccessNeededBtn: UIButton!
+    @IBOutlet weak var calendarAccessNeededBtn: UIButton!
+    @IBOutlet weak var contactBtn: UIButton!
+    @IBOutlet weak var calendarBtn: UIButton!
     @IBOutlet weak var speedTestBtn: UIButton!
     @IBOutlet weak var compressVideoBtn: UIButton!
     @IBOutlet weak var privateMediaBtn: UIButton!
@@ -130,10 +133,14 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
         HomeViewController.width = view.frame.width
         
-        privateBrowserBtn.layer.cornerRadius = 14
-        privateMediaBtn.layer.cornerRadius = 14
-        compressVideoBtn.layer.cornerRadius = 14
-        speedTestBtn.layer.cornerRadius = 14
+        calendarAccessNeededBtn.layer.cornerRadius = 14
+        contactAccessNeededBtn.layer.cornerRadius = 14
+        privateBrowserBtn.layer.cornerRadius = 12
+        privateMediaBtn.layer.cornerRadius = 12
+        compressVideoBtn.layer.cornerRadius = 12
+        speedTestBtn.layer.cornerRadius = 12
+        calendarBtn.layer.cornerRadius = 12
+        contactBtn.layer.cornerRadius = 12
         
         let totalDiskSpace = UIDevice.current.totalDiskSpaceInGB
         let usedDiskSpace = UIDevice.current.usedDiskSpaceInGB
@@ -181,6 +188,14 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func contactAccessNeededBtnTapped(_ sender: UIButton) {
+        self.navigationController?.pushViewController(ContactViewController.makeSelf(), animated: true)
+    }
+    
+    @IBAction func calendarAccessNeededBtnTapped(_ sender: UIButton) {
+        self.navigationController?.pushViewController(CalendarViewController.makeSelf(), animated: true)
     }
     
     @IBAction func calendarBtnTapped(_ sender: UIButton) {

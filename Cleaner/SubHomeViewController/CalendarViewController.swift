@@ -8,20 +8,33 @@
 import UIKit
 import EventKit
 
-class CalendarViewController: UIViewController {
+class CalendarViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        dataTable.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath) as! CalendarTableViewCell
+        return cell
+    }
+    
 
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var deleteBtn: UIButton!
     let eventStore = EKEventStore()
     var dataTable: [EKEvent] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.register(UINib(nibName: "CalendarTableViewCell", bundle: .main), forCellReuseIdentifier: "myCell")
+        tableView.rowHeight = 50
 
         switch EKEventStore.authorizationStatus(for: .event) {
         case .authorized:
             // Đã được cấp quyền, có thể truy cập vào dữ liệu lịch
             searchEventsSince1970 { events in
                 self.dataTable = events
-                print(self.dataTable.last?.title)
+                print(self.dataTable.count)
 //                do {
 //                    try self.eventStore.remove(self.dataTable.last!, span: .thisEvent, commit: true)
 //                } catch {

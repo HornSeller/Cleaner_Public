@@ -8,17 +8,11 @@
 import UIKit
 import Contacts
 
-class ContactViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ContactSelectionDelegate {
-    func didSelectContact(_ contactInfo: ContactInfo) {
-        ContactViewController.selectedDuplicatedContacts.append(contactInfo)
+class ContactViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, SelectionCellDelegate {
+    func callFunction() {
+        self.updateInfoLabel()
     }
-    
-    func didDeselectContact(_ contactInfo: ContactInfo) {
-        if let index = ContactViewController.selectedDuplicatedContacts.firstIndex(where: { $0 == contactInfo }) {
-            ContactViewController.selectedDuplicatedContacts.remove(at: index)
-        }
-    }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         duplicateContacts.count
     }
@@ -30,9 +24,13 @@ class ContactViewController: UIViewController, UITableViewDelegate, UITableViewD
         return cell
     }
 
+    @IBOutlet weak var infoLb: UILabel!
+    @IBOutlet weak var backgroundLb: UILabel!
+    @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var deleteBtn: UIButton!
     @IBOutlet weak var tableView: UITableView!
     var duplicateContacts: [[ContactInfo]] = []
+    var foundContacts = 0
     public static var selectedDuplicatedContacts: [ContactInfo] = []
     
     override func viewDidLoad() {
@@ -61,18 +59,29 @@ class ContactViewController: UIViewController, UITableViewDelegate, UITableViewD
                 
                 if currentGroup.count >= 2 {
                     result.append(currentGroup)
+                    self.foundContacts += currentGroup.count
                     addedElement.append(currentContact.phoneNumber)
                 }
                 
                 currentIndex += 1
                 if currentIndex == contacts.count {
                     self.duplicateContacts = result
-                    print(self.duplicateContacts)
+                    if self.duplicateContacts.count > 0 {
+                        self.backgroundImageView.isHidden = true
+                        self.backgroundLb.isHidden = true
+                        print(self.foundContacts)
+                        self.infoLb.text = "0/\(self.foundContacts) selected contact(s)"
+                    }
                     print(addedElement)
                     self.tableView.reloadData()
                 }
             }
         }
+    }
+
+    func updateInfoLabel() {
+        self.infoLb.text = "\(ContactViewController.selectedDuplicatedContacts.count)/\(self.foundContacts) selected contact(s)"
+        print("\(ContactViewController.selectedDuplicatedContacts.count)/\(self.foundContacts) selected contact(s)")
     }
     
     @IBAction func deleteBtnTapped(_ sender: UIButton) {
@@ -88,7 +97,7 @@ class ContactViewController: UIViewController, UITableViewDelegate, UITableViewD
             return
         }
         
-        let alert = UIAlertController(title: "Do you really want to delete this contact(s)?", message: nil, preferredStyle: .alert)
+        let alert = UIAlertController(title: "Do you really want to delete this \(ContactViewController.selectedDuplicatedContacts.count) contact(s)?", message: nil, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { (_) in
             DispatchQueue.global().async {
                 let keysToFetch = [CNContactGivenNameKey, CNContactFamilyNameKey, CNContactPhoneNumbersKey]
@@ -143,6 +152,10 @@ class ContactViewController: UIViewController, UITableViewDelegate, UITableViewD
                                 alert.addAction(UIAlertAction(title: "OK", style: .default))
                                 self.present(alert, animated: true )
                                 self.tableView.reloadDataAndPerformCustomLogic()
+                                if self.duplicateContacts.count == 0 {
+                                    self.backgroundLb.isHidden = false
+                                    self.backgroundImageView.isHidden = false
+                                }
                             }
                         }
                     }
@@ -252,9 +265,4 @@ struct ContactInfo {
         // So sánh các thuộc tính của cặp (UIImage, PHAsset)
         return lhs.name == rhs.name && lhs.phoneNumber == rhs.phoneNumber
     }
-}
-
-protocol ContactSelectionDelegate: AnyObject {
-    func didSelectContact(_ contactInfo: ContactInfo)
-    func didDeselectContact(_ contactInfo: ContactInfo)
 }

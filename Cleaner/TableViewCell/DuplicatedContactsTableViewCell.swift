@@ -32,7 +32,8 @@ class DuplicatedContactsTableViewCell: UITableViewCell, UICollectionViewDelegate
         let selectedNumber = dataCollectionView[indexPath.row].phoneNumber
         let contact = ContactInfo(name: selectedName, phoneNumber: selectedNumber)
         ContactViewController.selectedDuplicatedContacts.append(contact)
-        delegate?.didSelectContact(contact)
+        print(ContactViewController.selectedDuplicatedContacts.count)
+        delegate?.callFunction()
     }
 
     // And when an image is deselected:
@@ -43,13 +44,14 @@ class DuplicatedContactsTableViewCell: UITableViewCell, UICollectionViewDelegate
         if let index = ContactViewController.selectedDuplicatedContacts.firstIndex(where: { $0 == contactToRemove }) {
             ContactViewController.selectedDuplicatedContacts.remove(at: index)
         }
-        delegate?.didDeselectContact(contactToRemove)
+        print(ContactViewController.selectedDuplicatedContacts.count)
+        delegate?.callFunction()
     }
     
     @IBOutlet weak var subView: UIView!
     @IBOutlet weak var collectionView: UICollectionView!
     var dataCollectionView: [ContactInfo] = []
-    weak var delegate: ContactSelectionDelegate?
+    var delegate: SelectionCellDelegate?
     let imageNames = ["Ellipse 68", "Ellipse 69", "Ellipse 70", "Ellipse 71"]
     
     override func awakeFromNib() {
@@ -74,5 +76,8 @@ class DuplicatedContactsTableViewCell: UITableViewCell, UICollectionViewDelegate
 
         // Configure the view for the selected state
     }
-    
+}
+
+protocol SelectionCellDelegate: AnyObject {
+    func callFunction()
 }
