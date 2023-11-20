@@ -18,7 +18,11 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
         let cell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath) as! CalendarTableViewCell
         cell.titleLb.text = dataTable[indexPath.row].title
         cell.dateLb.text = dateFormatter.string(from: dataTable[indexPath.row].startDate)
-        print("\(indexPath.section) + \(indexPath.row)")
+        if cell.isSelected {
+            cell.checkboxImgView.image = UIImage(named: "Check box 1")
+        } else {
+            cell.checkboxImgView.image = UIImage(named: "Check box")
+        }
         return cell
     }
     
@@ -26,7 +30,8 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
         let selectedCell = tableView.cellForRow(at: indexPath) as! CalendarTableViewCell
         selectedCell.checkboxImgView.image = UIImage(named: "Check box 1")
         eventsToDelete.append(dataTable[indexPath.row])
-        rowsToDelete.append(indexPath.row)
+        indexPathToDelete.append(indexPath)
+        infoLb.text = "\(eventsToDelete.count)/\(dataTable.count) selected events"
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
@@ -35,9 +40,10 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
         if let index = eventsToDelete.firstIndex(where: { $0 == dataTable[indexPath.row]}) {
             eventsToDelete.remove(at: index)
         }
-        if let index = rowsToDelete.firstIndex(where: { $0 == indexPath.row}) {
-            rowsToDelete.remove(at: index)
+        if let index = indexPathToDelete.firstIndex(where: { $0 == indexPath}) {
+            indexPathToDelete.remove(at: index)
         }
+        infoLb.text = "\(eventsToDelete.count)/\(dataTable.count) selected events"
     }
     
     @IBOutlet weak var infoLb: UILabel!
@@ -49,7 +55,7 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
     var dataTable: [EKEvent] = []
     let dateFormatter = DateFormatter()
     var eventsToDelete: [EKEvent] = []
-    var rowsToDelete: [Int] = []
+    var indexPathToDelete: [IndexPath] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -113,24 +119,48 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
             
         case .writeOnly:
             break
+
         @unknown default:
             break
         }
     }
     
     @IBAction func deleteBtnTapped(_ sender: UIButton) {
-        for event in eventsToDelete {
-            do {
-                try self.eventStore.remove(event, span: .thisEvent, commit: true)
-            } catch {
-                print(error.localizedDescription)
+        if eventsToDelete.count == 0 {
+            let alert = UIAlertController(title: "Please choose at least 1 Event to delete", message: nil, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            self.present(alert, animated: true)
+            return
+        }
+        let alert = UIAlertController(title: "Delete this \(eventsToDelete.count) event(s)?", message: "Events will be removed from the Calendar.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { (_) in
+            for event in self.eventsToDelete {
+                do {
+                    try self.eventStore.remove(event, span: .thisEvent, commit: true)
+                } catch {
+                    print(error.localizedDescription)
+                }
             }
-        }
-        
-        for row in rowsToDelete.reversed() {
             
-        }
-        print("Event to delete: \(eventsToDelete)\nRow to delete: \(rowsToDelete)")
+            self.indexPathToDelete.sort(by: >)
+            
+            for indexPath in self.indexPathToDelete {
+                self.dataTable.remove(at: indexPath.row)
+                print(indexPath.row)
+            }
+            
+            if self.dataTable.count == 0 {
+                self.backgroundLb.isHidden = false
+                self.backgroundImageView.isHidden = false
+            }
+            
+            self.infoLb.text = "0/\(self.dataTable.count) selected events"
+            self.tableView.reloadData()
+            self.eventsToDelete = []
+            self.indexPathToDelete = []
+        }))
+        self.present(alert, animated: true)
     }
     
     @IBAction func backBtnTapped(_ sender: UIBarButtonItem) {

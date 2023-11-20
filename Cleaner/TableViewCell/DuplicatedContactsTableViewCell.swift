@@ -33,10 +33,9 @@ class DuplicatedContactsTableViewCell: UITableViewCell, UICollectionViewDelegate
         let contact = ContactInfo(name: selectedName, phoneNumber: selectedNumber)
         ContactViewController.selectedDuplicatedContacts.append(contact)
         print(ContactViewController.selectedDuplicatedContacts.count)
-        delegate?.callFunction()
+        NotificationCenter.default.post(name: NSNotification.Name("UpdateLabelNotification"), object: nil, userInfo: ["text": "\(ContactViewController.selectedDuplicatedContacts.count)"])
     }
 
-    // And when an image is deselected:
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         let deselectedName = dataCollectionView[indexPath.row].name
         let deselectedNumber = dataCollectionView[indexPath.row].phoneNumber
@@ -45,13 +44,12 @@ class DuplicatedContactsTableViewCell: UITableViewCell, UICollectionViewDelegate
             ContactViewController.selectedDuplicatedContacts.remove(at: index)
         }
         print(ContactViewController.selectedDuplicatedContacts.count)
-        delegate?.callFunction()
+        NotificationCenter.default.post(name: NSNotification.Name("UpdateLabelNotification"), object: nil, userInfo: ["text": "\(ContactViewController.selectedDuplicatedContacts.count)"])
     }
     
     @IBOutlet weak var subView: UIView!
     @IBOutlet weak var collectionView: UICollectionView!
     var dataCollectionView: [ContactInfo] = []
-    var delegate: SelectionCellDelegate?
     let imageNames = ["Ellipse 68", "Ellipse 69", "Ellipse 70", "Ellipse 71"]
     
     override func awakeFromNib() {
@@ -76,8 +74,4 @@ class DuplicatedContactsTableViewCell: UITableViewCell, UICollectionViewDelegate
 
         // Configure the view for the selected state
     }
-}
-
-protocol SelectionCellDelegate: AnyObject {
-    func callFunction()
 }

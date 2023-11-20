@@ -175,7 +175,6 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         //circularProgress.progress = Double(percent) / 100.0
         view.addSubview(circularProgress)
         circularProgress.animate(toAngle: Double(percent) / 100.0 * 360, duration: 1, completion: nil)
-        print("im comeback didload")
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -183,7 +182,6 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         CleanViewController.screenshotDataTable = []
         CleanViewController.similarDataTable = []
         CleanViewController.duplicatedDataTable = []
-        print("im comeback didappear")
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -199,7 +197,14 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     }
     
     @IBAction func calendarBtnTapped(_ sender: UIButton) {
-        self.navigationController?.pushViewController(CalendarViewController.makeSelf(), animated: true)
+        if #available(iOS 17.0, *) {
+            let alert = UIAlertController(title: "This function is not available on iOS 17.", message: "Coming soon", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            self.present(alert, animated: true)
+        } else {
+            self.navigationController?.pushViewController(CalendarViewController.makeSelf(), animated: true)
+        }
+//        self.navigationController?.pushViewController(CalendarViewController.makeSelf(), animated: true)
     }
     
     @IBAction func contactBtnTapped(_ sender: UIButton) {

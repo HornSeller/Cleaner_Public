@@ -8,11 +8,7 @@
 import UIKit
 import Contacts
 
-class ContactViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, SelectionCellDelegate {
-    func callFunction() {
-        self.updateInfoLabel()
-    }
-
+class ContactViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         duplicateContacts.count
     }
@@ -35,6 +31,9 @@ class ContactViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(updateLabel(notification:)), name: NSNotification.Name("UpdateLabelNotification"), object: nil)
+        
         deleteBtn.layer.cornerRadius = 22
         
         tableView.register(UINib(nibName: "DuplicatedContactsTableViewCell", bundle: .main), forCellReuseIdentifier: "myCell")
@@ -79,9 +78,11 @@ class ContactViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
 
-    func updateInfoLabel() {
-        self.infoLb.text = "\(ContactViewController.selectedDuplicatedContacts.count)/\(self.foundContacts) selected contact(s)"
-        print("\(ContactViewController.selectedDuplicatedContacts.count)/\(self.foundContacts) selected contact(s)")
+    @objc func updateLabel(notification: Notification) {
+        if let text = notification.userInfo?["text"] as? String {
+            // Thực hiện cập nhật label ở đây
+            infoLb.text = "\(text)/\(foundContacts) selected contact(s)"
+        }
     }
     
     @IBAction func deleteBtnTapped(_ sender: UIButton) {
@@ -97,7 +98,7 @@ class ContactViewController: UIViewController, UITableViewDelegate, UITableViewD
             return
         }
         
-        let alert = UIAlertController(title: "Do you really want to delete this \(ContactViewController.selectedDuplicatedContacts.count) contact(s)?", message: nil, preferredStyle: .alert)
+        let alert = UIAlertController(title: "Delete this \(ContactViewController.selectedDuplicatedContacts.count) contact(s)?", message: nil, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { (_) in
             DispatchQueue.global().async {
                 let keysToFetch = [CNContactGivenNameKey, CNContactFamilyNameKey, CNContactPhoneNumbersKey]
@@ -152,6 +153,8 @@ class ContactViewController: UIViewController, UITableViewDelegate, UITableViewD
                                 alert.addAction(UIAlertAction(title: "OK", style: .default))
                                 self.present(alert, animated: true )
                                 self.tableView.reloadDataAndPerformCustomLogic()
+                                self.foundContacts -= contactToDelete.count
+                                self.infoLb.text = "0/\(self.foundContacts) selected contact(s)"
                                 if self.duplicateContacts.count == 0 {
                                     self.backgroundLb.isHidden = false
                                     self.backgroundImageView.isHidden = false
