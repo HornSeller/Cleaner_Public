@@ -148,7 +148,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         let usedDiskSpace1 = usedDiskSpace.components(separatedBy: " ").first ?? "1"
 
         storageLb.text = "\(usedDiskSpace1)/\(totalDiskSpace1) GB"
-        CleanViewController.storage = "\(usedDiskSpace1)/\(totalDiskSpace1) GB"
+        LoadingViewController.storage = "\(usedDiskSpace1)/\(totalDiskSpace1) GB"
 
         let x = (Double(UIDevice.current.usedDiskSpaceInBytes) / Double(UIDevice.current.totalDiskSpaceInBytes)) * 100
         let percent = Int(round(x))
@@ -179,9 +179,9 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        CleanViewController.screenshotDataTable = []
-        CleanViewController.similarDataTable = []
-        CleanViewController.duplicatedDataTable = []
+        LoadingViewController.screenshotDataTable = []
+        LoadingViewController.similarDataTable = []
+        LoadingViewController.duplicatedDataTable = []
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -239,7 +239,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     }
     
     @IBAction func cleanBtnTapped(_ sender: UIButton) {
-        self.performSegue(withIdentifier: "cleanSegue", sender: self)
+        self.navigationController?.pushViewController(LoadingViewController.makeSelf(), animated: true)
     }
     
     func createGradientColor(startColor: UIColor, endColor: UIColor, size: CGSize) -> UIColor {

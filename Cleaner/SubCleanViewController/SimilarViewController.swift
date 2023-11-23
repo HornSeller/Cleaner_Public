@@ -36,7 +36,7 @@ class SimilarViewController: UIViewController, UITableViewDataSource, UITableVie
         tableView.register(UINib(nibName: "SimilarTableViewCell", bundle: .main), forCellReuseIdentifier: "similarCell")
         tableView.rowHeight = 0.32 * view.frame.height
         
-        dataTable = CleanViewController.similarDataTable
+        dataTable = LoadingViewController.similarDataTable
         
         self.navigationController?.navigationBar.titleTextAttributes = [
                     NSAttributedString.Key.foregroundColor: UIColor.white,
@@ -87,7 +87,7 @@ class SimilarViewController: UIViewController, UITableViewDataSource, UITableVie
                     }
                     sectionToDelete.append(indexPath.section)
                     self.dataTable.remove(at: indexPath.section)
-                    CleanViewController.similarDataTable.remove(at: indexPath.section)
+                    LoadingViewController.similarDataTable.remove(at: indexPath.section)
                 }
                 DispatchQueue.main.async {
                     self.tableView.reloadDataAndPerformCustomLogic()

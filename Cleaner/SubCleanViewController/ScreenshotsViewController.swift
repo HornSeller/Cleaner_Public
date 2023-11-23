@@ -52,7 +52,7 @@ class ScreenshotsViewController: UIViewController, UICollectionViewDelegateFlowL
         
         deleteBtn.layer.cornerRadius = 18
         
-        dataCollection = CleanViewController.screenshotDataTable
+        dataCollection = LoadingViewController.screenshotDataTable
         
         print(ScreenshotsViewController.assetArr)
         selectBarButton = {
@@ -132,7 +132,7 @@ class ScreenshotsViewController: UIViewController, UICollectionViewDelegateFlowL
             } completionHandler: { (success, error) in
                 if success {
                     for index in indexArr {
-                        CleanViewController.screenshotDataTable.remove(at: index)
+                        LoadingViewController.screenshotDataTable.remove(at: index)
                         self.dataCollection.remove(at: index)
                     }
                     DispatchQueue.main.async {

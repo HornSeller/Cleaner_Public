@@ -37,12 +37,12 @@ class DuplicatedViewController: UIViewController, UITableViewDelegate, UITableVi
 
         tableView.rowHeight = 0.2582 * view.frame.height
         
-        dataTable = CleanViewController.duplicatedDataTable
+        dataTable = LoadingViewController.duplicatedDataTable
         
         self.navigationController?.navigationBar.titleTextAttributes = [
                     NSAttributedString.Key.foregroundColor: UIColor.white,
                     NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 20)
-                ]
+        ]
     }
     
     @IBAction func backBtnTapped(_ sender: UIBarButtonItem) {
@@ -91,12 +91,12 @@ class DuplicatedViewController: UIViewController, UITableViewDelegate, UITableVi
                 print("Xoá ảnh thành công")
                 for indexPath in indexPathsToDelete.reversed() {
                     self.dataTable[indexPath.section].remove(at: indexPath.row)
-                    CleanViewController.duplicatedDataTable[indexPath.section].remove(at: indexPath.row)
+                    LoadingViewController.duplicatedDataTable[indexPath.section].remove(at: indexPath.row)
                 }
 
                 for section in sectionToDelete.reversed() {
                     self.dataTable.remove(at: section)
-                    CleanViewController.duplicatedDataTable.remove(at: section)
+                    LoadingViewController.duplicatedDataTable.remove(at: section)
                 }
 
                 DispatchQueue.main.async {

@@ -43,6 +43,7 @@
 		9AD4D6672A5FD5A000146E9B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9AD4D6652A5FD5A000146E9B /* Main.storyboard */; };
 		9AD4D6692A5FD5A200146E9B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9AD4D6682A5FD5A200146E9B /* Assets.xcassets */; };
 		9AD4D66C2A5FD5A200146E9B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9AD4D66A2A5FD5A200146E9B /* LaunchScreen.storyboard */; };
+		9AE262FA2B0C99E3008547F5 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE262F92B0C99E3008547F5 /* LoadingViewController.swift */; };
 		9AE650CD2AE0F46900125F79 /* Poppins in Resources */ = {isa = PBXBuildFile; fileRef = 9AE650CB2AE0F44900125F79 /* Poppins */; };
 		9AEEC15F2AF23BB000EEDE65 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEEC15E2AF23BB000EEDE65 /* CalendarViewController.swift */; };
 		9AF0C7CE2B037F8C00F46911 /* CalendarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF0C7CC2B037F8C00F46911 /* CalendarTableViewCell.swift */; };
@@ -90,6 +91,7 @@
 		9AD4D6682A5FD5A200146E9B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9AD4D66B2A5FD5A200146E9B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9AD4D66D2A5FD5A200146E9B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9AE262F92B0C99E3008547F5 /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		9AE650CB2AE0F44900125F79 /* Poppins */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Poppins; sourceTree = "<group>"; };
 		9AEEC15E2AF23BB000EEDE65 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		9AF0C7CC2B037F8C00F46911 /* CalendarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTableViewCell.swift; sourceTree = "<group>"; };
@@ -205,6 +207,7 @@
 			isa = PBXGroup;
 			children = (
 				9A9A48422A6F7947000D4705 /* HomeViewController.swift */,
+				9AE262F92B0C99E3008547F5 /* LoadingViewController.swift */,
 				04BEFEFB2AD92FE100711CED /* SettingViewController.swift */,
 				04BEFEF92AD8EDF800711CED /* SwiftPing.swift */,
 				9A9A48442A6F7F0E000D4705 /* SubHomeViewController */,
@@ -359,6 +362,7 @@
 				04BEFEFC2AD92FE100711CED /* SettingViewController.swift in Sources */,
 				9AD4D6602A5FD5A000146E9B /* AppDelegate.swift in Sources */,
 				9A842F2F2A8F5EA200A7603E /* SimilarViewController.swift in Sources */,
+				9AE262FA2B0C99E3008547F5 /* LoadingViewController.swift in Sources */,
 				9AAF3F0A2A95EA2000D6B153 /* DuplicatedTableViewCell.swift in Sources */,
 				0460AF3D2ACD445600DA66A7 /* CompressVideoViewController.swift in Sources */,
 				9A842F312A8F5EB400A7603E /* DuplicatedViewController.swift in Sources */,
@@ -529,8 +533,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -561,8 +564,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
