@@ -45,6 +45,11 @@ class DuplicatedViewController: UIViewController, UITableViewDelegate, UITableVi
         ]
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        DuplicatedViewController.selectedDuplicatedImageAssets = []
+    }
+    
     @IBAction func backBtnTapped(_ sender: UIBarButtonItem) {
         self.dismiss(animated: true)
     }

@@ -11,18 +11,15 @@ import CryptoKit
 
 class CleanViewController: UIViewController {
 
-
     @IBOutlet weak var tickImageView: UIImageView!
     @IBOutlet weak var finishLoadingLb: UILabel!
     @IBOutlet weak var storageLb: UILabel!
     @IBOutlet weak var countAndSizeDuplicatedLb: UILabel!
     @IBOutlet weak var countAndSizeSimilarLb: UILabel!
     @IBOutlet weak var countAndSizeScreenshotsLb: UILabel!
-    @IBOutlet weak var clearBtn: UIButton!
     @IBOutlet weak var duplicatedPhotosBtn: UIButton!
     @IBOutlet weak var similarPhotosBtn: UIButton!
     @IBOutlet weak var screenshotsBtn: UIButton!
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,7 +31,6 @@ class CleanViewController: UIViewController {
         self.countAndSizeScreenshotsLb.text = LoadingViewController.countAndSizeScreenshots
         self.countAndSizeSimilarLb.text = LoadingViewController.countAndSizeSimilar
         self.countAndSizeDuplicatedLb.text = LoadingViewController.countAndSizeDuplicated
-
     }
 
     @IBAction func screenshotsBtnTapped(_ sender: UIButton) {
@@ -50,6 +46,13 @@ class CleanViewController: UIViewController {
     }
     
     @IBAction func backBtnTapped(_ sender: Any) {
-        self.dismiss(animated: true)
+        self.navigationController?.popToRootViewController(animated: true)
+    }
+    
+    public static func makeSelf() -> CleanViewController {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let rootViewController = storyboard.instantiateViewController(withIdentifier: "CleanViewController") as! CleanViewController
+        
+        return rootViewController
     }
 }

@@ -44,6 +44,11 @@ class SimilarViewController: UIViewController, UITableViewDataSource, UITableVie
                 ]
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        SimilarViewController.selectedSimilarImageAssets = []
+    }
+    
     @IBAction func backBtnTapped(_ sender: UIBarButtonItem) {
         self.dismiss(animated: true)
     }

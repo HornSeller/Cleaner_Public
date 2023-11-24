@@ -33,7 +33,6 @@ class LoadingViewController: UIViewController {
     public static var duplicatedDataTable: [[ImageAssetPair]] = []
     public static var screenshotDataTable: [UIImage] = []
     public static var storage = ""
-    @IBOutlet weak var angleLb: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,9 +60,34 @@ class LoadingViewController: UIViewController {
         circularProgress.glowAmount = 0.9
         circularProgress.trackColor = UIColor(hex: "#FFFFFF", alpha: 0.1)
         circularProgress.set(colors: gradientColor)
+        
+        let angleLb = UILabel(frame: circularProgressFrame)
+        angleLb.text = "0%"
+        angleLb.textColor = UIColor.white
+        angleLb.font = UIFont.systemFont(ofSize: 40, weight: UIFont.Weight(rawValue: 500))
+        angleLb.textAlignment = .center
+        view.addSubview(angleLb)
+        
         self.view.addSubview(circularProgress)
-        circularProgress.animate(toAngle: 324, duration: 5) { _ in
-            
+        circularProgress.animate(toAngle: 72, duration: 1.5) { _ in
+            angleLb.text = "\(String(Int(circularProgress.angle) * 100 / 360))%"
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                circularProgress.animate(toAngle: 144, duration: 2) { _ in
+                    angleLb.text = "\(String(Int(circularProgress.angle) * 100 / 360))%"
+                }
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                    circularProgress.animate(toAngle: 216, duration: 2) { _ in
+                        angleLb.text = "\(String(Int(circularProgress.angle) * 100 / 360))%"
+                    }
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                        circularProgress.animate(toAngle: 288, duration: 2) { _ in
+                            angleLb.text = "\(String(Int(circularProgress.angle) * 100 / 360))%"
+                        }
+                    }
+                }
+            }
         }
         
         DispatchQueue.global().async {
@@ -112,8 +136,12 @@ class LoadingViewController: UIViewController {
             self.duplicatedSize = self.formatSize(Int64(self.duplicatedTotalSize))
             LoadingViewController.countAndSizeDuplicated = "\(self.duplicatedCount) photo(s) | \(self.duplicatedSize)"
             DispatchQueue.main.async {
-                circularProgress.animate(toAngle: 360, duration: 1, completion: nil)
-                //self.performSegue(withIdentifier: "cleanSegue", sender: self)
+                circularProgress.animate(toAngle: 360, duration: 1) { _ in
+                    angleLb.text = "\(String(Int(circularProgress.angle) * 100 / 360))%"
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    self.navigationController?.pushViewController(CleanViewController.makeSelf(), animated: true)
+                }
             }
         }
     }
@@ -472,7 +500,7 @@ class LoadingViewController: UIViewController {
             requestOptions.isSynchronous = true
             
             // Lấy ảnh từ PHAsset
-            imageManager.requestImage(for: asset, targetSize: CGSize(width: 100, height: 100), contentMode: .aspectFill, options: requestOptions, resultHandler: { (image, info) in
+            imageManager.requestImage(for: asset, targetSize: CGSize(width: 150, height: 150), contentMode: .aspectFill, options: requestOptions, resultHandler: { (image, info) in
                 if let image = image {
                     // Thêm ảnh vào mảng allPhotos
                     imageAndAssetArr.append(ImageAssetPair(image: image, asset: asset))
