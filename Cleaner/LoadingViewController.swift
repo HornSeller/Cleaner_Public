@@ -26,6 +26,8 @@ class LoadingViewController: UIViewController {
     var comparisonResults: [[[Int]]] = []
     var similarTotalSize: Int = 0
     var duplicatedTotalSize: Int = 0
+    var circularProgress = KDCircularProgress()
+    let pulseLayer = CAShapeLayer()
     public static var countAndSizeScreenshots: String = ""
     public static var countAndSizeSimilar: String = ""
     public static var countAndSizeDuplicated: String = ""
@@ -44,7 +46,7 @@ class LoadingViewController: UIViewController {
         
         let circularProgressWidth: CGFloat = 0.7 * view.frame.width
         let circularProgressFrame = CGRect(x: (view.frame.width - circularProgressWidth) / 2, y: (view.frame.height - circularProgressWidth) / 3, width: circularProgressWidth, height: circularProgressWidth)
-        let circularProgress = KDCircularProgress(frame: circularProgressFrame)
+        circularProgress = KDCircularProgress(frame: circularProgressFrame)
         
         let startColor = UIColor(hex: "#F426F4", alpha: 1)
         let endColor = UIColor(hex: "#3445DF", alpha: 1)
@@ -64,26 +66,29 @@ class LoadingViewController: UIViewController {
         let angleLb = UILabel(frame: circularProgressFrame)
         angleLb.text = "0%"
         angleLb.textColor = UIColor.white
-        angleLb.font = UIFont.systemFont(ofSize: 40, weight: UIFont.Weight(rawValue: 500))
+        angleLb.font = UIFont.systemFont(ofSize: 40, weight: UIFont.Weight(rawValue: 50))
         angleLb.textAlignment = .center
         view.addSubview(angleLb)
         
+        createPulse(width: circularProgressWidth)
+        animatePulse()
+        
         self.view.addSubview(circularProgress)
         circularProgress.animate(toAngle: 72, duration: 1.5) { _ in
-            angleLb.text = "\(String(Int(circularProgress.angle) * 100 / 360))%"
+            angleLb.text = "\(String(Int(self.circularProgress.angle) * 100 / 360))%"
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                circularProgress.animate(toAngle: 144, duration: 2) { _ in
-                    angleLb.text = "\(String(Int(circularProgress.angle) * 100 / 360))%"
+                self.circularProgress.animate(toAngle: 144, duration: 2) { _ in
+                    angleLb.text = "\(String(Int(self.circularProgress.angle) * 100 / 360))%"
                 }
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                    circularProgress.animate(toAngle: 216, duration: 2) { _ in
-                        angleLb.text = "\(String(Int(circularProgress.angle) * 100 / 360))%"
+                    self.circularProgress.animate(toAngle: 216, duration: 2) { _ in
+                        angleLb.text = "\(String(Int(self.circularProgress.angle) * 100 / 360))%"
                     }
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                        circularProgress.animate(toAngle: 288, duration: 2) { _ in
-                            angleLb.text = "\(String(Int(circularProgress.angle) * 100 / 360))%"
+                        self.circularProgress.animate(toAngle: 288, duration: 2) { _ in
+                            angleLb.text = "\(String(Int(self.circularProgress.angle) * 100 / 360))%"
                         }
                     }
                 }
@@ -136,8 +141,8 @@ class LoadingViewController: UIViewController {
             self.duplicatedSize = self.formatSize(Int64(self.duplicatedTotalSize))
             LoadingViewController.countAndSizeDuplicated = "\(self.duplicatedCount) photo(s) | \(self.duplicatedSize)"
             DispatchQueue.main.async {
-                circularProgress.animate(toAngle: 360, duration: 1) { _ in
-                    angleLb.text = "\(String(Int(circularProgress.angle) * 100 / 360))%"
+                self.circularProgress.animate(toAngle: 360, duration: 1) { _ in
+                    angleLb.text = "\(String(Int(self.circularProgress.angle) * 100 / 360))%"
                 }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     self.navigationController?.pushViewController(CleanViewController.makeSelf(), animated: true)
@@ -146,8 +151,36 @@ class LoadingViewController: UIViewController {
         }
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        circularProgress.startAngle = 270
+    }
+    
     @IBAction func backBtnTapped(_ sender: UIBarButtonItem) {
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    func createPulse(width: CGFloat) {
+        let circularPath = UIBezierPath(arcCenter: .zero, radius: UIScreen.main.bounds.size.width / 2.0, startAngle: 0, endAngle: 2 * .pi, clockwise: true)
+        
+        pulseLayer.path = circularPath.cgPath
+        pulseLayer.lineWidth = 2.0
+        pulseLayer.fillColor = UIColor.clear.cgColor
+        pulseLayer.strokeColor = UIColor(hex: "#781C80", alpha: 1).cgColor
+        pulseLayer.lineCap = CAShapeLayerLineCap.round
+        pulseLayer.position = CGPoint(x: width / 2.0, y: width / 2.0)
+        circularProgress.layer.addSublayer(pulseLayer)
+        print(width)
+    }
+    
+    func animatePulse() {
+        let scaleAnimation = CABasicAnimation(keyPath: "transform.scale")
+        scaleAnimation.duration = 2.0
+        scaleAnimation.fromValue = 0.5
+        scaleAnimation.toValue = 1.0
+        scaleAnimation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
+        scaleAnimation.repeatCount = .greatestFiniteMagnitude
+        pulseLayer.add(scaleAnimation, forKey: "scale")
     }
     
     func createGradientColor(startColor: UIColor, endColor: UIColor, size: CGSize) -> UIColor {
