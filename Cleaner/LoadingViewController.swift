@@ -27,7 +27,8 @@ class LoadingViewController: UIViewController {
     var similarTotalSize: Int = 0
     var duplicatedTotalSize: Int = 0
     var circularProgress = KDCircularProgress()
-    let pulseLayer = CAShapeLayer()
+    let pulseLayer1 = CAShapeLayer()
+    let pulseLayer2 = CAShapeLayer()
     public static var countAndSizeScreenshots: String = ""
     public static var countAndSizeSimilar: String = ""
     public static var countAndSizeDuplicated: String = ""
@@ -70,8 +71,12 @@ class LoadingViewController: UIViewController {
         angleLb.textAlignment = .center
         view.addSubview(angleLb)
         
-        createPulse(width: circularProgressWidth)
-        animatePulse()
+        createPulse(width: circularProgressWidth, pulseLayer: pulseLayer1)
+        animatePulse(pulseLayer: pulseLayer1)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.createPulse(width: circularProgressWidth, pulseLayer: self.pulseLayer2)
+            self.animatePulse(pulseLayer: self.pulseLayer2)
+        }
         
         self.view.addSubview(circularProgress)
         circularProgress.animate(toAngle: 72, duration: 1.5) { _ in
@@ -160,7 +165,7 @@ class LoadingViewController: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
-    func createPulse(width: CGFloat) {
+    func createPulse(width: CGFloat, pulseLayer: CAShapeLayer) {
         let circularPath = UIBezierPath(arcCenter: .zero, radius: UIScreen.main.bounds.size.width / 2.0, startAngle: 0, endAngle: 2 * .pi, clockwise: true)
         
         pulseLayer.path = circularPath.cgPath
@@ -173,11 +178,11 @@ class LoadingViewController: UIViewController {
         print(width)
     }
     
-    func animatePulse() {
+    func animatePulse(pulseLayer: CAShapeLayer) {
         let scaleAnimation = CABasicAnimation(keyPath: "transform.scale")
         scaleAnimation.duration = 2.0
         scaleAnimation.fromValue = 0.5
-        scaleAnimation.toValue = 1.0
+        scaleAnimation.toValue = 1.5
         scaleAnimation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
         scaleAnimation.repeatCount = .greatestFiniteMagnitude
         pulseLayer.add(scaleAnimation, forKey: "scale")

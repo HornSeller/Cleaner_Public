@@ -44,6 +44,8 @@
 		9AD4D6692A5FD5A200146E9B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9AD4D6682A5FD5A200146E9B /* Assets.xcassets */; };
 		9AD4D66C2A5FD5A200146E9B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9AD4D66A2A5FD5A200146E9B /* LaunchScreen.storyboard */; };
 		9AE262FA2B0C99E3008547F5 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE262F92B0C99E3008547F5 /* LoadingViewController.swift */; };
+		9AE3BBAA2B1DCB3400A1FE52 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE3BBA92B1DCB3400A1FE52 /* WelcomeViewController.swift */; };
+		9AE3BBAC2B1DCB6900A1FE52 /* Core.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE3BBAB2B1DCB6900A1FE52 /* Core.swift */; };
 		9AE650CD2AE0F46900125F79 /* Poppins in Resources */ = {isa = PBXBuildFile; fileRef = 9AE650CB2AE0F44900125F79 /* Poppins */; };
 		9AEEC15F2AF23BB000EEDE65 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEEC15E2AF23BB000EEDE65 /* CalendarViewController.swift */; };
 		9AF0C7CE2B037F8C00F46911 /* CalendarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF0C7CC2B037F8C00F46911 /* CalendarTableViewCell.swift */; };
@@ -92,6 +94,8 @@
 		9AD4D66B2A5FD5A200146E9B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9AD4D66D2A5FD5A200146E9B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9AE262F92B0C99E3008547F5 /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
+		9AE3BBA92B1DCB3400A1FE52 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
+		9AE3BBAB2B1DCB6900A1FE52 /* Core.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Core.swift; sourceTree = "<group>"; };
 		9AE650CB2AE0F44900125F79 /* Poppins */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Poppins; sourceTree = "<group>"; };
 		9AEEC15E2AF23BB000EEDE65 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		9AF0C7CC2B037F8C00F46911 /* CalendarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTableViewCell.swift; sourceTree = "<group>"; };
@@ -210,6 +214,8 @@
 				9AE262F92B0C99E3008547F5 /* LoadingViewController.swift */,
 				04BEFEFB2AD92FE100711CED /* SettingViewController.swift */,
 				04BEFEF92AD8EDF800711CED /* SwiftPing.swift */,
+				9AE3BBA92B1DCB3400A1FE52 /* WelcomeViewController.swift */,
+				9AE3BBAB2B1DCB6900A1FE52 /* Core.swift */,
 				9A9A48442A6F7F0E000D4705 /* SubHomeViewController */,
 				9AB8E2CC2A89CB6A008FA25A /* SubCleanViewController */,
 				9AC5577A2A7767750038CC35 /* TableViewCell */,
@@ -351,6 +357,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9AE3BBAA2B1DCB3400A1FE52 /* WelcomeViewController.swift in Sources */,
 				9AEEC15F2AF23BB000EEDE65 /* CalendarViewController.swift in Sources */,
 				9ABEAA0E2A930F450036F2C9 /* SimilarTableViewCell.swift in Sources */,
 				9A9A48462A6F7F26000D4705 /* SpeedTestViewController.swift in Sources */,
@@ -360,6 +367,7 @@
 				04FFD0F72A848E7500CB3646 /* CleanViewController.swift in Sources */,
 				9AC609DF2AEB5AE700D671D5 /* DuplicatedContactsTableViewCell.swift in Sources */,
 				04BEFEFC2AD92FE100711CED /* SettingViewController.swift in Sources */,
+				9AE3BBAC2B1DCB6900A1FE52 /* Core.swift in Sources */,
 				9AD4D6602A5FD5A000146E9B /* AppDelegate.swift in Sources */,
 				9A842F2F2A8F5EA200A7603E /* SimilarViewController.swift in Sources */,
 				9AE262FA2B0C99E3008547F5 /* LoadingViewController.swift in Sources */,

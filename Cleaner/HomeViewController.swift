@@ -184,6 +184,16 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         LoadingViewController.duplicatedDataTable = []
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        if Core.shared.isNewUser() {
+            let vc = storyboard?.instantiateViewController(withIdentifier: "onboarding") as! WelcomeViewController
+            vc.modalPresentationStyle = .fullScreen
+            present(vc, animated: true)
+        }
+    }
+    
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
     }

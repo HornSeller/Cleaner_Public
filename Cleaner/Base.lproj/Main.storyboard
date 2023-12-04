@@ -1949,6 +1949,36 @@
             </objects>
             <point key="canvasLocation" x="-654.19847328244271" y="-398.59154929577466"/>
         </scene>
+        <!--Welcome View Controller-->
+        <scene sceneID="uoY-mO-T1c">
+            <objects>
+                <viewController storyboardIdentifier="onboarding" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Ef6-qf-J2r" customClass="WelcomeViewController" customModule="Cleaner" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="GSH-T2-Eh0">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WAa-f7-are">
+                                <rect key="frame" x="0.0" y="59" width="393" height="759"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Hqq-UA-JzW"/>
+                        <color key="backgroundColor" red="0.070588235294117646" green="0.074509803921568626" blue="0.078431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="WAa-f7-are" firstAttribute="height" secondItem="Hqq-UA-JzW" secondAttribute="height" id="gDV-vm-GiH"/>
+                            <constraint firstItem="WAa-f7-are" firstAttribute="centerX" secondItem="Hqq-UA-JzW" secondAttribute="centerX" id="is8-k4-MCG"/>
+                            <constraint firstItem="WAa-f7-are" firstAttribute="centerY" secondItem="Hqq-UA-JzW" secondAttribute="centerY" id="tNi-RS-Syj"/>
+                            <constraint firstItem="WAa-f7-are" firstAttribute="width" secondItem="Hqq-UA-JzW" secondAttribute="width" id="vOt-EW-g7g"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="holderView" destination="WAa-f7-are" id="RXI-6P-ycG"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vNP-YQ-34W" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1103.0534351145038" y="-989.43661971830988"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="uKq-Xr-hs1">
             <objects>
@@ -2045,8 +2075,8 @@
         <image name="Line 4" width="344" height="1"/>
         <image name="Plane" width="129" height="102"/>
         <image name="Tick" width="35.333332061767578" height="35.333332061767578"/>
-        <image name="Type=Ô dề tối" width="375" height="812"/>
         <image name="Type=Ô dề tối" width="375" height="812"/>
+        <image name="Type=Ô dề tối" width="375" height="812"/>
         <image name="Vector" width="64" height="64"/>
         <image name="addBtn" width="44" height="44"/>
         <image name="arrow-down" width="24" height="24"/>
