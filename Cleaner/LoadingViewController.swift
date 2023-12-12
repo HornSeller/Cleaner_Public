@@ -146,7 +146,7 @@ class LoadingViewController: UIViewController {
             self.duplicatedSize = self.formatSize(Int64(self.duplicatedTotalSize))
             LoadingViewController.countAndSizeDuplicated = "\(self.duplicatedCount) photo(s) | \(self.duplicatedSize)"
             DispatchQueue.main.async {
-                self.circularProgress.animate(toAngle: 360, duration: 1) { _ in
+                self.circularProgress.animate(toAngle: 360, duration: 0.75) { _ in
                     angleLb.text = "\(String(Int(self.circularProgress.angle) * 100 / 360))%"
                 }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {

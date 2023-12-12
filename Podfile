@@ -12,5 +12,6 @@ pod 'Alamofire'
 pod 'Kingfisher'
 pod 'PasscodeKit'
 pod 'Firebase/Storage'
+pod 'SwiftyGif'
 
 end

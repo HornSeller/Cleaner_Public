@@ -114,7 +114,13 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
         case .fullAccess:
             searchEventsSince1970 { events in
                 self.dataTable = events
-                print(self.dataTable)
+                print(self.dataTable.count)
+                self.infoLb.text = "0/\(self.dataTable.count) selected events"
+                if self.dataTable.count > 0 {
+                    self.backgroundLb.isHidden = true
+                    self.backgroundImageView.isHidden = true
+                }
+                self.tableView.reloadData()
             }
             
         case .writeOnly:
@@ -169,30 +175,26 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
     
     func searchEventsSince1970(completion: @escaping ([EKEvent]) -> Void) {
         var eventsArr: [EKEvent] = []
-        let calendars = eventStore.calendars(for: .event).filter {
-            $0.allowsContentModifications && $0.source.sourceType == .local
-        }
-        var startDate = Date(timeIntervalSinceNow: 0); print(startDate)
-        print(startDate.timeIntervalSince1970)
-        for calendar in calendars {
-            // Tạo predicate để lấy sự kiện từ lịch này
-            while (startDate.timeIntervalSince1970 >= 0) {
-                let predicate = eventStore.predicateForEvents(withStart: startDate - 365*24*60*60, end: startDate, calendars: [calendar])
-                let events = eventStore.events(matching: predicate)
-                print(events.count)
-                for event in events {
+        var startDate = Date(timeIntervalSinceNow: 0)
+        
+        while startDate.timeIntervalSince1970 >= 0 {
+            let predicate = eventStore.predicateForEvents(withStart: startDate - 365*24*60*60, end: startDate, calendars: nil)
+            let events = eventStore.events(matching: predicate)
+            print(events.count)
+            for event in events {
+                if event.calendar?.isSubscribed == false {
                     print("Event Title: \(event.title ?? "")")
                     print("Event Start Date: \(event.startDate ?? Date())")
                     print("Event End Date: \(event.endDate ?? Date())")
                     eventsArr.append(event)
                 }
-                startDate = startDate - 365*24*60*60
-                print(startDate)
             }
-            
-            if (startDate.timeIntervalSince1970 < 0) {
-                completion(eventsArr)
-            }
+            startDate = startDate - 365*24*60*60
+            print(startDate)
+        }
+        
+        if (startDate.timeIntervalSince1970 < 0) {
+            completion(eventsArr)
         }
     }
     

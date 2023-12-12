@@ -23,6 +23,12 @@ class CompressVideoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        do {
+            try FileManager.default.removeItem(at: FileManager.default.temporaryDirectory.appendingPathComponent("compressed_video.mp4"))
+        } catch {
+            print(error.localizedDescription)
+        }
+        
         lowCompressBtn.layer.cornerRadius = 12
         highCompressBtn.layer.cornerRadius = 12
         compressBtn.layer.cornerRadius = compressBtn.frame.height / 2 + 2

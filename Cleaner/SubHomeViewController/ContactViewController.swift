@@ -40,41 +40,14 @@ class ContactViewController: UIViewController, UITableViewDelegate, UITableViewD
         tableView.rowHeight = 0.21127 * view.frame.height
         
         getContacts() { contacts in
-            var result: [[ContactInfo]] = []
-            var currentIndex = 0
-            var addedElement: [String] = []
-            
-            while currentIndex < contacts.count {
-                let currentContact = contacts[currentIndex]
-                var currentGroup: [ContactInfo] = [currentContact]
-                
-                var nextIndex = currentIndex + 1
-                while nextIndex < contacts.count {
-                    if contacts[nextIndex].phoneNumber == currentContact.phoneNumber && !addedElement.contains(currentContact.phoneNumber) {
-                        currentGroup.append(contacts[nextIndex])
-                    }
-                    nextIndex += 1
-                }
-                
-                if currentGroup.count >= 2 {
-                    result.append(currentGroup)
-                    self.foundContacts += currentGroup.count
-                    addedElement.append(currentContact.phoneNumber)
-                }
-                
-                currentIndex += 1
-                if currentIndex == contacts.count {
-                    self.duplicateContacts = result
-                    if self.duplicateContacts.count > 0 {
-                        self.backgroundImageView.isHidden = true
-                        self.backgroundLb.isHidden = true
-                        print(self.foundContacts)
-                        self.infoLb.text = "0/\(self.foundContacts) selected contact(s)"
-                    }
-                    print(addedElement)
-                    self.tableView.reloadData()
-                }
+            self.duplicateContacts = self.sameNameContacts(contacts: contacts) + self.sameNumberContacts(contacts: contacts)
+            if self.duplicateContacts.count > 0 {
+                self.backgroundImageView.isHidden = true
+                self.backgroundLb.isHidden = true
+                print(self.foundContacts)
+                self.infoLb.text = "0/\(self.foundContacts) selected contact(s)"
             }
+            self.tableView.reloadData()
         }
     }
 
@@ -250,6 +223,85 @@ class ContactViewController: UIViewController, UITableViewDelegate, UITableViewD
                 }
             }
         }
+    }
+    
+    func sameNumberContacts(contacts: [ContactInfo]) -> [[ContactInfo]] {
+        var result: [[ContactInfo]] = []
+        var currentIndex = 0
+        var addedElement: [String] = []
+        
+        while currentIndex < contacts.count {
+            let currentContact = contacts[currentIndex]
+            var currentGroup: [ContactInfo] = [currentContact]
+            
+            var nextIndex = currentIndex + 1
+            while nextIndex < contacts.count {
+                if contacts[nextIndex].phoneNumber == currentContact.phoneNumber && !addedElement.contains(currentContact.phoneNumber) {
+                    currentGroup.append(contacts[nextIndex])
+                }
+                nextIndex += 1
+            }
+            
+            if currentGroup.count >= 2 {
+                result.append(currentGroup)
+                self.foundContacts += currentGroup.count
+                addedElement.append(currentContact.phoneNumber)
+            }
+            
+            currentIndex += 1
+//            if currentIndex == contacts.count {
+//                self.duplicateContacts = result
+//                if self.duplicateContacts.count > 0 {
+//                    self.backgroundImageView.isHidden = true
+//                    self.backgroundLb.isHidden = true
+//                    print(self.foundContacts)
+//                    self.infoLb.text = "0/\(self.foundContacts) selected contact(s)"
+//                }
+//                print(addedElement)
+//                self.tableView.reloadData()
+//            }
+        }
+        return result
+    }
+    
+    func sameNameContacts(contacts: [ContactInfo]) -> [[ContactInfo]] {
+        var result: [[ContactInfo]] = []
+        var currentIndex = 0
+        var addedElement: [String] = []
+        
+        while currentIndex < contacts.count {
+            let currentContact = contacts[currentIndex]
+            var currentGroup: [ContactInfo] = [currentContact]
+            
+            var nextIndex = currentIndex + 1
+            while nextIndex < contacts.count {
+                if contacts[nextIndex].name == currentContact.name && !addedElement.contains(currentContact.name) {
+                    currentGroup.append(contacts[nextIndex])
+                }
+                nextIndex += 1
+            }
+            
+            if currentGroup.count >= 2 {
+                result.append(currentGroup)
+                self.foundContacts += currentGroup.count
+                addedElement.append(currentContact.name)
+            }
+            
+            currentIndex += 1
+//            if currentIndex == contacts.count {
+//                self.duplicateContacts = result
+//                if self.duplicateContacts.count > 0 {
+//                    self.backgroundImageView.isHidden = true
+//                    self.backgroundLb.isHidden = true
+//                    print(self.foundContacts)
+//                    self.infoLb.text = "0/\(self.foundContacts) selected contact(s)"
+//                }
+//                print(addedElement)
+//                self.tableView.reloadData()
+//            }
+        }
+        return result
+
     }
     
     static func makeSelf() -> ContactViewController {

@@ -16,15 +16,5 @@ class ScreenshotsCollectionViewCell: UICollectionViewCell {
         // Initialization code
         imageView.layer.cornerRadius = 10
     }
-    
-    override var isSelected: Bool {
-        didSet {
-            if isSelected {
-                checkBoxImageView.image = UIImage(named: "Check box 1")
-            } else {
-                checkBoxImageView.image = UIImage(named: "Check box")
-            }
-        }
-    }
 
 }

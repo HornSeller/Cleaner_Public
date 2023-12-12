@@ -51,6 +51,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     @IBOutlet weak var storageLb: UILabel!
     
     public static var width: CGFloat?
+    public static var onboardingImages: [UIImage]!
     
     var downloadStartTime: Date!
     var downloadReceivedData: Data = Data()
@@ -61,6 +62,8 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        HomeViewController.onboardingImages = [takeGifImage(name: "onboarding1"), takeGifImage(name: "onboarding2"), takeGifImage(name: "onboarding3")]
         
         PHPhotoLibrary.requestAuthorization { status in
             if status == .authorized {
@@ -102,12 +105,12 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         case .notDetermined:
             // Chưa được yêu cầu quyền truy cập, yêu cầu người dùng cấp quyền
             if #available(iOS 17.0, *) {
-                eventStore.requestWriteOnlyAccessToEvents { granted, error in
+                eventStore.requestFullAccessToEvents { granted, error in
                     if granted {
                         // Đã được cấp quyền, thực hiện lại quá trình truy cập dữ liệu lịch
                     } else {
                         // Quyền truy cập bị từ chối
-                        print("Access denied")
+                        print("Access denied io17")
                     }
                 }
             } else {
@@ -207,14 +210,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     }
     
     @IBAction func calendarBtnTapped(_ sender: UIButton) {
-        if #available(iOS 17.0, *) {
-            let alert = UIAlertController(title: "This function is not available on iOS 17.", message: "Coming soon", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default))
-            self.present(alert, animated: true)
-        } else {
-            self.navigationController?.pushViewController(CalendarViewController.makeSelf(), animated: true)
-        }
-//        self.navigationController?.pushViewController(CalendarViewController.makeSelf(), animated: true)
+        self.navigationController?.pushViewController(CalendarViewController.makeSelf(), animated: true)
     }
     
     @IBAction func contactBtnTapped(_ sender: UIButton) {
@@ -266,6 +262,25 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
 
         return UIColor(patternImage: image!)
     }
+    
+    func takeGifImage(name: String) -> UIImage{
+        guard let gifPath = Bundle.main.path(forResource: name, ofType: "gif") else {
+            print("Failed to find the GIF image.")
+            return UIImage(named: "1")!
+        }
+
+        guard let gifData = try? Data(contentsOf: URL(fileURLWithPath: gifPath)) else {
+            print("Failed to load the GIF image data.")
+            return UIImage(named: "1")!
+        }
+
+        guard let gifImage = UIImage.gifImageWithData(gifData) else {
+            print("Failed to create the GIF image.")
+            return UIImage(named: "1")!
+        }
+        return gifImage
+    }
+
 }
 
 extension UIDevice {

@@ -46,7 +46,7 @@ import FirebaseAuthInterop
    * - Returns: An instance of `Storage`, configured with the default `FirebaseApp`.
    */
   @objc(storage) open class func storage() -> Storage {
-      return storage(app: FirebaseApp.app()!)
+    return storage(app: FirebaseApp.app()!)
   }
 
   /**

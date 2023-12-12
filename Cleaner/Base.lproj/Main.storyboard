@@ -1959,7 +1959,18 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WAa-f7-are">
                                 <rect key="frame" x="0.0" y="59" width="393" height="759"/>
+                                <subviews>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="eWq-lr-fYA">
+                                        <rect key="frame" x="186" y="369" width="20" height="20"/>
+                                    </activityIndicatorView>
+                                </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="eWq-lr-fYA" firstAttribute="leading" secondItem="WAa-f7-are" secondAttribute="leading" constant="186" id="0oc-8j-5DX"/>
+                                    <constraint firstAttribute="bottom" secondItem="eWq-lr-fYA" secondAttribute="bottom" constant="370" id="RDj-Wk-xPu"/>
+                                    <constraint firstAttribute="trailing" secondItem="eWq-lr-fYA" secondAttribute="trailing" constant="187" id="iut-xH-cJB"/>
+                                    <constraint firstItem="eWq-lr-fYA" firstAttribute="top" secondItem="WAa-f7-are" secondAttribute="top" constant="369" id="vnj-y1-gwS"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Hqq-UA-JzW"/>
@@ -1972,6 +1983,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="eWq-lr-fYA" id="eci-Gm-OMe"/>
                         <outlet property="holderView" destination="WAa-f7-are" id="RXI-6P-ycG"/>
                     </connections>
                 </viewController>

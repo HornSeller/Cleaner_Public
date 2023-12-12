@@ -17,9 +17,23 @@ class ScreenshotsViewController: UIViewController, UICollectionViewDelegateFlowL
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myCell", for: indexPath) as! ScreenshotsCollectionViewCell
         cell.imageView.image = dataCollection[indexPath.row]
+        if cell.isSelected {
+            cell.checkBoxImageView.image = UIImage(named: "Check box 1")
+        } else {
+            cell.checkBoxImageView.image = UIImage(named: "Check box")
+        }
         return cell
     }
 
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let selectedCell = collectionView.cellForItem(at: indexPath) as! ScreenshotsCollectionViewCell
+        selectedCell.checkBoxImageView.image = UIImage(named: "Check box 1")
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        let deselectedCell = collectionView.cellForItem(at: indexPath) as! ScreenshotsCollectionViewCell
+        deselectedCell.checkBoxImageView.image = UIImage(named: "Check box")
+    }
     
     enum Mode {
         case view
@@ -94,11 +108,22 @@ class ScreenshotsViewController: UIViewController, UICollectionViewDelegateFlowL
     @objc func selectBtnTapped(_ sender: UIBarButtonItem) {
         mMode = mMode == .view ? .select : .view
         isSelectAllEnabled.toggle()
-        for indexPath in 0 ..< collectionView.numberOfItems(inSection: 0) {
-            let cell = collectionView.cellForItem(at: IndexPath(item: indexPath, section: 0)) as? ScreenshotsCollectionViewCell
-            cell?.isSelected = isSelectAllEnabled
-            print(cell?.isSelected ?? "1")
+        for row in 0 ..< collectionView.numberOfItems(inSection: 0) {
+            let cell = collectionView.cellForItem(at: IndexPath(item: row, section: 0)) as? ScreenshotsCollectionViewCell
+//            cell?.isSelected = isSelectAllEnabled
+            if isSelectAllEnabled {
+                collectionView.selectItem(at: IndexPath(row: row, section: 0), animated: true, scrollPosition: UICollectionView.ScrollPosition.left)
+            } else {
+                collectionView.deselectItem(at: IndexPath(row: row, section: 0), animated: true)
+            }
+            
+            if (cell?.isSelected == true) {
+                cell?.checkBoxImageView.image = UIImage(named: "Check box 1")
+            } else {
+                cell?.checkBoxImageView.image = UIImage(named: "Check box")
+            }
         }
+        //self.collectionView.reloadData()
     }
     
     @IBAction func backBtnTapped(_ sender: UIBarButtonItem) {

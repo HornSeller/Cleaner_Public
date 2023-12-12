@@ -12,3 +12,4 @@ ${BUILT_PRODUCTS_DIR}/KDCircularProgress/KDCircularProgress.framework
 ${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework
 ${BUILT_PRODUCTS_DIR}/PasscodeKit/PasscodeKit.framework
 ${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework
+${BUILT_PRODUCTS_DIR}/SwiftyGif/SwiftyGif.framework
