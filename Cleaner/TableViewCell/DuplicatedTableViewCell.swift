@@ -90,12 +90,12 @@ class DuplicatedTableViewCell: UITableViewCell, UICollectionViewDelegate, UIColl
     }
     
     @IBAction func selectAllBtnTapped(_ sender: UIButton) {
-        mMode = mMode == .view ? .select : .view
-        isSelectedAll.toggle()
-        
-        for indexPath in 1 ..< collectionView.numberOfItems(inSection: 0) {
-            let cell = collectionView.cellForItem(at: IndexPath(item: indexPath, section: 0)) as? DuplicatedCollectionViewCell
-            cell?.isSelected = isSelectedAll
-        }
+//        mMode = mMode == .view ? .select : .view
+//        isSelectedAll.toggle()
+//        
+//        for indexPath in 1 ..< collectionView.numberOfItems(inSection: 0) {
+//            let cell = collectionView.cellForItem(at: IndexPath(item: indexPath, section: 0)) as? DuplicatedCollectionViewCell
+//            cell?.isSelected = isSelectedAll
+//        }
     }
 }

@@ -17,4 +17,5 @@ class ScreenshotsCollectionViewCell: UICollectionViewCell {
         imageView.layer.cornerRadius = 10
     }
 
+    
 }

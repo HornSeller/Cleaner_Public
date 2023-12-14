@@ -14,9 +14,9 @@ class SimilarViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "similarCell", for: indexPath) as! SimilarTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "similarCell\(indexPath.row)", for: indexPath) as! SimilarTableViewCell
         cell.dataCollection = dataTable[indexPath.row]
-        cell.collectionView.reloadData()
+        
         return cell
     }
 
@@ -42,6 +42,10 @@ class SimilarViewController: UIViewController, UITableViewDataSource, UITableVie
                     NSAttributedString.Key.foregroundColor: UIColor.white,
                     NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 20)
                 ]
+        
+        for i in 0 ..< dataTable.count {
+            tableView.register(UINib(nibName: "SimilarTableViewCell", bundle: .main), forCellReuseIdentifier: "similarCell\(i)")
+        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {

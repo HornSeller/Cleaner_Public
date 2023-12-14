@@ -26,4 +26,12 @@ class SimilarCollectionViewCell: UICollectionViewCell {
             }
         }
     }
+    
+    func updateCheckboxImage(selected: Bool) {
+        if selected {
+            checkBoxImageView.image = UIImage(named: "Check box 1")
+        } else {
+            checkBoxImageView.image = UIImage(named: "Check box")
+        }
+    }
 }

@@ -24,4 +24,14 @@ class CalendarTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    
+    override var isSelected: Bool {
+        didSet {
+            if isSelected {
+                checkboxImgView.image = UIImage(named: "Check box 1")
+            } else {
+                checkboxImgView.image = UIImage(named: "Check box")
+            }
+        }
+    }
 }

@@ -182,7 +182,7 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
             let events = eventStore.events(matching: predicate)
             print(events.count)
             for event in events {
-                if event.calendar?.isSubscribed == false {
+                if event.calendar.allowsContentModifications {
                     print("Event Title: \(event.title ?? "")")
                     print("Event Start Date: \(event.startDate ?? Date())")
                     print("Event End Date: \(event.endDate ?? Date())")

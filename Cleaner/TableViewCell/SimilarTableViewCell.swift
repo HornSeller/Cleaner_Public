@@ -16,10 +16,18 @@ class SimilarTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollect
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myCell", for: indexPath) as! SimilarCollectionViewCell
         cell.imageView.image = dataCollection[indexPath.row].image
+        if isSelected {
+            cell.checkBoxImageView.image = UIImage(named: "Check box 1")
+        } else {
+            cell.checkBoxImageView.image = UIImage(named: "Check box")
+        }
+        
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let selectedCell = collectionView.cellForItem(at: indexPath) as! SimilarCollectionViewCell
+        selectedCell.checkBoxImageView.image = UIImage(named: "Check box 1")
         let selectedImage = dataCollection[indexPath.row].image
         let selectedAsset = dataCollection[indexPath.row].asset
         let pair = ImageAssetPair(image: selectedImage, asset: selectedAsset)
@@ -28,6 +36,8 @@ class SimilarTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollect
 
     // And when an image is deselected:
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        let deselectedCell = collectionView.cellForItem(at: indexPath) as! SimilarCollectionViewCell
+        deselectedCell.checkBoxImageView.image = UIImage(named: "Check box")
         let deselectedImage = dataCollection[indexPath.row].image
         let deselectedAsset = dataCollection[indexPath.row].asset
         let pairToRemove = ImageAssetPair(image: deselectedImage, asset: deselectedAsset)
@@ -81,7 +91,8 @@ class SimilarTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollect
         layout.sectionInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 0, right: 0)
         collectionView.collectionViewLayout = layout
         
-        collectionView.allowsMultipleSelection = true	
+        collectionView.allowsMultipleSelection = true
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -91,12 +102,11 @@ class SimilarTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollect
     }
     
     @IBAction func selectAllBtnTapped(_ sender: UIButton) {
-        mMode = mMode == .view ? .select : .view
-        isSelectedAll.toggle()
-        
-        
-        let cell = collectionView.cellForItem(at: IndexPath(item: 1, section: 0)) as? SimilarCollectionViewCell
-        cell?.isSelected = isSelectedAll
+//        mMode = mMode == .view ? .select : .view
+//        isSelectedAll.toggle()
+//        
+//        let cell = collectionView.cellForItem(at: IndexPath(item: 1, section: 0)) as? SimilarCollectionViewCell
+//        cell?.isSelected = isSelectedAll
     }
     
 }

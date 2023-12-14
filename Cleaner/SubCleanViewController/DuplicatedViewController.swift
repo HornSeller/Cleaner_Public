@@ -15,9 +15,9 @@ class DuplicatedViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "duplicatedCell", for: indexPath) as! DuplicatedTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "duplicatedCell\(indexPath.row)", for: indexPath) as! DuplicatedTableViewCell
         cell.dataTable = dataTable[indexPath.row]
-        cell.collectionView.reloadData()
+        
         return cell
     }
     
@@ -34,7 +34,6 @@ class DuplicatedViewController: UIViewController, UITableViewDelegate, UITableVi
         deleteBtn.layer.cornerRadius = 18
         
         tableView.register(UINib(nibName: "DuplicatedTableViewCell", bundle: .main), forCellReuseIdentifier: "duplicatedCell")
-
         tableView.rowHeight = 0.2582 * view.frame.height
         
         dataTable = LoadingViewController.duplicatedDataTable
@@ -43,6 +42,9 @@ class DuplicatedViewController: UIViewController, UITableViewDelegate, UITableVi
                     NSAttributedString.Key.foregroundColor: UIColor.white,
                     NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 20)
         ]
+        for i in 0 ..< dataTable.count {
+            tableView.register(UINib(nibName: "DuplicatedTableViewCell", bundle: .main), forCellReuseIdentifier: "duplicatedCell\(i)")
+        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {

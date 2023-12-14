@@ -43,6 +43,7 @@
 		9AD4D6672A5FD5A000146E9B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9AD4D6652A5FD5A000146E9B /* Main.storyboard */; };
 		9AD4D6692A5FD5A200146E9B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9AD4D6682A5FD5A200146E9B /* Assets.xcassets */; };
 		9AD4D66C2A5FD5A200146E9B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9AD4D66A2A5FD5A200146E9B /* LaunchScreen.storyboard */; };
+		9ADF02092B2AEAAF009D96B2 /* onboarding1.gif in Resources */ = {isa = PBXBuildFile; fileRef = 9ADF02082B2AEAAF009D96B2 /* onboarding1.gif */; };
 		9AE262FA2B0C99E3008547F5 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE262F92B0C99E3008547F5 /* LoadingViewController.swift */; };
 		9AE3BBAA2B1DCB3400A1FE52 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE3BBA92B1DCB3400A1FE52 /* WelcomeViewController.swift */; };
 		9AE3BBAC2B1DCB6900A1FE52 /* Core.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE3BBAB2B1DCB6900A1FE52 /* Core.swift */; };
@@ -51,7 +52,6 @@
 		9AF0C7CE2B037F8C00F46911 /* CalendarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF0C7CC2B037F8C00F46911 /* CalendarTableViewCell.swift */; };
 		9AF0C7CF2B037F8C00F46911 /* CalendarTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AF0C7CD2B037F8C00F46911 /* CalendarTableViewCell.xib */; };
 		9AF2DACF2B1F2855000045AB /* onboarding3.gif in Resources */ = {isa = PBXBuildFile; fileRef = 9AF2DACC2B1F2854000045AB /* onboarding3.gif */; };
-		9AF2DAD02B1F2855000045AB /* onboarding1.gif in Resources */ = {isa = PBXBuildFile; fileRef = 9AF2DACD2B1F2854000045AB /* onboarding1.gif */; };
 		9AF2DAD12B1F2855000045AB /* onboarding2.gif in Resources */ = {isa = PBXBuildFile; fileRef = 9AF2DACE2B1F2855000045AB /* onboarding2.gif */; };
 /* End PBXBuildFile section */
 
@@ -96,6 +96,7 @@
 		9AD4D6682A5FD5A200146E9B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9AD4D66B2A5FD5A200146E9B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9AD4D66D2A5FD5A200146E9B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9ADF02082B2AEAAF009D96B2 /* onboarding1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = onboarding1.gif; path = ../../../Downloads/onboarding1.gif; sourceTree = "<group>"; };
 		9AE262F92B0C99E3008547F5 /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		9AE3BBA92B1DCB3400A1FE52 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		9AE3BBAB2B1DCB6900A1FE52 /* Core.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Core.swift; sourceTree = "<group>"; };
@@ -104,7 +105,6 @@
 		9AF0C7CC2B037F8C00F46911 /* CalendarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTableViewCell.swift; sourceTree = "<group>"; };
 		9AF0C7CD2B037F8C00F46911 /* CalendarTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CalendarTableViewCell.xib; sourceTree = "<group>"; };
 		9AF2DACC2B1F2854000045AB /* onboarding3.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = onboarding3.gif; sourceTree = "<group>"; };
-		9AF2DACD2B1F2854000045AB /* onboarding1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = onboarding1.gif; path = ../../../Downloads/onboarding1.gif; sourceTree = "<group>"; };
 		9AF2DACE2B1F2855000045AB /* onboarding2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = onboarding2.gif; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -233,7 +233,7 @@
 				9AD4D66A2A5FD5A200146E9B /* LaunchScreen.storyboard */,
 				9AD4D66D2A5FD5A200146E9B /* Info.plist */,
 				9AC031BC2ADFBC1300F70FA8 /* GoogleService-Info.plist */,
-				9AF2DACD2B1F2854000045AB /* onboarding1.gif */,
+				9ADF02082B2AEAAF009D96B2 /* onboarding1.gif */,
 				9AF2DACE2B1F2855000045AB /* onboarding2.gif */,
 				9AF2DACC2B1F2854000045AB /* onboarding3.gif */,
 			);
@@ -308,9 +308,9 @@
 				9AAF3F0F2A95F32E00D6B153 /* DuplicatedCollectionViewCell.xib in Resources */,
 				9AC609E02AEB5AE700D671D5 /* DuplicatedContactsTableViewCell.xib in Resources */,
 				9AD4D6672A5FD5A000146E9B /* Main.storyboard in Resources */,
-				9AF2DAD02B1F2855000045AB /* onboarding1.gif in Resources */,
 				9AB8E2D22A89CE58008FA25A /* ScreenshotsCollectionViewCell.xib in Resources */,
 				9AC609E42AEB614500D671D5 /* DuplicatedContactsCollectionViewCell.xib in Resources */,
+				9ADF02092B2AEAAF009D96B2 /* onboarding1.gif in Resources */,
 				9AA7E5312A935ECB0035EEA7 /* SimilarCollectionViewCell.xib in Resources */,
 				9AAF3F0B2A95EA2000D6B153 /* DuplicatedTableViewCell.xib in Resources */,
 				9AF0C7CF2B037F8C00F46911 /* CalendarTableViewCell.xib in Resources */,
@@ -547,6 +547,7 @@
 				DEVELOPMENT_TEAM = 2FX323KNBX;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Cleaner/Info.plist;
+				INFOPLIST_KEY_NSCalendarsUsageDescription = "We need access to your calendar to display them.";
 				INFOPLIST_KEY_NSContactsUsageDescription = "We need access to your contacts to display them.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -577,6 +578,7 @@
 				DEVELOPMENT_TEAM = 2FX323KNBX;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Cleaner/Info.plist;
+				INFOPLIST_KEY_NSCalendarsUsageDescription = "We need access to your calendar to display them.";
 				INFOPLIST_KEY_NSContactsUsageDescription = "We need access to your contacts to display them.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
