@@ -15,7 +15,7 @@ class DuplicatedViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "duplicatedCell\(indexPath.row)", for: indexPath) as! DuplicatedTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "duplicatedCell\(indexArr[indexPath.row])", for: indexPath) as! DuplicatedTableViewCell
         cell.dataTable = dataTable[indexPath.row]
         
         return cell
@@ -23,6 +23,7 @@ class DuplicatedViewController: UIViewController, UITableViewDelegate, UITableVi
     
     @IBOutlet weak var deleteBtn: UIButton!
     @IBOutlet weak var tableView: UITableView!
+    var indexArr: [Int] = []
     var dataTable: [[ImageAssetPair]] = []
     var images: [UIImage] = []
     var hashArr: [String] = []
@@ -43,6 +44,7 @@ class DuplicatedViewController: UIViewController, UITableViewDelegate, UITableVi
                     NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 20)
         ]
         for i in 0 ..< dataTable.count {
+            indexArr.append(i)
             tableView.register(UINib(nibName: "DuplicatedTableViewCell", bundle: .main), forCellReuseIdentifier: "duplicatedCell\(i)")
         }
     }
@@ -90,6 +92,7 @@ class DuplicatedViewController: UIViewController, UITableViewDelegate, UITableVi
             }
         }
         print(sectionToDelete)
+        print(indexPathsToDelete.reversed())
         PHPhotoLibrary.shared().performChanges {
             let assetsToDelete = NSArray(array: assetToDelete)
             PHAssetChangeRequest.deleteAssets(assetsToDelete)
@@ -99,20 +102,23 @@ class DuplicatedViewController: UIViewController, UITableViewDelegate, UITableVi
                 for indexPath in indexPathsToDelete.reversed() {
                     self.dataTable[indexPath.section].remove(at: indexPath.row)
                     LoadingViewController.duplicatedDataTable[indexPath.section].remove(at: indexPath.row)
+                    print(indexPath)
+                    DispatchQueue.main.async {
+                        self.tableView.reloadDataAndPerformCustomLogic()
+                        if let cell = self.tableView.cellForRow(at: IndexPath(row: indexPath.section, section: 0)) as? DuplicatedTableViewCell {
+                            cell.collectionView.reloadData()
+                        }
+                    }
                 }
 
                 for section in sectionToDelete.reversed() {
                     self.dataTable.remove(at: section)
                     LoadingViewController.duplicatedDataTable.remove(at: section)
-                }
-
-                DispatchQueue.main.async {
-                    self.tableView.reloadDataAndPerformCustomLogic()
+                    self.indexArr.remove(at: section)
                 }
             } else if let error = error {
                 print("Lỗi khi xoá ảnh: \(error.localizedDescription)")
             }
         }
     }
-    
 }

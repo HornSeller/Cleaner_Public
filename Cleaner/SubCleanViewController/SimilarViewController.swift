@@ -14,14 +14,15 @@ class SimilarViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "similarCell\(indexPath.row)", for: indexPath) as! SimilarTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "similarCell\(indexArr[indexPath.row])", for: indexPath) as! SimilarTableViewCell
         cell.dataCollection = dataTable[indexPath.row]
-        
+        print(indexPath)
         return cell
     }
 
     @IBOutlet weak var tableView: UITableView!
     
+    var indexArr: [Int] = []
     var comparisonResults: [[[Int]]] = []
     var images: [UIImage] = []
     var dataTable: [[ImageAssetPair]] = []
@@ -44,6 +45,7 @@ class SimilarViewController: UIViewController, UITableViewDataSource, UITableVie
                 ]
         
         for i in 0 ..< dataTable.count {
+            indexArr.append(i)
             tableView.register(UINib(nibName: "SimilarTableViewCell", bundle: .main), forCellReuseIdentifier: "similarCell\(i)")
         }
     }
@@ -61,6 +63,7 @@ class SimilarViewController: UIViewController, UITableViewDataSource, UITableVie
         var indexPathsToDelete: [IndexPath] = []
         var assetToDelete: [PHAsset] = []
         var sectionToDelete: [Int] = []
+        var indexPathsTableToDelete: [IndexPath] = []
         //print(SimilarViewController.selectedImageAssets)
         
         if SimilarViewController.selectedSimilarImageAssets.count == 0 {
@@ -94,16 +97,44 @@ class SimilarViewController: UIViewController, UITableViewDataSource, UITableVie
                     if sectionToDelete.contains(indexPath.section) {
                         continue
                     }
+                    indexPathsTableToDelete.append(IndexPath(row: indexPath.section, section: 0))
                     sectionToDelete.append(indexPath.section)
                     self.dataTable.remove(at: indexPath.section)
                     LoadingViewController.similarDataTable.remove(at: indexPath.section)
+                    
+//                    DispatchQueue.main.async{
+//                        self.tableView.reloadDataAndPerformCustomLogic()
+//                        if let cell = self.tableView.cellForRow(at: IndexPath(row: indexPath.section, section: 0)) as? DuplicatedTableViewCell {
+//                            cell.collectionView.reloadData()
+//                        }
+//                        self.tableView.delete
+//                    }
                 }
+                
                 DispatchQueue.main.async {
-                    self.tableView.reloadDataAndPerformCustomLogic()
+                    //self.tableView.reloadDataAndPerformCustomLogic()
+                    self.tableView.deleteRows(at: indexPathsTableToDelete, with: .automatic)
+                    SimilarViewController.selectedSimilarImageAssets = []
+                    self.removeElements(atIndices: sectionToDelete, fromArray: &self.indexArr)
+                    print(sectionToDelete)
                 }
             } else if let error = error {
                 print("Lỗi khi xoá ảnh: \(error.localizedDescription)")
             }
+        }
+    }
+    
+    func removeElements(atIndices indices: [Int], fromArray array: inout [Int]) {
+        // Sắp xếp indices giảm dần để đảm bảo xoá các phần tử từ cuối mảng trở về đầu mảng
+        let sortedIndices = indices.sorted(by: >)
+
+        for index in sortedIndices {
+            guard index >= 0 && index < array.count else {
+                // Bỏ qua các chỉ số không hợp lệ
+                continue
+            }
+
+            array.remove(at: index)
         }
     }
 }
