@@ -47,7 +47,6 @@
 		9AE262FA2B0C99E3008547F5 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE262F92B0C99E3008547F5 /* LoadingViewController.swift */; };
 		9AE3BBAA2B1DCB3400A1FE52 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE3BBA92B1DCB3400A1FE52 /* WelcomeViewController.swift */; };
 		9AE3BBAC2B1DCB6900A1FE52 /* Core.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE3BBAB2B1DCB6900A1FE52 /* Core.swift */; };
-		9AE650CD2AE0F46900125F79 /* Poppins in Resources */ = {isa = PBXBuildFile; fileRef = 9AE650CB2AE0F44900125F79 /* Poppins */; };
 		9AEEC15F2AF23BB000EEDE65 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEEC15E2AF23BB000EEDE65 /* CalendarViewController.swift */; };
 		9AF0C7CE2B037F8C00F46911 /* CalendarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF0C7CC2B037F8C00F46911 /* CalendarTableViewCell.swift */; };
 		9AF0C7CF2B037F8C00F46911 /* CalendarTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AF0C7CD2B037F8C00F46911 /* CalendarTableViewCell.xib */; };
@@ -100,7 +99,6 @@
 		9AE262F92B0C99E3008547F5 /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		9AE3BBA92B1DCB3400A1FE52 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		9AE3BBAB2B1DCB6900A1FE52 /* Core.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Core.swift; sourceTree = "<group>"; };
-		9AE650CB2AE0F44900125F79 /* Poppins */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Poppins; sourceTree = "<group>"; };
 		9AEEC15E2AF23BB000EEDE65 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		9AF0C7CC2B037F8C00F46911 /* CalendarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTableViewCell.swift; sourceTree = "<group>"; };
 		9AF0C7CD2B037F8C00F46911 /* CalendarTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CalendarTableViewCell.xib; sourceTree = "<group>"; };
@@ -201,7 +199,6 @@
 				9AD4D65D2A5FD5A000146E9B /* Products */,
 				7DB8B37FFAA6B20EEDA52B2E /* Pods */,
 				59093189CC83E2FCC7AE5C60 /* Frameworks */,
-				9AE650CB2AE0F44900125F79 /* Poppins */,
 			);
 			sourceTree = "<group>";
 		};
@@ -301,7 +298,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9AF2DAD12B1F2855000045AB /* onboarding2.gif in Resources */,
-				9AE650CD2AE0F46900125F79 /* Poppins in Resources */,
 				9AD4D66C2A5FD5A200146E9B /* LaunchScreen.storyboard in Resources */,
 				9ABEAA0F2A930F450036F2C9 /* SimilarTableViewCell.xib in Resources */,
 				9AD4D6692A5FD5A200146E9B /* Assets.xcassets in Resources */,

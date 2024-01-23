@@ -14,11 +14,13 @@ class SpeedTestViewController: UIViewController {
     
     @IBOutlet weak var startAgainBtn: UIButton!
     @IBOutlet weak var uploadSpeedLb: UILabel!
-    @IBOutlet weak var chartImageView: UIImageView!
-    @IBOutlet weak var mainLb: UILabel!
-    @IBOutlet weak var smallPingLb: UILabel!
     @IBOutlet weak var downloadSpeedLb: UILabel!
     @IBOutlet weak var pingLb: UILabel!
+    var mainLb: UILabel! = nil
+    var mbpsLb: UILabel! = nil
+    var pingTitleLb: UILabel! = nil
+    var smallPingLb: UILabel! = nil
+    var chartImageView: UIImageView! = nil
     let circularProgressWidth: CGFloat = 0.55 * HomeViewController.width!
     var circularProgress1 = KDCircularProgress()
     var circularProgressFrame = CGRect()
@@ -32,6 +34,12 @@ class SpeedTestViewController: UIViewController {
                     NSAttributedString.Key.foregroundColor: UIColor.white,
                     NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 20)
         ]
+        
+        chartImageView = UIImageView(frame: CGRect(x: (self.view.frame.width - circularProgressWidth - 0.15267 * view.frame.width) / 2, y: self.view.frame.height * 0.255 - 0.076336 * view.frame.width, width: circularProgressWidth + 0.15267 * view.frame.width, height: circularProgressWidth + 0.15267 * view.frame.width))
+        chartImageView.image = UIImage(named: "Download")
+        chartImageView.contentMode = .scaleAspectFill
+        
+        view.addSubview(chartImageView)
         
         circularProgressFrame = CGRect(x: (self.view.frame.width - circularProgressWidth) / 2, y: self.view.frame.height * 0.255, width: circularProgressWidth, height: circularProgressWidth)
         circularProgress1 = KDCircularProgress(frame: circularProgressFrame)
@@ -61,6 +69,34 @@ class SpeedTestViewController: UIViewController {
         try? pinger?.startPinging()
         
         testDownloadAndUploadSpeed()
+        
+        mainLb = UILabel(frame: CGRect(x: chartImageView.frame.midX - 70, y: chartImageView.frame.midY - 30, width: 100, height: 48))
+        mainLb.text = "-"
+        mainLb.textColor = .white
+        mainLb.font = UIFont.systemFont(ofSize: 40, weight: .semibold)
+        mainLb.textAlignment = .center
+        view.addSubview(mainLb)
+        
+        mbpsLb = UILabel(frame: CGRect(x: mainLb.frame.maxX, y: chartImageView.frame.midY - 10, width: 41, height: 26))
+        mbpsLb.text = "MBps"
+        mbpsLb.textColor = UIColor(hex: "97A6AF", alpha: 1)
+        mbpsLb.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        mbpsLb.textAlignment = .left
+        view.addSubview(mbpsLb)
+        
+        pingTitleLb = UILabel(frame: CGRect(x: chartImageView.frame.midX - 33, y: mainLb.frame.maxY, width: 33, height: 17))
+        pingTitleLb.text = "Ping:"
+        pingTitleLb.textColor = UIColor(hex: "E88020", alpha: 1)
+        pingTitleLb.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        pingTitleLb.textAlignment = .center
+        view.addSubview(pingTitleLb)
+        
+        smallPingLb = UILabel(frame: CGRect(x: pingTitleLb.frame.maxX, y: mainLb.frame.maxY, width: 64, height: 17))
+        smallPingLb.text = "-"
+        smallPingLb.textColor = UIColor(hex: "97A6AF", alpha: 1)
+        smallPingLb.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        smallPingLb.textAlignment = .left
+        view.addSubview(smallPingLb)
     }
     
     @IBAction func startAgainBtnTapped(_ sender: UIButton) {

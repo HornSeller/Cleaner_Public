@@ -47,8 +47,6 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     @IBOutlet weak var compressVideoBtn: UIButton!
     @IBOutlet weak var privateMediaBtn: UIButton!
     @IBOutlet weak var privateBrowserBtn: UIButton!
-    @IBOutlet weak var percentLb: UILabel!
-    @IBOutlet weak var storageLb: UILabel!
     
     public static var width: CGFloat?
     public static var onboardingImages: [UIImage]!
@@ -150,12 +148,8 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         let totalDiskSpace1 = totalDiskSpace.components(separatedBy: " ").first ?? "1"
         let usedDiskSpace1 = usedDiskSpace.components(separatedBy: " ").first ?? "1"
 
-        storageLb.text = "\(usedDiskSpace1)/\(totalDiskSpace1) GB"
-        LoadingViewController.storage = "\(usedDiskSpace1)/\(totalDiskSpace1) GB"
-
         let x = (Double(UIDevice.current.usedDiskSpaceInBytes) / Double(UIDevice.current.totalDiskSpaceInBytes)) * 100
         let percent = Int(round(x))
-        percentLb.text = "\(percent)%"
         
         let circularProgressWidth: CGFloat = 0.62 * view.frame.width
         let circularProgressFrame = CGRect(x: (view.frame.width - circularProgressWidth) / 2, y: view.frame.height * 3.5 / 12 - circularProgressWidth / 2, width: circularProgressWidth, height: circularProgressWidth)
@@ -178,6 +172,39 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         //circularProgress.progress = Double(percent) / 100.0
         view.addSubview(circularProgress)
         circularProgress.animate(toAngle: Double(percent) / 100.0 * 360, duration: 1, completion: nil)
+        
+        let percentLabel = UILabel()
+        percentLabel.textAlignment = .center
+        percentLabel.font = UIFont.systemFont(ofSize: isIpad() ? 60 : 40, weight: .medium)
+        percentLabel.textColor = .white
+        percentLabel.text = "\(percent)%"
+
+        percentLabel.sizeToFit()
+        percentLabel.center = CGPoint(x: circularProgress.center.x, y: isIpad() ? circularProgress.center.y - 30 : circularProgress.center.y - 20)
+
+        view.addSubview(percentLabel)
+
+        let storageLabel = UILabel()
+        storageLabel.textAlignment = .center
+        storageLabel.font = UIFont.systemFont(ofSize: isIpad() ? 30 : 15, weight: .regular)
+        storageLabel.textColor = UIColor(hex: "565F6C", alpha: 1)
+        storageLabel.text = "\(usedDiskSpace1)/\(totalDiskSpace1) GB"
+        LoadingViewController.storage = "\(usedDiskSpace1)/\(totalDiskSpace1) GB"
+        
+        storageLabel.sizeToFit()
+        storageLabel.center = CGPoint(x: circularProgress.center.x, y: isIpad() ? circularProgress.center.y + 30 : circularProgress.center.y + 20)
+        
+        view.addSubview(storageLabel)
+
+        let cleanButton = UIButton(type: .system)
+        cleanButton.backgroundColor = UIColor(hex: "#2361FF", alpha: 1)
+        cleanButton.frame = CGRect(x: (view.frame.width - 200) / 2, y: isIpad() ? circularProgressFrame.maxY - 20 : circularProgressFrame.maxY + 10, width: 200, height: 42)
+        cleanButton.layer.cornerRadius = cleanButton.frame.size.height / 2
+        cleanButton.setTitle("Start Clean", for: .normal)
+        cleanButton.setTitleColor(.white, for: .normal)
+        cleanButton.addTarget(self, action: #selector(cleanButtonTapped), for: .touchUpInside)
+
+        view.addSubview(cleanButton)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -195,6 +222,10 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             vc.modalPresentationStyle = .fullScreen
             present(vc, animated: true)
         }
+    }
+    
+    @objc func cleanButtonTapped() {
+        self.navigationController?.pushViewController(LoadingViewController.makeSelf(), animated: true)
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -243,11 +274,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     @IBAction func privateBrowserBtnTapped(_ sender: UIButton) {
         self.performSegue(withIdentifier: "browserSegue", sender: self)
     }
-    
-    @IBAction func cleanBtnTapped(_ sender: UIButton) {
-        self.navigationController?.pushViewController(LoadingViewController.makeSelf(), animated: true)
-    }
-    
+
     func createGradientColor(startColor: UIColor, endColor: UIColor, size: CGSize) -> UIColor {
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = CGRect(origin: .zero, size: size)
@@ -279,6 +306,10 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             return UIImage(named: "1")!
         }
         return gifImage
+    }
+    
+    private func isIpad() -> Bool {
+        return UIDevice.current.userInterfaceIdiom == .pad
     }
 
 }
